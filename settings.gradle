@@ -134,9 +134,22 @@ include 'dubbo-plugin:dubbo-mcp'
 include 'dubbo-plugin:dubbo-plugin-loom'
 
 // Demo modules
-include 'dubbo-demo:dubbo-demo-api'
-include 'dubbo-demo:dubbo-demo-spring-boot'
-include 'dubbo-demo:dubbo-demo-spring-boot-idl'
+// dubbo-demo-api 的子模块
+include 'dubbo-demo:dubbo-demo-api:dubbo-demo-api-interface'
+include 'dubbo-demo:dubbo-demo-api:dubbo-demo-api-provider'
+include 'dubbo-demo:dubbo-demo-api:dubbo-demo-api-consumer'
+
+// dubbo-demo-spring-boot 的子模块
+include 'dubbo-demo:dubbo-demo-spring-boot:dubbo-demo-spring-boot-interface'
+include 'dubbo-demo:dubbo-demo-spring-boot:dubbo-demo-spring-boot-provider'
+include 'dubbo-demo:dubbo-demo-spring-boot:dubbo-demo-spring-boot-consumer'
+include 'dubbo-demo:dubbo-demo-spring-boot:dubbo-demo-spring-boot-servlet'
+
+// dubbo-demo-spring-boot-idl 的子模块
+include 'dubbo-demo:dubbo-demo-spring-boot-idl:dubbo-demo-spring-boot-idl-provider'
+include 'dubbo-demo:dubbo-demo-spring-boot-idl:dubbo-demo-spring-boot-idl-consumer'
+
+// 独立的 demo 模块
 include 'dubbo-demo:dubbo-demo-mcp-server'
 
 // Distribution modules
