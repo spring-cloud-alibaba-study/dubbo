@@ -17,6 +17,10 @@
 
 description = 'The dubbo-demo-spring-boot module of dubbo project'
 
+configurations.all {
+    exclude group: 'org.apache.logging.log4j', module: 'log4j-to-slf4j'
+}
+
 dependencies {
     api project(':dubbo-registry:dubbo-registry-zookeeper')
     api project(':dubbo-rpc:dubbo-rpc-triple')
