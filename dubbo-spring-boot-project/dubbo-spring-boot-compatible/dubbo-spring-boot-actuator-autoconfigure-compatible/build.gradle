@@ -1,0 +1,35 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+description = 'Apache Dubbo Spring Boot Actuator Autoconfigure Compatible for Spring Boot 1.x Actuator'
+
+dependencies {
+    compileOnly "org.springframework.boot:spring-boot-starter-web:${springBootStarterWebVersion}"
+    compileOnly "org.apache.tomcat.embed:tomcat-embed-core:${tomcatEmbedCoreVersion}"
+    compileOnly "org.springframework.boot:spring-boot-starter-actuator:${springBootStarterActuatorVersion}"
+    api project(':dubbo-spring-boot-project:dubbo-spring-boot-actuator')
+    compileOnly "org.springframework.boot:spring-boot-autoconfigure:${springBootAutoconfigureVersion}"
+    compileOnly "org.springframework.boot:spring-boot-configuration-processor:${springBootConfigurationProcessorVersion}"
+    api project(':dubbo-spring-boot-project:dubbo-spring-boot-autoconfigure')
+    // api project(':dubbo') // 模块不存在，已注释
+    compileOnly project(':dubbo-common')
+    compileOnly project(':dubbo-config:dubbo-config-spring')
+    testImplementation project(':dubbo-rpc:dubbo-rpc-dubbo')
+    compileOnly project(':dubbo-plugin:dubbo-qos')
+    testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootStarterTestVersion}"
+    testImplementation "org.springframework.boot:spring-boot-starter-log4j2:${spring_boot_starter_log4j2Version}"
+}

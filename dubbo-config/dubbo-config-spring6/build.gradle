@@ -1,0 +1,47 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+description = 'The dubbo-config module of dubbo project'
+
+// Spring 6模块需要Java 17+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+tasks.withType(JavaCompile) {
+    options.release = 17
+}
+
+dependencies {
+    api project(':dubbo-config:dubbo-config-api')
+    api project(':dubbo-config:dubbo-config-spring')
+    // 使用 Spring 6 依赖
+    implementation "org.springframework:spring-beans:${spring6Version}"
+    implementation "org.springframework:spring-core:${spring6Version}"
+    implementation "org.springframework:spring-web:${spring6Version}"
+    implementation "org.springframework:spring-context:${spring6Version}"
+    // Spring 6 AOT 功能已集成在 spring-core 和 spring-context 中，无需单独依赖
+    compileOnly "jakarta.servlet:jakarta.servlet-api:${jakartaServletVersion}"
+    testImplementation "org.springframework.boot:spring-boot-starter-test:${springBoot3Version}"
+    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl:${log4j2Version}"
+
+    // 补全缺失的依赖（同时支持 javax 和 jakarta）
+    compileOnly "jakarta.servlet:jakarta.servlet-api:${jakartaServletApiVersion}"
+    compileOnly "javax.servlet:javax.servlet-api:${javaxServletApiVersion}"
+}
+

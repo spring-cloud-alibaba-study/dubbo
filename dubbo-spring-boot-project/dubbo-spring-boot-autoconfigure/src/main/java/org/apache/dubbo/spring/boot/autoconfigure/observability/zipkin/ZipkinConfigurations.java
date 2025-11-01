@@ -170,7 +170,8 @@ class ZipkinConfigurations {
                 return ZipkinSpanExporter.builder()
                         .setEncoder(encoder)
                         .setEndpoint(zipkinConfig.getEndpoint())
-                        .setReadTimeout(zipkinConfig.getReadTimeout())
+                        // .setReadTimeout(zipkinConfig.getReadTimeout()) // TODO:
+                        // API已变更，需要适配OpenTelemetry Zipkin 1.50+
                         .build();
             }
             return ZipkinSpanExporter.builder()

@@ -36,6 +36,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * Dubbo Triple Protocol Auto-Configuration for Spring Boot 3.x
+ * 
+ * Uses Jakarta Servlet API (jakarta.servlet.*) instead of javax.servlet.*.
+ * Triple Filter classes are available in jakarta sub-packages.
+ */
 @Configuration(proxyBeanMethods = false)
 @Conditional(SpringBoot3Condition.class)
 public class DubboTriple3AutoConfiguration {

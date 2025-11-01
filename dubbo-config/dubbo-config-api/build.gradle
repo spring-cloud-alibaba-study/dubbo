@@ -1,0 +1,53 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+description = 'The config api module of dubbo project'
+
+dependencies {
+    api project(':dubbo-registry:dubbo-registry-api')
+    api project(':dubbo-metadata:dubbo-metadata-api')
+    api project(':dubbo-metrics:dubbo-metrics-api')
+    api project(':dubbo-metrics:dubbo-metrics-default')
+    api project(':dubbo-metrics:dubbo-metrics-registry')
+    api project(':dubbo-metrics:dubbo-metrics-metadata')
+    api project(':dubbo-metrics:dubbo-metrics-config-center')
+    api project(':dubbo-metrics:dubbo-tracing')
+    api project(':dubbo-remoting:dubbo-remoting-api')
+    api project(':dubbo-rpc:dubbo-rpc-api')
+    api project(':dubbo-rpc:dubbo-rpc-injvm')
+    testImplementation project(':dubbo-rpc:dubbo-rpc-dubbo')
+    testImplementation project(':dubbo-rpc:dubbo-rpc-triple')
+    testImplementation "io.swagger:swagger-annotations:${swaggerAnnotationsVersion}"
+    testImplementation "org.jboss.resteasy:resteasy-jaxrs:${resteasyJaxrsVersion}"
+    testImplementation project(':dubbo-remoting:dubbo-remoting-netty4')
+    testImplementation project(':dubbo-serialization:dubbo-serialization-hessian2')
+    testImplementation project(':dubbo-serialization:dubbo-serialization-fastjson2')
+    testImplementation project(':dubbo-registry:dubbo-registry-multicast')
+    testImplementation project(':dubbo-registry:dubbo-registry-zookeeper')
+    testImplementation "org.apache.curator:curator-framework:${curatorFrameworkVersion}"
+    testImplementation "org.apache.curator:curator-recipes:${curatorRecipesVersion}"
+    testImplementation "org.apache.zookeeper:zookeeper:${zookeeperVersion}"
+    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl:${log4j2Version}"
+    testImplementation project(':dubbo-registry:dubbo-registry-nacos')
+    testImplementation project(':dubbo-metadata:dubbo-metadata-report-zookeeper')
+    testImplementation project(':dubbo-configcenter:dubbo-configcenter-zookeeper')
+    testImplementation project(':dubbo-configcenter:dubbo-configcenter-nacos')
+    testImplementation project(':dubbo-plugin:dubbo-filter-cache')
+    testImplementation project(':dubbo-plugin:dubbo-filter-validation')
+    testImplementation "org.testcontainers:testcontainers:${testcontainersVersion}"
+    testImplementation "org.jboss.resteasy:resteasy-jackson-provider:${resteasyJacksonProviderVersion}"
+}

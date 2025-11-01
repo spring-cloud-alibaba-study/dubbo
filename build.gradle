@@ -1,0 +1,524 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+    id 'signing'
+    id 'com.github.johnrengelman.shadow' version '8.1.1' apply false
+    id 'com.google.protobuf' version '0.9.4' apply false
+    id 'io.freefair.aggregate-javadoc' version '8.6' apply false
+}
+
+// ========================================
+// 统一版本管理 - 所有依赖版本集中定义
+// ========================================
+ext {
+    // Spring 生态系统
+    springVersion = '5.3.39'
+    spring6Version = '6.2.11'
+    springBootVersion = '2.7.18'
+    springBoot3Version = '3.5.0'
+    springSecurityVersion = '5.8.16'
+    springSecurity6Version = '6.5.1'
+    
+    // 核心依赖
+    javassistVersion = '3.30.2-GA'
+    byteBuddyVersion = '1.17.5'
+    netty4Version = '4.2.2.Final'
+    nettyVersion = '4.1.100.Final'
+    nettyCodecHttp3Version = '0.0.21.Final'
+    
+    // 序列化
+    hessianVersion = '4.0.66'
+    fastjson2Version = '2.0.56'
+    protobufJavaVersion = '3.25.8'
+    protobufProtocVersion = '3.22.3'
+    
+    // gRPC
+    grpcVersion = '1.73.0'
+    
+    // 服务发现和配置
+    zookeeperVersion = '3.7.2'
+    curatorVersion = '5.8.0'
+    nacosVersion = '2.5.1'
+    apolloClientVersion = '2.4.0'
+    
+    // 监控和追踪
+    micrometerVersion = '1.15.1'
+    micrometerCoreVersion = '1.11.5'
+    micrometerTracingVersion = '1.5.1'
+    opentelemetryVersion = '1.50.0'
+    zipkinReporterVersion = '3.5.1'
+    tDigestVersion = '3.3'
+    prometheusClientVersion = '0.16.0'
+    
+    // 响应式
+    reactorVersion = '3.7.11'
+    reactiveStreamsVersion = '1.0.4'
+    mutinyVersion = '2.9.0'
+    rxjavaVersion = '2.2.21'
+    
+    // 日志
+    slf4jVersion = '1.7.36'
+    log4j2Version = '2.24.3'
+    logbackVersion = '1.2.13'
+    
+    // 测试
+    junitJupiterVersion = '5.12.2'
+    mockitoVersion = '4.11.0'
+    awaitilityVersion = '4.3.0'
+    hamcrestVersion = '2.2'
+    spockVersion = '2.3-groovy-4.0'
+    groovyVersion = '4.0.27'
+    
+    // 工具类
+    commonsLang3Version = '3.17.0'
+    commonsIoVersion = '2.19.0'
+    commonsCodecVersion = '1.18.0'
+    commonsCompressVersion = '1.27.1'
+    snappyJavaVersion = '1.1.10.7'
+    gsonVersion = '2.13.1'
+    jacksonVersion = '2.19.0'
+    
+    // 容器和Web
+    servletVersion = '4.0.1'
+    jakartaServletVersion = '6.1.0'
+    websocketApiVersion = '1.1'
+    jakartaWebsocketApiVersion = '2.1.0'
+    jettyVersion = '9.4.57.v20241219'
+    tomcatEmbedVersion = '8.5.100'
+    
+    // 验证
+    validationVersion = '1.1.0.Final'
+    validationNewVersion = '3.1.1'
+    hibernateValidatorVersion = '5.4.3.Final'
+    hibernateValidatorNewVersion = '7.0.5.Final'
+    
+    // REST
+    rsApiVersion = '2.1.1'
+    resteasyVersion = '3.15.6.Final'
+    swaggerVersion = '1.6.16'
+    swaggerAnnotationsV3Version = '2.2.22'
+    swaggerUiVersion = '4.15.5'
+    redocVersion = '2.0.0'
+    webjarsLocatorVersion = '0.52'
+    therapiJavadocVersion = '0.15.0'
+    
+    // 安全和加密
+    bouncycastleVersion = '1.79'
+    
+    // 其他
+    snakeyamlVersion = '2.4'
+    aspectjweaverVersion = '1.9.20.1'
+    jaxbVersion = '2.3.1'
+    
+    // ========================================
+    // 从 gradle.properties 迁移的版本变量
+    // ========================================
+    
+    // A
+    activationVersion = '1.2.0'
+    apolloMockserverVersion = '2.1.0'
+    assertjCoreVersion = '3.24.2'
+    asyncHttpClientVersion = '2.12.3'
+    
+    // B
+    bcpkixJdk18onVersion = '1.0.0'
+    bcprovJdk18onVersion = '1.0.0'
+    braveVersion = '5.18.1'
+    byteBuddyAgentVersion = '1.14.10'
+    
+    // C
+    cacheApiVersion = '1.1.1'
+    commonsExecVersion = '1.3'
+    commonsLoggingVersion = '1.2'
+    compilerVersion = '0.9.4'
+    curatorFrameworkVersion = '5.8.0'
+    curatorRecipesVersion = '5.8.0'
+    curatorXDiscoveryVersion = '5.5.0'
+    
+    // D
+    dom4jVersion = '1.0.0'
+    
+    // G
+    grpcContextVersion = '1.59.1'
+    grpcContribVersion = '1.59.1'
+    grpcCoreVersion = '1.59.1'
+    grpcNettyShadedVersion = '4.1.100.Final'
+    grpcProtobufVersion = '1.59.1'
+    grpcServicesVersion = '1.59.1'
+    grpcStubVersion = '1.59.1'
+    grpcTestingVersion = '1.59.1'
+    
+    // H
+    hazelcastVersion = '1.0.0'
+    hdrhistogramVersion = '2.1.12'
+    httpclientVersion = '1.0.0'
+    
+    // J
+    jacksonCoreVersion = '2.15.3'
+    jacksonDatabindVersion = '2.15.3'
+    jakartaServletApiVersion = '6.1.0'  // 修正：应与jakarta_servlet_version一致
+    jakartaValidationApiVersion = '3.0.2'
+    jakartaWebsocketClientApiVersion = '2.2.0'  // 修正：应与jakarta_websocket_version一致
+    javaxElApiVersion = '1.0.0'
+    javaxElVersion = '3.0.1-b12'
+    javaxServletApiVersion = '3.1.0'
+    javaxWebsocketApiVersion = '1.1'  // 更正版本号
+    javaxWsRsApiVersion = '2.1.1'
+    jaxbApiVersion = '2.3.1'
+    jaxbCoreVersion = '1.0.0'
+    jaxbImplVersion = '1.0.0'
+    jaxbRuntimeVersion = '2.3.1'
+    jettyServletVersion = '9.4.53.v20231009'
+    junitPlatformEngineVersion = '1.10.1'
+    junitPlatformLauncherVersion = '1.10.1'
+    junitPlatformRunnerVersion = '1.10.1'
+    junitVersion = '5.10.1'
+    
+    // L
+    latencyutilsVersion = '2.0.3'
+    log4jApiVersion = '2.20.0'
+    log4jCoreVersion = '2.20.0'
+    log4jSlf4jImplVersion = '2.20.0'
+    
+    // M
+    mavenArtifactVersion = '3.9.6'
+    mavenCommonArtifactFiltersVersion = '3.3.2'
+    mavenCoreVersion = '3.9.6'
+    mavenPluginAnnotationsVersion = '3.11.0'
+    mavenPluginApiVersion = '3.9.6'
+    mavenPluginToolsAnnotationsVersion = '3.10.2'
+    mcpVersion = '0.11.2'  // Model Context Protocol SDK version
+    micrometerObservationVersion = '1.11.5'
+    micrometerRegistryPrometheusSimpleclientVersion = '1.15.1'  // 修正：应与micrometer版本一致
+    micrometerTestVersion = '1.11.5'
+    micrometerTracingBridgeBraveVersion = '1.5.1'  // 修正：应与micrometer-tracing版本一致
+    micrometerTracingBridgeOtelVersion = '1.5.1'  // 修正：应与micrometer-tracing版本一致
+    micrometerTracingIntegrationTestVersion = '1.11.5'
+    mockitoCoreVersion = '4.11.0'
+    mockitoInlineVersion = '4.11.0'
+    mockitoJunitJupiterVersion = '5.10.1'
+    
+    // N
+    nacosClientVersion = '2.5.1'
+    nettyCodecHaproxyVersion = '4.1.100.Final'
+    nettyCodecHttp2Version = '4.1.100.Final'
+    nettyCodecHttpVersion = '4.1.100.Final'
+    nettyHandlerVersion = '4.1.100.Final'
+    nettyTransportNativeUnixCommonVersion = '4.1.100.Final'
+    nettyTransportVersion = '4.1.100.Final'
+    
+    // O
+    opentelemetryApiVersion = '1.32.0'
+    opentelemetryExporterOtlpVersion = '1.0.0'
+    opentelemetryExporterZipkinVersion = '1.0.0'
+    opentelemetrySdkVersion = '1.32.0'
+    
+    // P
+    plexusBuildApiVersion = '0.0.7'
+    plexusComponentAnnotationsVersion = '2.2.0'
+    plexusUtilsVersion = '3.5.1'
+    protobufJavaUtilVersion = '3.25.8'
+    
+    // R
+    reactorCoreVersion = '1.0.0'
+    resteasyJacksonProviderVersion = '3.15.6.Final'
+    resteasyJaxrsVersion = '3.15.6.Final'
+    resteasyNetty4Version = '3.15.6.Final'
+    
+    // S
+    seataCoreVersion = '1.0.0'
+    seataSpringBootStarterVersion = '5.3.39'
+    sentinelApacheDubbo3AdapterVersion = '1.0.0'
+    sentinelTransportSimpleHttpVersion = '1.0.0'
+    simpleclientPushgatewayVersion = '0.16.0'  // 修正：应与prometheus_client版本一致
+    simpleclientVersion = '0.16.0'
+    slf4jApiVersion = '1.7.36'
+    spockCoreVersion = '2.3-groovy-3.0'
+    springAopVersion = '5.3.39'
+    springBootActuatorAutoconfigureVersion = '2.7.18'  // 更正为Spring Boot版本
+    springBootAutoconfigureVersion = '2.7.18'  // 更正为Spring Boot版本
+    springBootConfigurationProcessorVersion = '2.7.18'  // 更正为Spring Boot版本
+    springBootDependenciesVersion = '3.2.0'
+    springBootStarterActuatorVersion = '2.7.18'  // 更正为Spring Boot版本
+    springBootStarterLoggingVersion = '2.7.18'  // 更正为Spring Boot版本
+    springBootStarterTestVersion = '2.7.18'
+    springBootStarterVersion = '2.7.18'
+    springBootStarterWebVersion = '2.7.18'
+    springBootTestAutoconfigureVersion = '2.7.18'  // 更正为Spring Boot版本
+    springBootTestVersion = '2.7.18'  // 更正为Spring Boot版本
+    springExpressionVersion = '5.3.39'
+    springFrameworkBomVersion = '5.3.39'
+    springJclVersion = '5.3.39'
+    springSecurityConfigVersion = '5.3.39'
+    springSecurityCoreVersion = '5.3.39'
+    springSecurityCryptoVersion = '5.3.39'
+    springSecurityOauth2AuthorizationServerVersion = '5.3.39'
+    springSecurityOauth2ClientVersion = '5.3.39'
+    springSecurityOauth2CoreVersion = '5.3.39'
+    springSecurityOauth2JoseVersion = '5.3.39'
+    springSecurityOauth2ResourceServerVersion = '5.3.39'
+    springSecurityWebVersion = '5.3.39'
+    springTxVersion = '5.3.39'
+    springWebVersion = '5.3.39'
+    springWebfluxVersion = '5.3.39'
+    springWebmvcVersion = '5.3.39'
+    swaggerAnnotationsVersion = '1.6.16'
+    
+    // T
+    testcontainersVersion = '1.19.3'
+    therapiRuntimeJavadocScribeVersion = '0.15.0'
+    therapiRuntimeJavadocVersion = '0.15.0'
+    tomcatAnnotationsApiVersion = '6.0.53'
+    tomcatEmbedCoreVersion = '8.5.100'
+    
+    // V
+    validationApiVersion = '1.1.0.Final'
+    
+    // W
+    webjarsLocatorLiteVersion = '0.11.0'
+    
+    // Z
+    zipkinReporterBraveVersion = '3.5.1'  // 修正：应与zipkin-reporter版本一致
+    zipkinSenderUrlconnectionVersion = '3.5.1'  // 修正：应与zipkin-reporter版本一致
+    zipkinVersion = '1.0.0'
+    
+}
+
+allprojects {
+    group = rootProject.group
+    version = rootProject.version
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url 'https://repo.spring.io/milestone' }
+    }
+}
+
+subprojects {
+    // 跳过 BOM 和 platform 项目，它们使用 java-platform 插件
+    def isPlatformProject = project.name.contains('bom') || 
+                           project.name.contains('dependencies-all') ||
+                           project.path.contains(':dubbo-distribution:dubbo-bom')
+    
+    if (!isPlatformProject) {
+        apply plugin: 'java-library'
+        
+        // Java configuration
+        java {
+            sourceCompatibility = JavaVersion.VERSION_1_8
+            targetCompatibility = JavaVersion.VERSION_1_8
+            withSourcesJar()
+            withJavadocJar()
+        }
+
+        // Encoding
+        tasks.withType(JavaCompile) {
+            options.encoding = 'UTF-8'
+            options.compilerArgs += ['-parameters', '-proc:none']
+        }
+
+        // Test configuration
+        test {
+            useJUnitPlatform()
+            maxHeapSize = '512m'
+            jvmArgs = [
+                '-server',
+                '-Xms256m',
+                '-Xmx512m',
+                '-XX:MetaspaceSize=64m',
+                '-XX:MaxMetaspaceSize=128m',
+                '-Dfile.encoding=UTF-8',
+                '-Djava.net.preferIPv4Stack=true'
+            ]
+            
+            // Add JDK 15+ compatibility
+            if (JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_15)) {
+                jvmArgs += [
+                    '--add-opens=java.base/java.lang=ALL-UNNAMED',
+                    '--add-opens=java.base/java.math=ALL-UNNAMED',
+                    '--add-opens=java.base/java.util=ALL-UNNAMED'
+                ]
+            }
+        }
+
+        // Common dependencies for all subprojects
+        dependencies {
+            testImplementation "org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}"
+            testImplementation "org.junit.jupiter:junit-jupiter-params:${junitJupiterVersion}"
+            testImplementation "org.awaitility:awaitility:${awaitilityVersion}"
+            testImplementation "org.hamcrest:hamcrest:${hamcrestVersion}"
+            testImplementation "org.mockito:mockito-core:${mockitoVersion}"
+            testImplementation "org.mockito:mockito-inline:${mockitoVersion}"
+        }
+    }
+    
+    apply plugin: 'maven-publish'
+    apply plugin: 'signing'
+
+    // 仅为非 platform 项目配置资源和 Jar
+    if (!isPlatformProject) {
+        // Resources configuration - copy LICENSE and NOTICE to each jar
+        processResources {
+            from(rootDir) {
+                include 'NOTICE'
+                include 'LICENSE'
+                into 'META-INF'
+            }
+            
+            // Add version info
+            doLast {
+                def versionFile = file("${buildDir}/resources/main/META-INF/dubbo-versions/${project.name}")
+                versionFile.parentFile.mkdirs()
+                versionFile.text = """revision=${version}
+artifact.id=${project.name}
+git.commit.id=${getGitCommitId()}
+"""
+            }
+        }
+
+        // Jar configuration
+        jar {
+            manifest {
+                attributes(
+                    'Specification-Version': version,
+                    'Implementation-Version': version,
+                    'Specification-Title': project.name,
+                    'Implementation-Title': project.name,
+                    'Specification-Vendor': 'The Apache Software Foundation',
+                    'Implementation-Vendor': 'The Apache Software Foundation'
+                )
+            }
+        }
+
+        // Javadoc configuration
+        javadoc {
+            options.encoding = 'UTF-8'
+            options.charSet = 'UTF-8'
+            options.docEncoding = 'UTF-8'
+            options.addStringOption('Xdoclint:none', '-quiet')
+            if (JavaVersion.current().isJava9Compatible()) {
+                options.addBooleanOption('html5', true)
+            }
+            
+            // Exclude demo packages
+            exclude '**/org/apache/dubbo/demo/**'
+        }
+    }
+
+    // Publishing configuration - 使用 afterEvaluate 确保组件已创建
+    afterEvaluate {
+        if (components.findByName('java') || components.findByName('javaPlatform')) {
+            publishing {
+                publications {
+                    mavenJava(MavenPublication) {
+                        if (isPlatformProject && components.findByName('javaPlatform')) {
+                            from components.javaPlatform
+                        } else if (components.findByName('java')) {
+                            from components.java
+                        }
+                        
+                        pom {
+                            name = project.name
+                            description = "The ${project.name} module of Apache Dubbo project"
+                            url = 'https://github.com/apache/dubbo'
+                            inceptionYear = '2011'
+                            
+                            organization {
+                                name = 'The Apache Software Foundation'
+                                url = 'http://www.apache.org/'
+                            }
+                            
+                            licenses {
+                                license {
+                                    name = 'Apache License, Version 2.0'
+                                    url = 'http://www.apache.org/licenses/LICENSE-2.0'
+                                    distribution = 'repo'
+                                }
+                            }
+                            
+                            developers {
+                                developer {
+                                    id = 'dubbo.io'
+                                    name = 'The Dubbo Project Contributors'
+                                    email = 'dev-subscribe@dubbo.apache.org'
+                                    url = 'http://dubbo.apache.org/'
+                                }
+                            }
+                            
+                            scm {
+                                connection = 'scm:git:https://github.com/apache/dubbo.git'
+                                developerConnection = 'scm:git:https://github.com/apache/dubbo.git'
+                                url = 'https://github.com/apache/dubbo'
+                                tag = 'HEAD'
+                            }
+                            
+                            issueManagement {
+                                system = 'Github Issues'
+                                url = 'https://github.com/apache/dubbo/issues'
+                            }
+                        }
+                    }
+                }
+                
+                repositories {
+                    maven {
+                        def releasesRepoUrl = "https://repository.apache.org/service/local/staging/deploy/maven2"
+                        def snapshotsRepoUrl = "https://repository.apache.org/content/repositories/snapshots"
+                        url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+                        credentials {
+                            username = project.hasProperty('mavenCentralUsername') ? mavenCentralUsername : ''
+                            password = project.hasProperty('mavenCentralPassword') ? mavenCentralPassword : ''
+                        }
+                    }
+                }
+            }
+
+            // Signing configuration
+            signing {
+                required { gradle.taskGraph.hasTask('publish') && !version.endsWith('SNAPSHOT') }
+                sign publishing.publications.mavenJava
+            }
+        }
+    }
+}
+
+// Helper function to get git commit ID
+def getGitCommitId() {
+    try {
+        def stdout = new ByteArrayOutputStream()
+        exec {
+            commandLine 'git', 'rev-parse', 'HEAD'
+            standardOutput = stdout
+            errorOutput = new ByteArrayOutputStream()
+            ignoreExitValue = true
+        }
+        return stdout.toString().trim()
+    } catch (Exception e) {
+        return 'unknown'
+    }
+}
+
+// Wrapper configuration
+wrapper {
+    gradleVersion = '8.5'
+    distributionType = Wrapper.DistributionType.BIN
+}
+

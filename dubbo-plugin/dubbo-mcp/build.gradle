@@ -1,0 +1,39 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+description = 'The dubbo-parent module of dubbo project'
+
+// MCP模块需要Java 17+ (使用了pattern matching特性)
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+tasks.withType(JavaCompile) {
+    options.release = 17
+}
+
+dependencies {
+    api project(':dubbo-plugin:dubbo-rest-openapi')
+    api project(':dubbo-plugin:dubbo-filter-cache')
+    implementation "io.modelcontextprotocol.sdk:mcp:${mcpVersion}"
+    api project(':dubbo-config:dubbo-config-api')
+    api project(':dubbo-common')
+    testImplementation "org.mockito:mockito-junit-jupiter:${mockitoJunitJupiterVersion}"
+    testImplementation "junit:junit:${junitVersion}"
+    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl:${log4j2Version}"
+}

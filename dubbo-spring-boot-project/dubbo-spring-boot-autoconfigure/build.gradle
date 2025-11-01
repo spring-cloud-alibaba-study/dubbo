@@ -1,0 +1,57 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+description = 'Apache Dubbo Spring Boot Auto-Configure'
+
+dependencies {
+    // 依赖dubbo-spring-boot模块（包含DubboUtils、DubboOpenAPIExportListener等工具类）
+    api project(':dubbo-spring-boot-project:dubbo-spring-boot')
+    // api project(':dubbo-spring-boot-project:dubbo-spring-boot-compatible:dubbo-spring-boot-autoconfigure-compatible')  // 暂时禁用：Spring Boot 1.x已EOL
+    compileOnly "org.springframework.boot:spring-boot-autoconfigure:${springBootAutoconfigureVersion}"
+    compileOnly "org.springframework.boot:spring-boot-starter-log4j2:${spring_boot_starter_log4j2Version}"
+    compileOnly "org.springframework.boot:spring-boot-configuration-processor:${springBootConfigurationProcessorVersion}"
+    // api project(':dubbo') // 模块不存在，已注释
+    compileOnly project(':dubbo-common')
+    compileOnly project(':dubbo-plugin:dubbo-triple-servlet')
+    compileOnly project(':dubbo-plugin:dubbo-triple-websocket')
+    compileOnly "javax.servlet:javax.servlet-api:${javaxServletApiVersion}"
+    compileOnly "org.apache.tomcat.embed:tomcat-embed-core:${tomcatEmbedCoreVersion}"
+    compileOnly "jakarta.websocket:jakarta.websocket-api:${jakartaWebsocketApiVersion}"
+    compileOnly "jakarta.websocket:jakarta.websocket-client-api:${jakartaWebsocketClientApiVersion}"
+    compileOnly "io.micrometer:micrometer-tracing:${micrometerTracingVersion}"
+    compileOnly "io.micrometer:micrometer-observation:${micrometerObservationVersion}"
+    compileOnly "io.micrometer:micrometer-core:${micrometerCoreVersion}"
+    compileOnly "io.micrometer:micrometer-registry-prometheus-simpleclient:${micrometerRegistryPrometheusSimpleclientVersion}"
+    compileOnly "com.tdunning:t-digest:${tDigestVersion}"
+    compileOnly "io.prometheus:simpleclient:${simpleclientVersion}"
+    compileOnly "io.prometheus:simpleclient_pushgateway:${simpleclientPushgatewayVersion}"
+    compileOnly "org.springframework:spring-webmvc:${springWebmvcVersion}"
+    compileOnly "org.springframework:spring-webflux:${springWebfluxVersion}"
+    compileOnly "io.micrometer:micrometer-tracing-bridge-otel:${micrometerTracingBridgeOtelVersion}"
+    compileOnly "io.micrometer:micrometer-tracing-bridge-brave:${micrometerTracingBridgeBraveVersion}"
+    compileOnly "io.opentelemetry:opentelemetry-exporter-zipkin:${opentelemetryExporterZipkinVersion}"
+    compileOnly "io.opentelemetry:opentelemetry-exporter-otlp:${opentelemetryExporterOtlpVersion}"
+    compileOnly "io.zipkin.reporter2:zipkin-reporter-brave:${zipkinReporterBraveVersion}"
+    compileOnly "io.zipkin.reporter2:zipkin-sender-urlconnection:${zipkinSenderUrlconnectionVersion}"
+    compileOnly project(':dubbo-plugin:dubbo-qos')
+    compileOnly project(':dubbo-config:dubbo-config-spring')
+    testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootStarterTestVersion}"
+    testImplementation "net.bytebuddy:byte-buddy:${byteBuddyVersion}"
+    testImplementation "net.bytebuddy:byte-buddy-agent:${byteBuddyAgentVersion}"
+    testImplementation project(':dubbo-test:dubbo-test-check')
+    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl:${log4j2Version}"
+}

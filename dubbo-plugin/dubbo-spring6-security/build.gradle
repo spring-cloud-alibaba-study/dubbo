@@ -1,0 +1,62 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+description = 'The dubbo-parent module of dubbo project'
+
+// Spring 6 Security模块需要Java 17+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+tasks.withType(JavaCompile) {
+    options.release = 17
+}
+
+dependencies {
+    // 使用 Spring 6 依赖
+    implementation "org.springframework:spring-core:${spring6Version}"
+    implementation "org.springframework:spring-beans:${spring6Version}"
+    implementation "org.springframework:spring-context:${spring6Version}"
+    implementation "org.springframework:spring-aop:${spring6Version}"
+    implementation "org.springframework:spring-web:${spring6Version}"
+    implementation "org.springframework:spring-jcl:${spring6Version}"
+    implementation "org.springframework:spring-expression:${spring6Version}"
+    compileOnly "org.springframework:spring-test:${spring6Version}"
+    api project(':dubbo-plugin:dubbo-spring-security')
+    // 使用 Spring Security 6 依赖
+    implementation "org.springframework.security:spring-security-config:${springSecurity6Version}"
+    implementation "org.springframework.security:spring-security-core:${springSecurity6Version}"
+    implementation "org.springframework.security:spring-security-web:${springSecurity6Version}"
+    implementation "org.springframework.security:spring-security-crypto:${springSecurity6Version}"
+    compileOnly "org.springframework.security:spring-security-oauth2-core:${springSecurity6Version}"
+    compileOnly "org.springframework.security:spring-security-oauth2-jose:${springSecurity6Version}"
+    compileOnly "org.springframework.security:spring-security-oauth2-resource-server:${springSecurity6Version}"
+    // OAuth2 Authorization Server 使用独立版本（非Spring Security版本）
+    compileOnly "org.springframework.security:spring-security-oauth2-authorization-server:1.4.1"
+    compileOnly "org.springframework.security:spring-security-oauth2-client:${springSecurity6Version}"
+    // 使用 Spring Boot 3 依赖
+    compileOnly "org.springframework.boot:spring-boot-starter:${springBoot3Version}"
+    compileOnly "org.springframework.boot:spring-boot:${springBoot3Version}"
+    compileOnly "org.springframework.boot:spring-boot-autoconfigure:${springBoot3Version}"
+    compileOnly "org.springframework.boot:spring-boot-starter-logging:${springBoot3Version}"
+    compileOnly "org.springframework.boot:spring-boot-test:${springBoot3Version}"
+    compileOnly "org.springframework.boot:spring-boot-test-autoconfigure:${springBoot3Version}"
+    compileOnly "org.springframework.boot:spring-boot-starter-test:${springBoot3Version}"
+    compileOnly project(':dubbo-config:dubbo-config-spring6')
+    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl:${log4j2Version}"
+}

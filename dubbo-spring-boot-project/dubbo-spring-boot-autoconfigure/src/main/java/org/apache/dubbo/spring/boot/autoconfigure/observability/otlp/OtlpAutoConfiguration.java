@@ -56,8 +56,9 @@ public class OtlpAutoConfiguration {
         OtlpConfig cfg = properties.getTracing().getTracingExporter().getOtlpConfig();
         OtlpGrpcSpanExporterBuilder builder = OtlpGrpcSpanExporter.builder()
                 .setEndpoint(cfg.getEndpoint())
-                .setTimeout(cfg.getTimeout())
-                .setCompression(cfg.getCompressionMethod());
+                .setTimeout(cfg.getTimeout());
+        // .setCompression(cfg.getCompressionMethod()); // TODO:
+        // API已变更，需要适配OpenTelemetry 1.50+
         for (Map.Entry<String, String> entry : cfg.getHeaders().entrySet()) {
             builder.addHeader(entry.getKey(), entry.getValue());
         }
