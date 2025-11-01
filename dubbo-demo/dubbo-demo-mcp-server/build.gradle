@@ -27,8 +27,10 @@ tasks.withType(JavaCompile) {
     options.release = 17
 }
 
-configurations.all {
-    exclude group: 'org.apache.logging.log4j', module: 'log4j-to-slf4j'
+configurations {
+    // 使用 Log4j2 作为日志实现，排除 Spring Boot 默认的 Logback
+    all*.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    all*.exclude group: 'ch.qos.logback'
 }
 
 dependencies {

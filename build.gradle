@@ -321,6 +321,16 @@ subprojects {
     if (!isPlatformProject) {
         apply plugin: 'java-library'
         
+        // ========================================
+        // 统一日志管理配置
+        // ========================================
+        configurations.all {
+            // 1. 解决 Log4j 循环依赖问题
+            // log4j-slf4j-impl (SLF4J -> Log4j2) 与 log4j-to-slf4j (Log4j2 -> SLF4J) 
+            // 不能同时存在，会造成循环依赖
+            exclude group: 'org.apache.logging.log4j', module: 'log4j-to-slf4j'
+        }
+        
         // Java configuration
         java {
             sourceCompatibility = JavaVersion.VERSION_1_8

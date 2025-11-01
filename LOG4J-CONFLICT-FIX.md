@@ -4,23 +4,43 @@
 
 运行 Spring Boot Demo 应用时遇到以下错误：
 
+### 错误 1: Log4j 循环依赖
 ```
 Exception in thread "main" java.lang.ExceptionInInitializerError
-Caused by: org.apache.logging.log4j.LoggingException: log4j-slf4j-impl cannot be present with log4j-to-slf4j
+Caused by: org.apache.logging.log4j.LoggingException: 
+    log4j-slf4j-impl cannot be present with log4j-to-slf4j
+```
+
+### 错误 2: Logback 与 Log4j2 冲突
+```
+Exception in thread "main" java.lang.IllegalArgumentException: 
+    LoggerFactory is not a Logback LoggerContext but Logback is on the classpath. 
+    Either remove Logback or the competing implementation 
+    (class org.apache.logging.slf4j.Log4jLoggerFactory loaded from 
+    file:/Users/admin/.m2/repository/org/apache/logging/log4j/log4j-slf4j-impl/2.17.2/log4j-slf4j-impl-2.17.2.jar).
 ```
 
 ---
 
 ## 问题原因
 
-项目中同时存在两个互斥的 Log4j 桥接库：
+项目中同时存在多个互斥的日志实现：
 
+### 问题 1: Log4j 桥接库冲突
 | 依赖 | 作用 | 来源 |
 |------|------|------|
 | `log4j-slf4j-impl` | SLF4J → Log4j2 | `spring-boot-starter-log4j2` |
 | `log4j-to-slf4j` | Log4j2 → SLF4J | 其他传递依赖 |
 
 这两个库会造成**循环依赖**，因此 Log4j2 会抛出异常阻止启动。
+
+### 问题 2: Logback 与 Log4j2 共存
+| 依赖 | 作用 | 来源 |
+|------|------|------|
+| `logback-classic` + `logback-core` | SLF4J 的 Logback 实现 | Spring Boot 默认 |
+| `log4j-slf4j-impl` | SLF4J 的 Log4j2 实现 | `spring-boot-starter-log4j2` |
+
+Spring Boot 期望使用 Logback，但实际加载的是 Log4j2，导致类型不匹配。
 
 ---
 
@@ -50,18 +70,30 @@ Caused by: org.apache.logging.log4j.LoggingException: log4j-slf4j-impl cannot be
 
 ## 解决方案
 
-在所有使用 `spring-boot-starter-log4j2` 的模块中**排除** `log4j-to-slf4j`：
+在所有使用 `spring-boot-starter-log4j2` 的模块中**排除冲突的日志依赖**：
 
-### 已修复的模块
+### 完整的排除配置
 
 ```groovy
 // 在 build.gradle 中添加全局排除配置
 configurations.all {
+    // 排除 log4j-to-slf4j，避免与 log4j-slf4j-impl 冲突
     exclude group: 'org.apache.logging.log4j', module: 'log4j-to-slf4j'
+    // 排除 Spring Boot 默认的 Logback，使用 Log4j2
+    exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    exclude group: 'ch.qos.logback', module: 'logback-classic'
+    exclude group: 'ch.qos.logback', module: 'logback-core'
 }
 ```
 
-已修复的模块：
+### 为什么需要这些排除？
+
+1. **排除 `log4j-to-slf4j`**：避免与 `log4j-slf4j-impl` 形成循环依赖
+2. **排除 `spring-boot-starter-logging`**：这是 Spring Boot 默认的日志依赖，包含 Logback
+3. **排除 `logback-classic` 和 `logback-core`**：确保 Logback 完全被移除
+
+### 已修复的模块
+
 - ✅ `dubbo-demo-spring-boot-provider`
 - ✅ `dubbo-demo-spring-boot-consumer`
 - ✅ `dubbo-demo-spring-boot-servlet`
