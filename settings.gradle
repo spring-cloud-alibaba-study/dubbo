@@ -100,7 +100,7 @@ include 'dubbo-spring-boot-project:dubbo-spring-boot-compatible'
 include 'dubbo-spring-boot-project:dubbo-spring-boot-compatible:dubbo-spring-boot-autoconfigure-compatible'
 include 'dubbo-spring-boot-project:dubbo-spring-boot'
 include 'dubbo-spring-boot-project:dubbo-spring-boot-actuator-autoconfigure'
-include 'dubbo-spring-boot-project:dubbo-spring-boot-3-autoconfigure'  // Spring Boot 3.x优先支持（Java 17+）
+
 include 'dubbo-spring-boot-project:dubbo-spring-boot-starters'
 include 'dubbo-spring-boot-project:dubbo-spring-boot-starters:dubbo-spring-boot-starter'
 include 'dubbo-spring-boot-project:dubbo-spring-boot-starters:dubbo-nacos-spring-boot-starter'
@@ -119,7 +119,6 @@ include 'dubbo-plugin:dubbo-auth'
 include 'dubbo-plugin:dubbo-reactive'
 include 'dubbo-plugin:dubbo-security'
 include 'dubbo-plugin:dubbo-spring-security'
-include 'dubbo-plugin:dubbo-spring6-security'
 include 'dubbo-plugin:dubbo-native'
 include 'dubbo-plugin:dubbo-compiler'
 include 'dubbo-plugin:dubbo-filter-cache'
@@ -129,9 +128,16 @@ include 'dubbo-plugin:dubbo-rest-spring'
 include 'dubbo-plugin:dubbo-rest-openapi'
 include 'dubbo-plugin:dubbo-triple-servlet'
 include 'dubbo-plugin:dubbo-triple-websocket'
-include 'dubbo-plugin:dubbo-mutiny'
 include 'dubbo-plugin:dubbo-mcp'
 include 'dubbo-plugin:dubbo-plugin-loom'
+
+// JDK 17+ 专用模块（与 Maven Profile 保持一致）
+def javaVersion = JavaVersion.current()
+if (javaVersion >= JavaVersion.VERSION_17) {
+    // include 'dubbo-spring-boot-project:dubbo-spring-boot-3-autoconfigure'  // 暂时跳过：缺少jakarta包相关类文件
+    include 'dubbo-plugin:dubbo-spring6-security'
+    include 'dubbo-plugin:dubbo-mutiny'
+}
 
 // Demo modules
 // dubbo-demo-api 的子模块

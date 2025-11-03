@@ -22,11 +22,8 @@ plugins {
 description = 'The dubbo-demo-spring-boot-idl-consumer module of dubbo project'
 
 dependencies {
-    implementation project(':dubbo-rpc:dubbo-rpc-triple')
-    implementation "com.google.protobuf:protobuf-java:${protobufJavaVersion}"
-    implementation "io.grpc:grpc-protobuf:${grpcVersion}"
+    // 父模块已配置通用依赖，这里只添加特定依赖
     implementation "io.grpc:grpc-stub:${grpcVersion}"
-    implementation "org.springframework.boot:spring-boot-starter:${springBootVersion}"
 }
 
 protobuf {
@@ -69,4 +66,9 @@ sourceSets {
 
 tasks.named('compileJava') {
     dependsOn 'generateProto'
+}
+
+tasks.named('sourcesJar') {
+    dependsOn 'generateProto'
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }

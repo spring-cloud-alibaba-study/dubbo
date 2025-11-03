@@ -87,7 +87,7 @@ dependencies {
     api project(':dubbo-spring-boot-project:dubbo-spring-boot-actuator')
     api project(':dubbo-spring-boot-project:dubbo-spring-boot-autoconfigure')
     api project(':dubbo-spring-boot-project:dubbo-spring-boot-actuator-autoconfigure')
-    api project(':dubbo-spring-boot-project:dubbo-spring-boot-3-autoconfigure')  // Spring Boot 3.x自动配置（优先支持）
+    // api project(':dubbo-spring-boot-project:dubbo-spring-boot-3-autoconfigure')  // Spring Boot 3.x自动配置（暂时跳过，等待jakarta文件补全）
     // Spring Boot 1.x兼容模块已不再包含
     api project(':dubbo-spring-boot-project:dubbo-spring-boot-starters:dubbo-spring-boot-starter')
     api project(':dubbo-spring-boot-project:dubbo-spring-boot-starters:dubbo-tracing-otel-zipkin-spring-boot-starter')

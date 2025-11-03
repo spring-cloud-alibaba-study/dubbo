@@ -15,4 +15,21 @@
  * limitations under the License.
  */
 
-description = 'The dubbo-parent module of dubbo project'
+description = 'The dubbo-demo-spring-boot-idl parent module'
+
+// 为所有子项目配置通用依赖
+subprojects {
+    dependencies {
+        implementation project(':dubbo-spring-boot-project:dubbo-spring-boot-starters:dubbo-spring-boot-starter')
+        implementation "org.springframework.boot:spring-boot-starter:${springBootVersion}"
+        implementation project(':dubbo-config:dubbo-config-spring')
+        implementation project(':dubbo-registry:dubbo-registry-zookeeper')
+        implementation project(':dubbo-configcenter:dubbo-configcenter-zookeeper')
+        implementation project(':dubbo-metadata:dubbo-metadata-report-zookeeper')
+        implementation project(':dubbo-serialization:dubbo-serialization-hessian2')
+        implementation "com.google.protobuf:protobuf-java:${protobufJavaVersion}"
+        implementation "com.google.protobuf:protobuf-java-util:${protobufJavaVersion}"
+        implementation "io.grpc:grpc-protobuf:${grpcVersion}"
+        implementation "org.apache.logging.log4j:log4j-slf4j-impl:${log4j2Version}"
+    }
+}
