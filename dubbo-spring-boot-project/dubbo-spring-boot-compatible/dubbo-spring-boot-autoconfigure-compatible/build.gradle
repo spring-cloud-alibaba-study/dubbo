@@ -17,19 +17,41 @@
 
 description = 'Apache Dubbo Spring Boot Compatible for Spring Boot 1.x Auto-Configure'
 
-// 使用 Spring Boot 1.x 版本以支持 RelaxedPropertyResolver 等 API
+// ========================================
+// 特殊说明：此模块必须使用 Spring Boot 1.x
+// 因为它依赖 Spring Boot 1.x 特有的 API（RelaxedPropertyResolver、RelaxedDataBinder）
+// 需要强制覆盖 BOM 中的 Spring Boot 2.x 版本
+// ========================================
 ext {
     springBoot1Version = '1.5.22.RELEASE'
 }
 
 dependencies {
-    compileOnly "org.springframework.boot:spring-boot-autoconfigure:${springBoot1Version}"
-    compileOnly "org.springframework.boot:spring-boot:${springBoot1Version}"
-    compileOnly "org.springframework.boot:spring-boot-starter-log4j2:${springBoot1Version}"
+    // 使用 strictly 强制指定 Spring Boot 1.x 版本，覆盖 BOM
+    compileOnly("org.springframework.boot:spring-boot-autoconfigure") {
+        version {
+            strictly springBoot1Version
+        }
+    }
+    compileOnly("org.springframework.boot:spring-boot") {
+        version {
+            strictly springBoot1Version
+        }
+    }
+    compileOnly("org.springframework.boot:spring-boot-starter-log4j2") {
+        version {
+            strictly springBoot1Version
+        }
+    }
+    
     compileOnly project(':dubbo-common')
     compileOnly project(':dubbo-config:dubbo-config-spring')
-    // api project(':dubbo') // 模块不存在，已注释
     api project(':dubbo-spring-boot-project:dubbo-spring-boot')
-    compileOnly "javax.websocket:javax.websocket-api:${javaxWebsocketApiVersion}"
-    testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootStarterTestVersion}"
+    compileOnly "javax.websocket:javax.websocket-api"
+    
+    testImplementation("org.springframework.boot:spring-boot-starter-test") {
+        version {
+            strictly springBoot1Version
+        }
+    }
 }

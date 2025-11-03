@@ -23,7 +23,7 @@ dependencies {
     
     api "io.netty.incubator:netty-incubator-codec-http3:${nettyCodecHttp3Version}"
     
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl:${log4j2Version}"
+    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
 
     // 补全缺失的依赖
     implementation "io.netty.incubator:netty-incubator-codec-http3:${nettyCodecHttp3Version}"

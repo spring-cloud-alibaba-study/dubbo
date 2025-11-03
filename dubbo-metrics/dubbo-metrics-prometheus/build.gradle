@@ -25,7 +25,7 @@ dependencies {
     implementation "io.prometheus:simpleclient_pushgateway:${prometheusClientVersion}"
     testImplementation "org.apache.httpcomponents:httpclient:${httpclientVersion}"
     api project(':dubbo-plugin:dubbo-qos-api')
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl:${log4j2Version}"
+    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
 
     // 补全缺失的依赖
     implementation "io.micrometer:micrometer-registry-prometheus-simpleclient:${micrometerRegistryPrometheusSimpleclientVersion}"

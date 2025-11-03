@@ -19,8 +19,8 @@ description = 'The netty remoting module of dubbo project'
 
 dependencies {
     api project(':dubbo-remoting:dubbo-remoting-api')
-    implementation "org.jboss.netty:netty:${nettyVersion}"
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl:${log4j2Version}"
+    implementation "org.jboss.netty:netty"
+    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
     testImplementation project(':dubbo-serialization:dubbo-serialization-hessian2')
     testImplementation project(':dubbo-serialization:dubbo-serialization-fastjson2')
 }

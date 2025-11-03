@@ -19,9 +19,9 @@ description = 'The zookeeper remoting module of dubbo project'
 
 dependencies {
     api project(':dubbo-common')
-    implementation "org.apache.curator:curator-framework:${curatorFrameworkVersion}"
-    implementation "org.apache.curator:curator-recipes:${curatorRecipesVersion}"
-    implementation "org.apache.zookeeper:zookeeper:${zookeeperVersion}"
+    implementation "org.apache.curator:curator-framework"
+    implementation "org.apache.curator:curator-recipes"
+    implementation "org.apache.zookeeper:zookeeper"
     api project(':dubbo-plugin:dubbo-native')
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl:${log4j2Version}"
+    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
 }

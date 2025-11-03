@@ -18,7 +18,7 @@
 description = 'The dubbo-metadata module of dubbo project'
 
 dependencies {
-    implementation "com.google.protobuf:protobuf-java:${protobufJavaVersion}"
-    implementation "com.google.protobuf:protobuf-java-util:${protobufJavaUtilVersion}"
+    implementation "com.google.protobuf:protobuf-java"
+    implementation "com.google.protobuf:protobuf-java-util"
     api project(':dubbo-metadata:dubbo-metadata-api')
 }

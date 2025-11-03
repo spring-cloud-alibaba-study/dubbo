@@ -38,12 +38,12 @@ dependencies {
     api project(':dubbo-plugin:dubbo-triple-websocket')
     
     // Jakarta EE依赖（Spring Boot 3使用Jakarta而非Javax）
-    compileOnly "jakarta.servlet:jakarta.servlet-api:${jakartaServletApiVersion}"
-    compileOnly "org.apache.tomcat.embed:tomcat-embed-core:${tomcatEmbedCoreVersion}"
-    compileOnly "jakarta.websocket:jakarta.websocket-api:${jakartaWebsocketApiVersion}"
-    compileOnly "jakarta.websocket:jakarta.websocket-client-api:${jakartaWebsocketClientApiVersion}"
+    compileOnly "jakarta.servlet:jakarta.servlet-api"
+    compileOnly "org.apache.tomcat.embed:tomcat-embed-core"
+    compileOnly "jakarta.websocket:jakarta.websocket-api"
+    compileOnly "jakarta.websocket:jakarta.websocket-client-api"
     
     // 测试依赖
     testImplementation "org.springframework.boot:spring-boot-starter-test"
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl:${log4j2Version}"
+    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
 }

@@ -20,12 +20,12 @@ description = 'The spring config module of dubbo project'
 dependencies {
     api project(':dubbo-config:dubbo-config-api')
     testImplementation project(':dubbo-metrics:dubbo-metrics-prometheus')
-    implementation "org.springframework:spring-beans:${springVersion}"
-    implementation "org.springframework:spring-web:${springWebVersion}"
-    implementation "org.springframework:spring-context:${springVersion}"
-    compileOnly "javax.servlet:javax.servlet-api:${javaxServletApiVersion}"
+    implementation "org.springframework:spring-beans"
+    implementation "org.springframework:spring-web"
+    implementation "org.springframework:spring-context"
+    compileOnly "javax.servlet:javax.servlet-api"
     // 添加 javax.annotation 支持（Java 9+ 需要）
-    compileOnly "javax.annotation:javax.annotation-api:1.3.2"
+    compileOnly "javax.annotation:javax.annotation-api:${javaxAnnotationApiVersion}"
     testImplementation "org.aspectj:aspectjweaver:${aspectjweaverVersion}"
     testImplementation project(':dubbo-rpc:dubbo-rpc-dubbo')
     testImplementation project(':dubbo-rpc:dubbo-rpc-triple')
@@ -33,21 +33,21 @@ dependencies {
     testImplementation project(':dubbo-remoting:dubbo-remoting-netty4')
     testImplementation project(':dubbo-serialization:dubbo-serialization-hessian2')
     testImplementation project(':dubbo-serialization:dubbo-serialization-fastjson2')
-    testImplementation "javax.validation:validation-api:${validationApiVersion}"
-    testImplementation "org.hibernate:hibernate-validator:${hibernateValidatorVersion}"
-    testImplementation "org.glassfish:javax.el:${javaxElVersion}"
-    testImplementation "org.springframework:spring-tx:${springTxVersion}"
+    testImplementation "javax.validation:validation-api"
+    testImplementation "org.hibernate:hibernate-validator"
+    testImplementation "org.glassfish:javax.el"
+    testImplementation "org.springframework:spring-tx"
     testImplementation "org.springframework:spring-test:${springVersion}"
-    testImplementation "org.apache.tomcat.embed:tomcat-embed-core:${tomcatEmbedCoreVersion}"
+    testImplementation "org.apache.tomcat.embed:tomcat-embed-core"
     testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootStarterTestVersion}"
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl:${log4j2Version}"
+    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
     testImplementation project(':dubbo-registry:dubbo-registry-zookeeper')
     testImplementation project(':dubbo-metadata:dubbo-metadata-report-zookeeper')
     testImplementation project(':dubbo-remoting:dubbo-remoting-zookeeper-curator5')
-    testImplementation "org.apache.curator:curator-recipes:${curatorRecipesVersion}"
-    testImplementation "org.apache.curator:curator-x-discovery:${curatorXDiscoveryVersion}"
-    testImplementation "org.apache.zookeeper:zookeeper:${zookeeperVersion}"
+    testImplementation "org.apache.curator:curator-recipes"
+    testImplementation "org.apache.curator:curator-x-discovery"
+    testImplementation "org.apache.zookeeper:zookeeper"
     testImplementation project(':dubbo-registry:dubbo-registry-nacos')
     testImplementation project(':dubbo-configcenter:dubbo-configcenter-nacos')
-    testImplementation "com.alibaba.nacos:nacos-client:${nacosClientVersion}"
+    testImplementation "com.alibaba.nacos:nacos-client"
 }

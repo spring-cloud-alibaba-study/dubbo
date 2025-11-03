@@ -20,9 +20,9 @@ description = 'The zookeeper implementation of the config-center api'
 dependencies {
     api project(':dubbo-common')
     api project(':dubbo-remoting:dubbo-remoting-zookeeper-curator5')
-    testImplementation "org.apache.curator:curator-framework:${curatorFrameworkVersion}"
-    testImplementation "org.apache.curator:curator-recipes:${curatorRecipesVersion}"
-    implementation "org.apache.zookeeper:zookeeper:${zookeeperVersion}"
+    testImplementation "org.apache.curator:curator-framework"
+    testImplementation "org.apache.curator:curator-recipes"
+    implementation "org.apache.zookeeper:zookeeper"
     api project(':dubbo-metrics:dubbo-metrics-api')
     api project(':dubbo-metrics:dubbo-metrics-default')
     api project(':dubbo-metrics:dubbo-metrics-prometheus')

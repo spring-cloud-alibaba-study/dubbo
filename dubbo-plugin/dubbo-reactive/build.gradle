@@ -19,11 +19,11 @@ description = 'The dubbo-parent module of dubbo project'
 
 dependencies {
     api project(':dubbo-rpc:dubbo-rpc-triple')
-    implementation "org.reactivestreams:reactive-streams:${reactiveStreamsVersion}"
-    implementation "io.projectreactor:reactor-core:${reactorVersion}"
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl:${log4j2Version}"
+    implementation "org.reactivestreams:reactive-streams"
+    implementation "io.projectreactor:reactor-core"
+    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
 
     // 补全缺失的依赖
-    compileOnly "io.projectreactor:reactor-core:${reactorVersion}"
+    compileOnly "io.projectreactor:reactor-core"
 }
 

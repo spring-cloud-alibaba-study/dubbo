@@ -19,8 +19,8 @@ description = 'The Fastjson2 serialization module of dubbo project'
 
 dependencies {
     api project(':dubbo-serialization:dubbo-serialization-api')
-    implementation "com.alibaba.fastjson2:fastjson2:${fastjson2Version}"
+    implementation "com.alibaba.fastjson2:fastjson2"
     
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl:${log4j2Version}"
+    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
 }
 

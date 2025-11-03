@@ -32,15 +32,15 @@ jar {
 }
 
 dependencies {
-    implementation "com.github.spullara.mustache.java:compiler:0.9.11"
-    implementation "io.grpc:grpc-core:${grpcVersion}"
-    implementation "io.grpc:grpc-stub:${grpcVersion}"
-    implementation "io.grpc:grpc-protobuf:${grpcVersion}"
-    implementation "io.grpc:grpc-context:${grpcVersion}"
-    implementation "com.google.protobuf:protobuf-java:${protobufJavaVersion}"
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl:${log4j2Version}"
+    implementation "com.github.spullara.mustache.java:compiler"
+    implementation "io.grpc:grpc-core"
+    implementation "io.grpc:grpc-stub"
+    implementation "io.grpc:grpc-protobuf"
+    implementation "io.grpc:grpc-context"
+    implementation "com.google.protobuf:protobuf-java"
+    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
 
     // 补全缺失的依赖
-    implementation "com.salesforce.servicelibs:grpc-contrib:${grpcContribVersion}"
+    implementation "com.salesforce.servicelibs:grpc-contrib"
 }
 

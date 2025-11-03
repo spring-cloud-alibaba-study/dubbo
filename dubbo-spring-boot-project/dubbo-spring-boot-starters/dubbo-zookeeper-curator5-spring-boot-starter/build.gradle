@@ -18,6 +18,6 @@
 description = 'Apache Dubbo Zookeeper Curator5 Spring Boot Starter'
 
 dependencies {
-    implementation "org.apache.curator:curator-x-discovery:${curatorXDiscoveryVersion}"
-    implementation "org.apache.zookeeper:zookeeper:${zookeeperVersion}"
+    implementation "org.apache.curator:curator-x-discovery"
+    implementation "org.apache.zookeeper:zookeeper"
 }

@@ -19,10 +19,10 @@ description = 'The nacos implementation of the config-center api'
 
 dependencies {
     api project(':dubbo-common')
-    api "com.alibaba.nacos:nacos-client:${nacosVersion}"
+    api "com.alibaba.nacos:nacos-client"
     api project(':dubbo-metrics:dubbo-metrics-api')
     api project(':dubbo-metrics:dubbo-metrics-default')
     api project(':dubbo-metrics:dubbo-metrics-prometheus')
     api project(':dubbo-metrics:dubbo-metrics-config-center')
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl:${log4j2Version}"
+    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
 }

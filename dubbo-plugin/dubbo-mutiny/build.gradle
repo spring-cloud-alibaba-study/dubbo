@@ -19,6 +19,6 @@ description = 'The dubbo-parent module of dubbo project'
 
 dependencies {
     api project(':dubbo-rpc:dubbo-rpc-triple')
-    implementation "io.smallrye.reactive:mutiny:${mutinyVersion}"
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl:${log4j2Version}"
+    implementation "io.smallrye.reactive:mutiny"
+    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
 }

@@ -19,12 +19,12 @@ description = 'The dubbo-test module of dubbo project'
 
 dependencies {
     api project(':dubbo-common')
-    implementation "org.junit.platform:junit-platform-launcher:${junitPlatformLauncherVersion}"
-    implementation "org.junit.platform:junit-platform-engine:${junitPlatformEngineVersion}"
-    implementation "org.apache.commons:commons-lang3:${commonsLang3Version}"
-    implementation "org.apache.zookeeper:zookeeper:${zookeeperVersion}"
-    implementation "org.apache.curator:curator-framework:${curatorFrameworkVersion}"
-    implementation "org.apache.commons:commons-compress:${commonsCompressVersion}"
+    implementation "org.junit.platform:junit-platform-launcher"
+    implementation "org.junit.platform:junit-platform-engine"
+    implementation "org.apache.commons:commons-lang3"
+    implementation "org.apache.zookeeper:zookeeper"
+    implementation "org.apache.curator:curator-framework"
+    implementation "org.apache.commons:commons-compress"
     implementation "org.apache.commons:commons-exec:${commonsExecVersion}"
     implementation "org.asynchttpclient:async-http-client:${asyncHttpClientVersion}"
 }

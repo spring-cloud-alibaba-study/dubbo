@@ -20,6 +20,6 @@ description = 'The serialization API module of dubbo project'
 dependencies {
     api project(':dubbo-common')
     
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl:${log4j2Version}"
+    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
 }
 

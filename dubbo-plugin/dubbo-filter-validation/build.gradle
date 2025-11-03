@@ -19,12 +19,12 @@ description = 'The validation module of dubbo project'
 
 dependencies {
     api project(':dubbo-rpc:dubbo-rpc-api')
-    implementation "jakarta.validation:jakarta.validation-api:${jakartaValidationApiVersion}"
-    implementation "javax.validation:validation-api:${validationApiVersion}"
-    testImplementation "org.hibernate:hibernate-validator:${hibernateValidatorVersion}"
+    implementation "jakarta.validation:jakarta.validation-api"
+    implementation "javax.validation:validation-api"
+    testImplementation "org.hibernate:hibernate-validator"
     testImplementation "javax.el:javax.el-api:${javaxElApiVersion}"
     testImplementation "javax.xml.bind:jaxb-api:${jaxbApiVersion}"
     testImplementation "com.sun.xml.bind:jaxb-impl:${jaxbImplVersion}"
     testImplementation "com.sun.xml.bind:jaxb-core:${jaxbCoreVersion}"
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl:${log4j2Version}"
+    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
 }

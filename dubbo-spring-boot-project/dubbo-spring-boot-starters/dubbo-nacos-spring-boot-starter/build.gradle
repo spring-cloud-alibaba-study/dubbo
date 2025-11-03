@@ -18,5 +18,5 @@
 description = 'Apache Dubbo Nacos Spring Boot Starter'
 
 dependencies {
-    implementation "com.alibaba.nacos:nacos-client:${nacosClientVersion}"
+    implementation "com.alibaba.nacos:nacos-client"
 }

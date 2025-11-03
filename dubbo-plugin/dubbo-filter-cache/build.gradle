@@ -21,5 +21,5 @@ dependencies {
     api project(':dubbo-rpc:dubbo-rpc-api')
     implementation "javax.cache:cache-api:${cacheApiVersion}"
     testImplementation "com.hazelcast:hazelcast:${hazelcastVersion}"
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl:${log4j2Version}"
+    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
 }

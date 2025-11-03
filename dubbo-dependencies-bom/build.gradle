@@ -104,6 +104,7 @@ dependencies {
         
         // Tomcat
         api "org.apache.tomcat.embed:tomcat-embed-core:${tomcatEmbedVersion}"
+        api "org.apache.tomcat:tomcat-servlet-api:${tomcatServletApiVersion}"
         
         // Logging
         api "org.slf4j:slf4j-api:${slf4jVersion}"
@@ -197,7 +198,7 @@ dependencies {
         api "com.tdunning:t-digest:${tDigestVersion}"
         api "io.prometheus:simpleclient:${prometheusClientVersion}"
         api "io.prometheus:simpleclient_pushgateway:${prometheusClientVersion}"
-        api "io.zipkin.zipkin2:zipkin:${zipkinVersion}"
+        // zipkin 版本由 zipkin-reporter-bom 管理
         
         // Reactive
         api "org.reactivestreams:reactive-streams:${reactiveVersion}"

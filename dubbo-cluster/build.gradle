@@ -29,8 +29,8 @@ dependencies {
     testImplementation project(':dubbo-serialization:dubbo-serialization-hessian2')
     testImplementation project(':dubbo-serialization:dubbo-serialization-fastjson2')
     testImplementation "io.micrometer:micrometer-tracing-integration-test:${micrometerTracingVersion}"
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl:${log4j2Version}"
-    testImplementation "org.apache.logging.log4j:log4j-core:${log4j2Version}"
+    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
+    testImplementation "org.apache.logging.log4j:log4j-core"
 }
 
 // Add Nashorn for JDK 11+

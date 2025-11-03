@@ -37,5 +37,5 @@ dependencies {
     // 测试依赖
     testImplementation "io.micrometer:micrometer-test:${micrometerVersion}"
     testImplementation "io.micrometer:micrometer-tracing-integration-test:${micrometerTracingVersion}"
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl:${log4j2Version}"
+    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
 }

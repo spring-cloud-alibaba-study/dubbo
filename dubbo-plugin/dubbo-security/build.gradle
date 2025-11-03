@@ -25,17 +25,17 @@ dependencies {
     api project(':dubbo-rpc:dubbo-rpc-api')
     api project(':dubbo-rpc:dubbo-rpc-triple')
     api project(':dubbo-common')
-    implementation "io.grpc:grpc-protobuf:${grpcVersion}"
-    implementation "io.grpc:grpc-stub:${grpcVersion}"
+    implementation "io.grpc:grpc-protobuf"
+    implementation "io.grpc:grpc-stub"
     implementation "io.grpc:grpc-netty-shaded:${grpcVersion}"
-    implementation "com.google.protobuf:protobuf-java:${protobufJavaVersion}"
-    implementation "com.google.protobuf:protobuf-java-util:${protobufJavaVersion}"
-    implementation "org.bouncycastle:bcprov-jdk18on:${bouncycastleVersion}"
-    implementation "org.bouncycastle:bcpkix-jdk18on:${bouncycastleVersion}"
+    implementation "com.google.protobuf:protobuf-java"
+    implementation "com.google.protobuf:protobuf-java-util"
+    implementation "org.bouncycastle:bcprov-jdk18on"
+    implementation "org.bouncycastle:bcpkix-jdk18on"
     // 添加 javax.annotation 支持（Java 9+ 需要）
-    compileOnly "javax.annotation:javax.annotation-api:1.3.2"
+    compileOnly "javax.annotation:javax.annotation-api:${javaxAnnotationApiVersion}"
     testImplementation project(':dubbo-config:dubbo-config-api')
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl:${log4j2Version}"
+    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
 }
 
 // Protobuf 配置

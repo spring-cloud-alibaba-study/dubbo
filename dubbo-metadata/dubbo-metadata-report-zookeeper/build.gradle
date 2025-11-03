@@ -21,7 +21,7 @@ dependencies {
     api project(':dubbo-metadata:dubbo-metadata-api')
     api project(':dubbo-configcenter:dubbo-configcenter-zookeeper')
     testImplementation project(':dubbo-test:dubbo-test-common')
-    testImplementation "org.apache.curator:curator-framework:${curatorFrameworkVersion}"
-    testImplementation "org.apache.curator:curator-recipes:${curatorRecipesVersion}"
-    implementation "org.apache.zookeeper:zookeeper:${zookeeperVersion}"
+    testImplementation "org.apache.curator:curator-framework"
+    testImplementation "org.apache.curator:curator-recipes"
+    implementation "org.apache.zookeeper:zookeeper"
 }

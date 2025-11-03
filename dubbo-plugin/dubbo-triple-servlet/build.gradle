@@ -25,13 +25,13 @@ dependencies {
     // - org.apache.dubbo.rpc.protocol.tri.servlet.jakarta.* → jakarta.servlet (Spring Boot 3.x)
     
     // Servlet API dependencies
-    compileOnly "org.apache.tomcat:tomcat-servlet-api:9.0.95"  // javax.servlet (HTTP/2支持)
-    compileOnly "jakarta.servlet:jakarta.servlet-api:${jakartaServletApiVersion}"  // jakarta.servlet (Spring Boot 3.x)
+    compileOnly "org.apache.tomcat:tomcat-servlet-api"  // javax.servlet (HTTP/2支持)
+    compileOnly "jakarta.servlet:jakarta.servlet-api"  // jakarta.servlet (Spring Boot 3.x)
     
     testImplementation project(':dubbo-remoting:dubbo-remoting-netty4')
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl:${log4j2Version}"
+    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
 
     // 补全缺失的依赖
-    compileOnly "javax.servlet:javax.servlet-api:${javaxServletApiVersion}"
+    compileOnly "javax.servlet:javax.servlet-api"
 }
 

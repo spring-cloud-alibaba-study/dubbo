@@ -19,7 +19,7 @@ description = 'Apache Dubbo Spring Boot Actuator Autoconfigure'
 
 dependencies {
     compileOnly "org.springframework.boot:spring-boot-starter-web:${springBootStarterWebVersion}"
-    compileOnly "org.apache.tomcat.embed:tomcat-embed-core:${tomcatEmbedCoreVersion}"
+    compileOnly "org.apache.tomcat.embed:tomcat-embed-core"
     api project(':dubbo-spring-boot-project:dubbo-spring-boot-actuator')
     compileOnly "org.springframework.boot:spring-boot-actuator-autoconfigure:${springBootActuatorAutoconfigureVersion}"
     api project(':dubbo-spring-boot-project:dubbo-spring-boot-autoconfigure')
@@ -32,8 +32,8 @@ dependencies {
     compileOnly project(':dubbo-plugin:dubbo-qos')
     testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootStarterTestVersion}"
     testImplementation "org.springframework.boot:spring-boot-starter-log4j2:${springBootStarterLog4j2Version}"
-    testImplementation "net.bytebuddy:byte-buddy:${byteBuddyVersion}"
-    testImplementation "net.bytebuddy:byte-buddy-agent:${byteBuddyAgentVersion}"
+    testImplementation "net.bytebuddy:byte-buddy"
+    testImplementation "net.bytebuddy:byte-buddy-agent"
     testImplementation project(':dubbo-test:dubbo-test-check')
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl:${log4j2Version}"
+    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
 }

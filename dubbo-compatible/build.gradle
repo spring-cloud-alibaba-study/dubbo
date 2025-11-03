@@ -33,14 +33,14 @@ dependencies {
     api project(':dubbo-metadata:dubbo-metadata-report-zookeeper')
     
     // 添加编译所需的依赖
-    compileOnly "javax.servlet:javax.servlet-api:${servletVersion}"
-    compileOnly "org.springframework:spring-core:${springVersion}"
+    compileOnly "javax.servlet:javax.servlet-api"
+    compileOnly "org.springframework:spring-core"
     compileOnly "log4j:log4j:1.2.17"  // for LogPageHandler compatibility
     
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl:${log4j2Version}"
+    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
 
     // 补全缺失的依赖
-    compileOnly "javax.ws.rs:javax.ws.rs-api:${rsApiVersion}"
+    compileOnly "javax.ws.rs:javax.ws.rs-api"
 }
 
 

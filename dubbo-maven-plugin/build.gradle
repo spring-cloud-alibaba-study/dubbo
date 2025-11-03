@@ -24,7 +24,7 @@ dependencies {
     compileOnly "org.apache.maven.plugin-tools:maven-plugin-annotations:${mavenPluginAnnotationsVersion}"
     implementation "org.apache.maven.shared:maven-common-artifact-filters:${mavenCommonArtifactFiltersVersion}"
     api project(':dubbo-common')
-    implementation "commons-io:commons-io:${commonsIoVersion}"
-    compileOnly "com.google.protobuf:protobuf-java:${protobufJavaVersion}"
+    implementation "commons-io:commons-io"
+    compileOnly "com.google.protobuf:protobuf-java"
     implementation "org.sonatype.plexus:plexus-build-api:${plexusBuildApiVersion}"
 }

@@ -23,7 +23,7 @@ description = 'The dubbo-demo-spring-boot-idl-provider module of dubbo project'
 
 dependencies {
     // 父模块已配置通用依赖，这里只添加特定依赖
-    implementation "io.grpc:grpc-stub:${grpcVersion}"
+    implementation "io.grpc:grpc-stub"
 }
 
 protobuf {

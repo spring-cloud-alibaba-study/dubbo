@@ -67,7 +67,7 @@ ext {
     grpcVersion = '1.73.0'
     grpcContribVersion = '0.8.1'
     jprotocVersion = '1.2.2'
-    mustacheVersion = '0.9.14'
+    mustacheVersion = '0.9.11'  // Mustache compiler for code generation
 
     // 服务发现和配置
     zookeeperVersion = '3.7.2'
@@ -136,6 +136,7 @@ ext {
     mortbayJettyVersion = '6.1.26'
     tomcatEmbedVersion = '8.5.100'
     tomcatEmbedCoreVersion = '8.5.100'  // 别名，与 tomcatEmbedVersion 一致
+    tomcatServletApiVersion = '9.0.95'  // Tomcat Servlet API 版本
     okhttpVersion = '3.14.9'
 
     // 验证
@@ -156,9 +157,9 @@ ext {
     codehausJacksonVersion = '1.9.13'
     swaggerVersion = '1.6.16'
     swaggerAnnotationsVersion = '1.6.16'  // 别名，与 swaggerVersion 一致
-    swaggerAnnotationsV3Version = '2.2.22'
-    swaggerUiVersion = '4.15.5'
-    redocVersion = '2.0.0'
+    swaggerAnnotationsV3Version = '2.2.32'  // OpenAPI 3.x annotations
+    swaggerUiVersion = '5.22.0'  // Swagger UI webjar
+    redocVersion = '2.3.0'  // Redoc webjar
     webjarsLocatorVersion = '0.52'
     therapiJavadocVersion = '0.15.0'
 
@@ -308,7 +309,7 @@ ext {
     springSecurityConfigVersion = '5.3.39'
     springSecurityCoreVersion = '5.3.39'
     springSecurityCryptoVersion = '5.3.39'
-    springSecurityOauth2AuthorizationServerVersion = '5.3.39'
+    springSecurityOauth2AuthorizationServerVersion = '1.4.1'  // Spring Authorization Server (独立项目)
     springSecurityOauth2ClientVersion = '5.3.39'
     springSecurityOauth2CoreVersion = '5.3.39'
     springSecurityOauth2JoseVersion = '5.3.39'
@@ -331,14 +332,46 @@ ext {
     validationApiVersion = '1.1.0.Final'
 
     // W
-    webjarsLocatorLiteVersion = '0.11.0'
+    webjarsLocatorLiteVersion = '1.0.1'  // Webjars Locator Lite
 
     // Z
     zipkinReporterBraveVersion = '3.5.1'  // 修正：应与zipkin-reporter版本一致
     zipkinSenderUrlconnectionVersion = '3.5.1'  // 修正：应与zipkin-reporter版本一致
-    zipkinVersion = '1.0.0'
-
+    // zipkinVersion = '3.5.1'  // 删除：zipkin 2.x 的版本已包含在 zipkin-reporter-bom 中
 }
+
+// ========================================
+// 📝 子模块依赖声明规范（快速参考）
+// ========================================
+// 
+// 所有依赖版本由 dubbo-dependencies-bom 统一管理，子模块声明依赖时 **不需要** 写版本号
+//
+// 依赖声明模板（复制即用，无需对齐）:
+// 
+//   dependencies {
+//       // 库模块：需要暴露给使用者的 API
+//       api "org.springframework:spring-core"
+//       api "org.javassist:javassist"
+//       
+//       // 内部实现依赖（推荐默认使用）
+//       implementation "com.alibaba.fastjson2:fastjson2"
+//       implementation "io.netty:netty-all"
+//       
+//       // 编译时依赖（运行时由容器提供）
+//       compileOnly "javax.servlet:javax.servlet-api"
+//       compileOnly "jakarta.servlet:jakarta.servlet-api"
+//       
+//       // 测试依赖
+//       testImplementation "org.mockito:mockito-core"
+//   }
+//
+// 注意：
+// - ✅ 不需要写版本号（如 :${version}）
+// - ✅ 不需要手动对齐冒号
+// - ✅ 版本自动从 BOM 获取
+// - ✅ 应用模块（如 dubbo-demo-*）统一使用 implementation
+// - ✅ 库模块（如 dubbo-common）根据需要选择 api 或 implementation
+// ========================================
 
 allprojects {
     group = rootProject.group
@@ -351,14 +384,27 @@ allprojects {
     }
 }
 
+// ========================================
+// 统一依赖版本管理 - 在根项目中集中定义
+// ========================================
 subprojects {
     // 跳过 BOM 和 platform 项目，它们使用 java-platform 插件
     def isPlatformProject = project.name.contains('bom') ||
-                           project.name.contains('dependencies-all') ||
-                           project.path.contains(':dubbo-distribution:dubbo-bom')
+        project.name.contains('dependencies-all') ||
+        project.path.contains(':dubbo-distribution:dubbo-bom')
 
     if (!isPlatformProject) {
         apply plugin: 'java-library'
+
+        // ========================================
+        // 统一依赖版本管理 - 导入 BOM
+        // ========================================
+        dependencies {
+            // 使用 enforcedPlatform 强制应用 BOM 中定义的版本
+            // 子模块声明依赖时不需要指定版本号，版本由 dubbo-dependencies-bom 统一管理
+            // 详见上方 ext.dependencies 中列出的所有管理的依赖
+            api enforcedPlatform(project(':dubbo-dependencies-bom'))
+        }
 
         // ========================================
         // 统一日志管理配置

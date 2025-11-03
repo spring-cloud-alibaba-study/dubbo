@@ -19,5 +19,5 @@ description = '${project.artifactId}'
 
 dependencies {
     api project(':dubbo-metrics:dubbo-metrics-api')
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl:${log4j2Version}"
+    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
 }

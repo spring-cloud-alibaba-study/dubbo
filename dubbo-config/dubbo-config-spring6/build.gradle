@@ -30,18 +30,29 @@ tasks.withType(JavaCompile) {
 dependencies {
     api project(':dubbo-config:dubbo-config-api')
     api project(':dubbo-config:dubbo-config-spring')
-    // 使用 Spring 6 依赖
-    implementation "org.springframework:spring-beans:${spring6Version}"
-    implementation "org.springframework:spring-core:${spring6Version}"
-    implementation "org.springframework:spring-web:${spring6Version}"
-    implementation "org.springframework:spring-context:${spring6Version}"
+    
+    // ========================================
+    // 使用 Spring 6 依赖（强制覆盖 BOM 中的 Spring 5）
+    // ========================================
+    implementation("org.springframework:spring-beans") {
+        version { strictly spring6Version }
+    }
+    implementation("org.springframework:spring-core") {
+        version { strictly spring6Version }
+    }
+    implementation("org.springframework:spring-web") {
+        version { strictly spring6Version }
+    }
+    implementation("org.springframework:spring-context") {
+        version { strictly spring6Version }
+    }
+    
     // Spring 6 AOT 功能已集成在 spring-core 和 spring-context 中，无需单独依赖
-    compileOnly "jakarta.servlet:jakarta.servlet-api:${jakartaServletVersion}"
+    compileOnly "jakarta.servlet:jakarta.servlet-api"
     testImplementation "org.springframework.boot:spring-boot-starter-test:${springBoot3Version}"
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl:${log4j2Version}"
+    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
 
     // 补全缺失的依赖（同时支持 javax 和 jakarta）
-    compileOnly "jakarta.servlet:jakarta.servlet-api:${jakartaServletApiVersion}"
-    compileOnly "javax.servlet:javax.servlet-api:${javaxServletApiVersion}"
+    compileOnly "javax.servlet:javax.servlet-api"
 }
 

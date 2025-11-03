@@ -18,9 +18,9 @@
 description = 'The dubbo-test module of dubbo project'
 
 dependencies {
-    implementation "javax.ws.rs:javax.ws.rs-api:${javaxWsRsApiVersion}"
-    implementation "org.apache.zookeeper:zookeeper:${zookeeperVersion}"
-    implementation "org.apache.logging.log4j:log4j-slf4j-impl:${log4j2Version}"
+    implementation "javax.ws.rs:javax.ws.rs-api"
+    implementation "org.apache.zookeeper:zookeeper"
+    implementation "org.apache.logging.log4j:log4j-slf4j-impl"
     api project(':dubbo-common')
     api project(':dubbo-rpc:dubbo-rpc-api')
     api project(':dubbo-test:dubbo-test-check')
