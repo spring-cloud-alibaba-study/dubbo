@@ -24,23 +24,20 @@ plugins {
     id 'io.freefair.aggregate-javadoc' version '8.6' apply false
 }
 
-// ========================================
-// 统一版本管理 - 所有依赖版本集中定义
-// ========================================
 ext {
     // Spring 生态系统
     springVersion = '5.3.39'
-    springWebVersion = '5.3.39'  // 别名，与 springVersion 一致
-    springTxVersion = '5.3.39'  // 别名，与 springVersion 一致
+    springWebVersion = '5.3.39'
+    springTxVersion = '5.3.39'
     spring6Version = '6.2.11'
     springBootVersion = '2.7.18'
-    springBootStarterTestVersion = '2.7.18'  // 别名，与 springBootVersion 一致
-    springBootStarterVersion = '2.7.18'  // 别名，与 springBootVersion 一致
-    springBootStarterWebVersion = '2.7.18'  // 别名，与 springBootVersion 一致
+    springBootStarterTestVersion = '2.7.18'
+    springBootStarterVersion = '2.7.18'
+    springBootStarterWebVersion = '2.7.18'
     springBoot3Version = '3.5.0'
     springSecurityVersion = '5.8.16'
     springSecurity6Version = '6.5.1'
-    springBootStarterLog4j2Version = '2.7.18'  // 与 springBootVersion 保持一致
+    springBootStarterLog4j2Version = '2.7.18'
 
     // 核心依赖
     javassistVersion = '3.30.2-GA'
@@ -72,8 +69,8 @@ ext {
     // 服务发现和配置
     zookeeperVersion = '3.7.2'
     curatorVersion = '5.8.0'
-    curatorFrameworkVersion = '5.8.0'  // 别名，与 curatorVersion 一致
-    curatorRecipesVersion = '5.8.0'  // 别名，与 curatorVersion 一致
+    curatorFrameworkVersion = '5.8.0'
+    curatorRecipesVersion = '5.8.0'
     nacosVersion = '2.5.1'
     apolloClientVersion = '2.4.0'
     sentinelVersion = '1.8.8'
@@ -93,7 +90,7 @@ ext {
     // 响应式
     reactorVersion = '3.7.11'
     reactiveStreamsVersion = '1.0.4'
-    reactiveVersion = '1.0.4'  // 别名，指向 reactiveStreamsVersion
+    reactiveVersion = '1.0.4'
     mutinyVersion = '2.9.0'
     rxjavaVersion = '2.2.21'
 
@@ -113,7 +110,7 @@ ext {
     spockVersion = '2.3-groovy-4.0'
     groovyVersion = '4.0.27'
     testContainerVersion = '1.21.0'
-    testcontainersVersion = '1.21.0'  // 别名，与 testContainerVersion 一致
+    testcontainersVersion = '1.21.0'
 
     // 工具类
     commonsLang3Version = '3.17.0'
@@ -126,37 +123,37 @@ ext {
 
     // 容器和Web
     servletVersion = '3.1.0'
-    javaxServletApiVersion = '3.1.0'  // 别名，与 servletVersion 一致
+    javaxServletApiVersion = '3.1.0'
     jakartaServletVersion = '6.1.0'
     websocketApiVersion = '1.1'
-    javaxWebsocketApiVersion = '1.1'  // 别名，与 websocketApiVersion 一致
+    javaxWebsocketApiVersion = '1.1'
     jakartaWebsocketApiVersion = '2.2.0'
-    jakartaWebsocketVersion = '2.2.0'  // 别名，指向 jakartaWebsocketApiVersion
+    jakartaWebsocketVersion = '2.2.0'
     jettyVersion = '9.4.57.v20241219'
     mortbayJettyVersion = '6.1.26'
     tomcatEmbedVersion = '8.5.100'
-    tomcatEmbedCoreVersion = '8.5.100'  // 别名，与 tomcatEmbedVersion 一致
+    tomcatEmbedCoreVersion = '8.5.100'
     tomcatServletApiVersion = '9.0.95'  // Tomcat Servlet API 版本
     okhttpVersion = '3.14.9'
 
     // 验证
     validationVersion = '1.1.0.Final'
-    validationApiVersion = '1.1.0.Final'  // 别名，与 validationVersion 一致
+    validationApiVersion = '1.1.0.Final'
     validationNewVersion = '3.1.1'
     hibernateValidatorVersion = '5.4.3.Final'
     hibernateValidatorNewVersion = '7.0.5.Final'
     jelVersion = '3.0.1-b12'
-    javaxElVersion = '3.0.1-b12'  // 别名，与 jelVersion 一致
+    javaxElVersion = '3.0.1-b12'
     jcacheVersion = '1.1.1'
 
     // REST
     rsApiVersion = '2.1.1'
     resteasyVersion = '3.15.6.Final'
-    resteasyJaxrsVersion = '3.15.6.Final'  // 别名，与 resteasyVersion 一致
-    resteasyJacksonProviderVersion = '3.15.6.Final'  // 别名，与 resteasyVersion 一致
+    resteasyJaxrsVersion = '3.15.6.Final'
+    resteasyJacksonProviderVersion = '3.15.6.Final'
     codehausJacksonVersion = '1.9.13'
     swaggerVersion = '1.6.16'
-    swaggerAnnotationsVersion = '1.6.16'  // 别名，与 swaggerVersion 一致
+    swaggerAnnotationsVersion = '1.6.16'
     swaggerAnnotationsV3Version = '2.2.32'  // OpenAPI 3.x annotations
     swaggerUiVersion = '5.22.0'  // Swagger UI webjar
     redocVersion = '2.3.0'  // Redoc webjar
@@ -220,9 +217,9 @@ ext {
     // J
     jacksonCoreVersion = '2.15.3'
     jacksonDatabindVersion = '2.15.3'
-    jakartaServletApiVersion = '6.1.0'  // 修正：应与jakarta_servlet_version一致
+    jakartaServletApiVersion = '6.1.0'
     jakartaValidationApiVersion = '3.0.2'
-    jakartaWebsocketClientApiVersion = '2.2.0'  // 修正：应与jakarta_websocket_version一致
+    jakartaWebsocketClientApiVersion = '2.2.0'
     javaxElApiVersion = '1.0.0'
     javaxWsRsApiVersion = '2.1.1'
     jaxbApiVersion = '2.3.1'
@@ -249,10 +246,10 @@ ext {
     mavenPluginToolsAnnotationsVersion = '3.10.2'
     mcpVersion = '0.11.2'  // Model Context Protocol SDK version
     micrometerObservationVersion = '1.11.5'
-    micrometerRegistryPrometheusSimpleclientVersion = '1.15.1'  // 修正：应与micrometer版本一致
+    micrometerRegistryPrometheusSimpleclientVersion = '1.15.1'
     micrometerTestVersion = '1.11.5'
-    micrometerTracingBridgeBraveVersion = '1.5.1'  // 修正：应与micrometer-tracing版本一致
-    micrometerTracingBridgeOtelVersion = '1.5.1'  // 修正：应与micrometer-tracing版本一致
+    micrometerTracingBridgeBraveVersion = '1.5.1'
+    micrometerTracingBridgeOtelVersion = '1.5.1'
     micrometerTracingIntegrationTestVersion = '1.11.5'
     mockitoCoreVersion = '4.11.0'
     mockitoInlineVersion = '4.11.0'
@@ -268,8 +265,8 @@ ext {
 
     // O
     opentelemetryApiVersion = '1.32.0'
-    opentelemetryExporterOtlpVersion = '1.32.0'  // 与 opentelemetryApiVersion 保持一致
-    opentelemetryExporterZipkinVersion = '1.32.0'  // 与 opentelemetryApiVersion 保持一致
+    opentelemetryExporterOtlpVersion = '1.32.0'
+    opentelemetryExporterZipkinVersion = '1.32.0'
     opentelemetrySdkVersion = '1.32.0'
 
     // P
@@ -287,22 +284,22 @@ ext {
     seataSpringBootStarterVersion = '5.3.39'
     sentinelApacheDubbo3AdapterVersion = '1.0.0'
     sentinelTransportSimpleHttpVersion = '1.0.0'
-    simpleclientPushgatewayVersion = '0.16.0'  // 修正：应与prometheus_client版本一致
+    simpleclientPushgatewayVersion = '0.16.0'
     simpleclientVersion = '0.16.0'
     slf4jApiVersion = '1.7.36'
     spockCoreVersion = '2.3-groovy-3.0'
     springAopVersion = '5.3.39'
-    springBootActuatorAutoconfigureVersion = '2.7.18'  // 更正为Spring Boot版本
-    springBootAutoconfigureVersion = '2.7.18'  // 更正为Spring Boot版本
-    springBootConfigurationProcessorVersion = '2.7.18'  // 更正为Spring Boot版本
+    springBootActuatorAutoconfigureVersion = '2.7.18'
+    springBootAutoconfigureVersion = '2.7.18'
+    springBootConfigurationProcessorVersion = '2.7.18'
     springBootDependenciesVersion = '3.2.0'
-    springBootStarterActuatorVersion = '2.7.18'  // 更正为Spring Boot版本
-    springBootStarterLoggingVersion = '2.7.18'  // 更正为Spring Boot版本
+    springBootStarterActuatorVersion = '2.7.18'
+    springBootStarterLoggingVersion = '2.7.18'
     springBootStarterTestVersion = '2.7.18'
     springBootStarterVersion = '2.7.18'
     springBootStarterWebVersion = '2.7.18'
-    springBootTestAutoconfigureVersion = '2.7.18'  // 更正为Spring Boot版本
-    springBootTestVersion = '2.7.18'  // 更正为Spring Boot版本
+    springBootTestAutoconfigureVersion = '2.7.18'
+    springBootTestVersion = '2.7.18'
     springExpressionVersion = '5.3.39'
     springFrameworkBomVersion = '5.3.39'
     springJclVersion = '5.3.39'
@@ -335,43 +332,10 @@ ext {
     webjarsLocatorLiteVersion = '1.0.1'  // Webjars Locator Lite
 
     // Z
-    zipkinReporterBraveVersion = '3.5.1'  // 修正：应与zipkin-reporter版本一致
-    zipkinSenderUrlconnectionVersion = '3.5.1'  // 修正：应与zipkin-reporter版本一致
-    // zipkinVersion = '3.5.1'  // 删除：zipkin 2.x 的版本已包含在 zipkin-reporter-bom 中
+    zipkinReporterBraveVersion = '3.5.1'
+    zipkinSenderUrlconnectionVersion = '3.5.1'
 }
 
-// ========================================
-// 📝 子模块依赖声明规范（快速参考）
-// ========================================
-// 
-// 所有依赖版本由 dubbo-dependencies-bom 统一管理，子模块声明依赖时 **不需要** 写版本号
-//
-// 依赖声明模板（复制即用，无需对齐）:
-// 
-//   dependencies {
-//       // 库模块：需要暴露给使用者的 API
-//       api "org.springframework:spring-core"
-//       api "org.javassist:javassist"
-//       
-//       // 内部实现依赖（推荐默认使用）
-//       implementation "com.alibaba.fastjson2:fastjson2"
-//       implementation "io.netty:netty-all"
-//       
-//       // 编译时依赖（运行时由容器提供）
-//       compileOnly "javax.servlet:javax.servlet-api"
-//       compileOnly "jakarta.servlet:jakarta.servlet-api"
-//       
-//       // 测试依赖
-//       testImplementation "org.mockito:mockito-core"
-//   }
-//
-// 注意：
-// - ✅ 不需要写版本号（如 :${version}）
-// - ✅ 不需要手动对齐冒号
-// - ✅ 版本自动从 BOM 获取
-// - ✅ 应用模块（如 dubbo-demo-*）统一使用 implementation
-// - ✅ 库模块（如 dubbo-common）根据需要选择 api 或 implementation
-// ========================================
 
 allprojects {
     group = rootProject.group
@@ -384,11 +348,7 @@ allprojects {
     }
 }
 
-// ========================================
-// 统一依赖版本管理 - 在根项目中集中定义
-// ========================================
 subprojects {
-    // 跳过 BOM 和 platform 项目，它们使用 java-platform 插件
     def isPlatformProject = project.name.contains('bom') ||
         project.name.contains('dependencies-all') ||
         project.path.contains(':dubbo-distribution:dubbo-bom')
@@ -400,9 +360,6 @@ subprojects {
         // 统一依赖版本管理 - 导入 BOM
         // ========================================
         dependencies {
-            // 使用 enforcedPlatform 强制应用 BOM 中定义的版本
-            // 子模块声明依赖时不需要指定版本号，版本由 dubbo-dependencies-bom 统一管理
-            // 详见上方 ext.dependencies 中列出的所有管理的依赖
             api enforcedPlatform(project(':dubbo-dependencies-bom'))
         }
 
@@ -410,9 +367,6 @@ subprojects {
         // 统一日志管理配置
         // ========================================
         configurations.all {
-            // 1. 解决 Log4j 循环依赖问题
-            // log4j-slf4j-impl (SLF4J -> Log4j2) 与 log4j-to-slf4j (Log4j2 -> SLF4J)
-            // 不能同时存在，会造成循环依赖
             exclude group: 'org.apache.logging.log4j', module: 'log4j-to-slf4j'
         }
 
