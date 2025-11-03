@@ -22,6 +22,7 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '8.1.1' apply false
     id 'com.google.protobuf' version '0.9.4' apply false
     id 'io.freefair.aggregate-javadoc' version '8.6' apply false
+    id 'net.researchgate.release' version '3.0.2'
 }
 
 ext {
@@ -336,6 +337,41 @@ ext {
     zipkinSenderUrlconnectionVersion = '3.5.1'
 }
 
+// ========================================
+// 🚀 版本自动管理配置（发布和升级）
+// ========================================
+release {
+    // 版本文件配置
+    versionPropertyFile = 'gradle.properties'
+    versionProperties = ['version']
+    
+    // 发布前检查
+    failOnCommitNeeded = true          // 必须提交所有更改
+    failOnPublishNeeded = true         // 必须发布到仓库
+    failOnSnapshotDependencies = true  // 不允许 SNAPSHOT 依赖
+    failOnUnversionedFiles = true      // 不允许未版本化文件
+    failOnUpdateNeeded = true          // 必须同步远程
+    revertOnFail = true                // 失败时回滚
+    
+    // 提交信息模板
+    preCommitText = ''
+    preTagCommitMessage = '[Gradle Release] - pre tag commit: '
+    tagCommitMessage = '[Gradle Release] - creating tag: '
+    newVersionCommitMessage = '[Gradle Release] - new version commit: '
+    
+    // Tag 模板
+    tagTemplate = 'v${version}'
+    
+    // 构建任务
+    buildTasks = ['build']
+    
+    // Git 配置
+    git {
+        requireBranch.set('maven_to_gradle')  // 只允许在此分支发布
+        pushToRemote.set('origin')            // 推送到远程
+        signTag.set(false)                    // 不签名 tag
+    }
+}
 
 allprojects {
     group = rootProject.group
