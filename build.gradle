@@ -30,27 +30,31 @@ plugins {
 ext {
     // Spring 生态系统
     springVersion = '5.3.39'
+    springWebVersion = '5.3.39'  // 别名，与 springVersion 一致
+    springTxVersion = '5.3.39'  // 别名，与 springVersion 一致
     spring6Version = '6.2.11'
     springBootVersion = '2.7.18'
+    springBootStarterTestVersion = '2.7.18'  // 别名，与 springBootVersion 一致
+    springBootStarterVersion = '2.7.18'  // 别名，与 springBootVersion 一致
+    springBootStarterWebVersion = '2.7.18'  // 别名，与 springBootVersion 一致
     springBoot3Version = '3.5.0'
     springSecurityVersion = '5.8.16'
     springSecurity6Version = '6.5.1'
-    spring_boot_starter_log4j2Version = '2.7.18'  // 别名，与 springBootVersion 保持一致
-    
+    springBootStarterLog4j2Version = '2.7.18'  // 与 springBootVersion 保持一致
+
     // 核心依赖
     javassistVersion = '3.30.2-GA'
     byteBuddyVersion = '1.17.5'
     netty4Version = '4.2.2.Final'
-    nettyVersion = '4.1.100.Final'
+    nettyVersion = '3.2.10.Final'  // org.jboss.netty:netty (Netty 3.x)
+    nettyCodecHttp2Version = '4.1.100.Final'
     nettyCodecHttp3Version = '0.0.21.Final'
-    netty_codec_http2Version = '4.1.100.Final'  // 别名，使用下划线命名
-    netty_codec_http3Version = '0.0.21.Final'  // 别名，使用下划线命名
     httpclientVersion = '4.5.14'
     httpcoreVersion = '4.4.16'
     jsr305Version = '3.0.2'
     javaxAnnotationApiVersion = '1.3.2'
     cglibVersion = '2.2.2'
-    
+
     // 序列化
     hessianVersion = '4.0.66'
     hessianLiteVersion = '4.0.4'
@@ -58,22 +62,24 @@ ext {
     fastjson2Version = '2.0.56'
     protobufJavaVersion = '3.25.8'
     protobufProtocVersion = '3.22.3'
-    
+
     // gRPC
     grpcVersion = '1.73.0'
     grpcContribVersion = '0.8.1'
     jprotocVersion = '1.2.2'
     mustacheVersion = '0.9.14'
-    
+
     // 服务发现和配置
     zookeeperVersion = '3.7.2'
     curatorVersion = '5.8.0'
+    curatorFrameworkVersion = '5.8.0'  // 别名，与 curatorVersion 一致
+    curatorRecipesVersion = '5.8.0'  // 别名，与 curatorVersion 一致
     nacosVersion = '2.5.1'
     apolloClientVersion = '2.4.0'
     sentinelVersion = '1.8.8'
     seataVersion = '1.8.0'
     envoyApiVersion = '0.1.35'
-    
+
     // 监控和追踪
     micrometerVersion = '1.15.1'
     micrometerCoreVersion = '1.11.5'
@@ -83,21 +89,21 @@ ext {
     zipkinVersion = '3.5.1'
     tDigestVersion = '3.3'
     prometheusClientVersion = '0.16.0'
-    
+
     // 响应式
     reactorVersion = '3.7.11'
     reactiveStreamsVersion = '1.0.4'
     reactiveVersion = '1.0.4'  // 别名，指向 reactiveStreamsVersion
     mutinyVersion = '2.9.0'
     rxjavaVersion = '2.2.21'
-    
+
     // 日志
     slf4jVersion = '1.7.36'
     log4j2Version = '2.24.3'
     logbackVersion = '1.2.13'
     jclVersion = '1.3.5'
     log4jVersion = '1.2.17'
-    
+
     // 测试
     junitJupiterVersion = '5.12.2'
     junitPlatformVersion = '1.13.1'
@@ -107,7 +113,8 @@ ext {
     spockVersion = '2.3-groovy-4.0'
     groovyVersion = '4.0.27'
     testContainerVersion = '1.21.0'
-    
+    testcontainersVersion = '1.21.0'  // 别名，与 testContainerVersion 一致
+
     // 工具类
     commonsLang3Version = '3.17.0'
     commonsIoVersion = '2.19.0'
@@ -116,95 +123,99 @@ ext {
     snappyJavaVersion = '1.1.10.7'
     gsonVersion = '2.13.1'
     jacksonVersion = '2.19.0'
-    
+
     // 容器和Web
-    servletVersion = '4.0.1'
+    servletVersion = '3.1.0'
+    javaxServletApiVersion = '3.1.0'  // 别名，与 servletVersion 一致
     jakartaServletVersion = '6.1.0'
     websocketApiVersion = '1.1'
+    javaxWebsocketApiVersion = '1.1'  // 别名，与 websocketApiVersion 一致
     jakartaWebsocketApiVersion = '2.2.0'
     jakartaWebsocketVersion = '2.2.0'  // 别名，指向 jakartaWebsocketApiVersion
     jettyVersion = '9.4.57.v20241219'
     mortbayJettyVersion = '6.1.26'
     tomcatEmbedVersion = '8.5.100'
+    tomcatEmbedCoreVersion = '8.5.100'  // 别名，与 tomcatEmbedVersion 一致
     okhttpVersion = '3.14.9'
-    
+
     // 验证
     validationVersion = '1.1.0.Final'
+    validationApiVersion = '1.1.0.Final'  // 别名，与 validationVersion 一致
     validationNewVersion = '3.1.1'
     hibernateValidatorVersion = '5.4.3.Final'
     hibernateValidatorNewVersion = '7.0.5.Final'
     jelVersion = '3.0.1-b12'
+    javaxElVersion = '3.0.1-b12'  // 别名，与 jelVersion 一致
     jcacheVersion = '1.1.1'
-    
+
     // REST
     rsApiVersion = '2.1.1'
     resteasyVersion = '3.15.6.Final'
+    resteasyJaxrsVersion = '3.15.6.Final'  // 别名，与 resteasyVersion 一致
+    resteasyJacksonProviderVersion = '3.15.6.Final'  // 别名，与 resteasyVersion 一致
     codehausJacksonVersion = '1.9.13'
     swaggerVersion = '1.6.16'
+    swaggerAnnotationsVersion = '1.6.16'  // 别名，与 swaggerVersion 一致
     swaggerAnnotationsV3Version = '2.2.22'
     swaggerUiVersion = '4.15.5'
     redocVersion = '2.0.0'
     webjarsLocatorVersion = '0.52'
     therapiJavadocVersion = '0.15.0'
-    
+
     // 安全和加密
     bouncycastleVersion = '1.79'
     bouncycastleBcprovVersion = '1.81'
-    
+
     // 其他
     snakeyamlVersion = '2.4'
     aspectjweaverVersion = '1.9.20.1'
-    jaxbVersion = '2.3.1'
+    jaxbVersion = '2.2.7'
     nashornCoreVersion = '15.6'
     activationVersion = '1.2.0'
     jakartaXmlBindApiVersion = '4.0.2'
     jaxbRuntimeVersion = '2.4.0-b180830.0438'
     portletVersion = '2.0'
     curatorTestVersion = '2.12.0'
-    
+
     // ========================================
     // 从 gradle.properties 迁移的版本变量
     // ========================================
-    
+
     // A
     activationVersion = '1.2.0'
     apolloMockserverVersion = '2.1.0'
     assertjCoreVersion = '3.24.2'
     asyncHttpClientVersion = '2.12.3'
-    
+
     // B
     bcpkixJdk18onVersion = '1.0.0'
     bcprovJdk18onVersion = '1.0.0'
     braveVersion = '5.18.1'
     byteBuddyAgentVersion = '1.14.10'
-    
+
     // C
     cacheApiVersion = '1.1.1'
     commonsExecVersion = '1.3'
     commonsLoggingVersion = '1.2'
     compilerVersion = '0.9.4'
-    curatorFrameworkVersion = '5.8.0'
-    curatorRecipesVersion = '5.8.0'
     curatorXDiscoveryVersion = '5.5.0'
-    
+
     // D
     dom4jVersion = '1.0.0'
-    
+
     // G
     grpcContextVersion = '1.59.1'
-    grpcContribVersion = '1.59.1'
     grpcCoreVersion = '1.59.1'
     grpcNettyShadedVersion = '4.1.100.Final'
     grpcProtobufVersion = '1.59.1'
     grpcServicesVersion = '1.59.1'
     grpcStubVersion = '1.59.1'
     grpcTestingVersion = '1.59.1'
-    
+
     // H
     hazelcastVersion = '1.0.0'
     hdrhistogramVersion = '2.1.12'
-    httpclientVersion = '1.0.0'
-    
+
     // J
     jacksonCoreVersion = '2.15.3'
     jacksonDatabindVersion = '2.15.3'
@@ -212,26 +223,22 @@ ext {
     jakartaValidationApiVersion = '3.0.2'
     jakartaWebsocketClientApiVersion = '2.2.0'  // 修正：应与jakarta_websocket_version一致
     javaxElApiVersion = '1.0.0'
-    javaxElVersion = '3.0.1-b12'
-    javaxServletApiVersion = '3.1.0'
-    javaxWebsocketApiVersion = '1.1'  // 更正版本号
     javaxWsRsApiVersion = '2.1.1'
     jaxbApiVersion = '2.3.1'
     jaxbCoreVersion = '1.0.0'
     jaxbImplVersion = '1.0.0'
-    jaxbRuntimeVersion = '2.3.1'
     jettyServletVersion = '9.4.53.v20231009'
     junitPlatformEngineVersion = '1.10.1'
     junitPlatformLauncherVersion = '1.10.1'
     junitPlatformRunnerVersion = '1.10.1'
     junitVersion = '5.10.1'
-    
+
     // L
     latencyutilsVersion = '2.0.3'
     log4jApiVersion = '2.20.0'
     log4jCoreVersion = '2.20.0'
     log4jSlf4jImplVersion = '2.20.0'
-    
+
     // M
     mavenArtifactVersion = '3.9.6'
     mavenCommonArtifactFiltersVersion = '3.3.2'
@@ -249,34 +256,31 @@ ext {
     mockitoCoreVersion = '4.11.0'
     mockitoInlineVersion = '4.11.0'
     mockitoJunitJupiterVersion = '5.10.1'
-    
+
     // N
     nacosClientVersion = '2.5.1'
     nettyCodecHaproxyVersion = '4.1.100.Final'
-    nettyCodecHttp2Version = '4.1.100.Final'
     nettyCodecHttpVersion = '4.1.100.Final'
     nettyHandlerVersion = '4.1.100.Final'
     nettyTransportNativeUnixCommonVersion = '4.1.100.Final'
     nettyTransportVersion = '4.1.100.Final'
-    
+
     // O
     opentelemetryApiVersion = '1.32.0'
-    opentelemetryExporterOtlpVersion = '1.0.0'
-    opentelemetryExporterZipkinVersion = '1.0.0'
+    opentelemetryExporterOtlpVersion = '1.32.0'  // 与 opentelemetryApiVersion 保持一致
+    opentelemetryExporterZipkinVersion = '1.32.0'  // 与 opentelemetryApiVersion 保持一致
     opentelemetrySdkVersion = '1.32.0'
-    
+
     // P
     plexusBuildApiVersion = '0.0.7'
     plexusComponentAnnotationsVersion = '2.2.0'
     plexusUtilsVersion = '3.5.1'
     protobufJavaUtilVersion = '3.25.8'
-    
+
     // R
     reactorCoreVersion = '1.0.0'
-    resteasyJacksonProviderVersion = '3.15.6.Final'
-    resteasyJaxrsVersion = '3.15.6.Final'
     resteasyNetty4Version = '3.15.6.Final'
-    
+
     // S
     seataCoreVersion = '1.0.0'
     seataSpringBootStarterVersion = '5.3.39'
@@ -315,25 +319,25 @@ ext {
     springWebfluxVersion = '5.3.39'
     springWebmvcVersion = '5.3.39'
     swaggerAnnotationsVersion = '1.6.16'
-    
+
     // T
     testcontainersVersion = '1.19.3'
     therapiRuntimeJavadocScribeVersion = '0.15.0'
     therapiRuntimeJavadocVersion = '0.15.0'
     tomcatAnnotationsApiVersion = '6.0.53'
     tomcatEmbedCoreVersion = '8.5.100'
-    
+
     // V
     validationApiVersion = '1.1.0.Final'
-    
+
     // W
     webjarsLocatorLiteVersion = '0.11.0'
-    
+
     // Z
     zipkinReporterBraveVersion = '3.5.1'  // 修正：应与zipkin-reporter版本一致
     zipkinSenderUrlconnectionVersion = '3.5.1'  // 修正：应与zipkin-reporter版本一致
     zipkinVersion = '1.0.0'
-    
+
 }
 
 allprojects {
@@ -349,23 +353,23 @@ allprojects {
 
 subprojects {
     // 跳过 BOM 和 platform 项目，它们使用 java-platform 插件
-    def isPlatformProject = project.name.contains('bom') || 
+    def isPlatformProject = project.name.contains('bom') ||
                            project.name.contains('dependencies-all') ||
                            project.path.contains(':dubbo-distribution:dubbo-bom')
-    
+
     if (!isPlatformProject) {
         apply plugin: 'java-library'
-        
+
         // ========================================
         // 统一日志管理配置
         // ========================================
         configurations.all {
             // 1. 解决 Log4j 循环依赖问题
-            // log4j-slf4j-impl (SLF4J -> Log4j2) 与 log4j-to-slf4j (Log4j2 -> SLF4J) 
+            // log4j-slf4j-impl (SLF4J -> Log4j2) 与 log4j-to-slf4j (Log4j2 -> SLF4J)
             // 不能同时存在，会造成循环依赖
             exclude group: 'org.apache.logging.log4j', module: 'log4j-to-slf4j'
         }
-        
+
         // Java configuration
         java {
             sourceCompatibility = JavaVersion.VERSION_1_8
@@ -393,7 +397,7 @@ subprojects {
                 '-Dfile.encoding=UTF-8',
                 '-Djava.net.preferIPv4Stack=true'
             ]
-            
+
             // Add JDK 15+ compatibility
             if (JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_15)) {
                 jvmArgs += [
@@ -414,7 +418,7 @@ subprojects {
             testImplementation "org.mockito:mockito-inline:${mockitoVersion}"
         }
     }
-    
+
     apply plugin: 'maven-publish'
     apply plugin: 'signing'
 
@@ -427,7 +431,7 @@ subprojects {
                 include 'LICENSE'
                 into 'META-INF'
             }
-            
+
             // Add version info
             doLast {
                 def versionFile = file("${buildDir}/resources/main/META-INF/dubbo-versions/${project.name}")
@@ -462,7 +466,7 @@ git.commit.id=${getGitCommitId()}
             if (JavaVersion.current().isJava9Compatible()) {
                 options.addBooleanOption('html5', true)
             }
-            
+
             // Exclude demo packages
             exclude '**/org/apache/dubbo/demo/**'
         }
@@ -479,18 +483,18 @@ git.commit.id=${getGitCommitId()}
                         } else if (components.findByName('java')) {
                             from components.java
                         }
-                        
+
                         pom {
                             name = project.name
                             description = "The ${project.name} module of Apache Dubbo project"
                             url = 'https://github.com/apache/dubbo'
                             inceptionYear = '2011'
-                            
+
                             organization {
                                 name = 'The Apache Software Foundation'
                                 url = 'http://www.apache.org/'
                             }
-                            
+
                             licenses {
                                 license {
                                     name = 'Apache License, Version 2.0'
@@ -498,7 +502,7 @@ git.commit.id=${getGitCommitId()}
                                     distribution = 'repo'
                                 }
                             }
-                            
+
                             developers {
                                 developer {
                                     id = 'dubbo.io'
@@ -507,14 +511,14 @@ git.commit.id=${getGitCommitId()}
                                     url = 'http://dubbo.apache.org/'
                                 }
                             }
-                            
+
                             scm {
                                 connection = 'scm:git:https://github.com/apache/dubbo.git'
                                 developerConnection = 'scm:git:https://github.com/apache/dubbo.git'
                                 url = 'https://github.com/apache/dubbo'
                                 tag = 'HEAD'
                             }
-                            
+
                             issueManagement {
                                 system = 'Github Issues'
                                 url = 'https://github.com/apache/dubbo/issues'
@@ -522,7 +526,7 @@ git.commit.id=${getGitCommitId()}
                         }
                     }
                 }
-                
+
                 repositories {
                     maven {
                         def releasesRepoUrl = "https://repository.apache.org/service/local/staging/deploy/maven2"

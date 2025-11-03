@@ -97,7 +97,7 @@ include 'dubbo-spring-boot-project:dubbo-spring-boot-actuator'
 include 'dubbo-spring-boot-project:dubbo-spring-boot-autoconfigure'
 include 'dubbo-spring-boot-project:dubbo-spring-boot-compatible'
 // include 'dubbo-spring-boot-project:dubbo-spring-boot-compatible:dubbo-spring-boot-actuator-autoconfigure-compatible'  // Spring Boot 1.x已EOL
-// include 'dubbo-spring-boot-project:dubbo-spring-boot-compatible:dubbo-spring-boot-autoconfigure-compatible'  // Spring Boot 1.x已EOL
+include 'dubbo-spring-boot-project:dubbo-spring-boot-compatible:dubbo-spring-boot-autoconfigure-compatible'
 include 'dubbo-spring-boot-project:dubbo-spring-boot'
 include 'dubbo-spring-boot-project:dubbo-spring-boot-actuator-autoconfigure'
 include 'dubbo-spring-boot-project:dubbo-spring-boot-3-autoconfigure'  // Spring Boot 3.x优先支持（Java 17+）

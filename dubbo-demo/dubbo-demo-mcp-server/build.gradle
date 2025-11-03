@@ -43,7 +43,7 @@ dependencies {
     api project(':dubbo-plugin:dubbo-mcp')
     api project(':dubbo-config:dubbo-config-spring')
     api project(':dubbo-spring-boot-project:dubbo-spring-boot-autoconfigure')
-    implementation "org.springframework.boot:spring-boot-starter-log4j2:${spring_boot_starter_log4j2Version}"
+    implementation "org.springframework.boot:spring-boot-starter-log4j2:${springBootStarterLog4j2Version}"
     implementation "org.springframework.boot:spring-boot-starter:${springBootStarterVersion}"
     compileOnly "com.github.therapi:therapi-runtime-javadoc-scribe:${therapiRuntimeJavadocScribeVersion}"
 }

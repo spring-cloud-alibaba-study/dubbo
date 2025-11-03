@@ -31,5 +31,5 @@ dependencies {
     testImplementation project(':dubbo-rpc:dubbo-rpc-dubbo')
     compileOnly project(':dubbo-plugin:dubbo-qos')
     testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootStarterTestVersion}"
-    testImplementation "org.springframework.boot:spring-boot-starter-log4j2:${spring_boot_starter_log4j2Version}"
+    testImplementation "org.springframework.boot:spring-boot-starter-log4j2:${springBootStarterLog4j2Version}"
 }

@@ -20,9 +20,9 @@ description = 'Apache Dubbo Spring Boot Auto-Configure'
 dependencies {
     // 依赖dubbo-spring-boot模块（包含DubboUtils、DubboOpenAPIExportListener等工具类）
     api project(':dubbo-spring-boot-project:dubbo-spring-boot')
-    // api project(':dubbo-spring-boot-project:dubbo-spring-boot-compatible:dubbo-spring-boot-autoconfigure-compatible')  // 暂时禁用：Spring Boot 1.x已EOL
+    api project(':dubbo-spring-boot-project:dubbo-spring-boot-compatible:dubbo-spring-boot-autoconfigure-compatible')
     compileOnly "org.springframework.boot:spring-boot-autoconfigure:${springBootAutoconfigureVersion}"
-    compileOnly "org.springframework.boot:spring-boot-starter-log4j2:${spring_boot_starter_log4j2Version}"
+    compileOnly "org.springframework.boot:spring-boot-starter-log4j2:${springBootStarterLog4j2Version}"
     compileOnly "org.springframework.boot:spring-boot-configuration-processor:${springBootConfigurationProcessorVersion}"
     // api project(':dubbo') // 模块不存在，已注释
     compileOnly project(':dubbo-common')

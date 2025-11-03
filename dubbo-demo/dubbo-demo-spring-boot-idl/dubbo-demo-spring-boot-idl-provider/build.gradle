@@ -15,4 +15,58 @@
  * limitations under the License.
  */
 
-description = 'The dubbo-demo-spring-boot-idl module of dubbo project'
+plugins {
+    id 'com.google.protobuf' version '0.9.4'
+}
+
+description = 'The dubbo-demo-spring-boot-idl-provider module of dubbo project'
+
+dependencies {
+    implementation project(':dubbo-rpc:dubbo-rpc-triple')
+    implementation "com.google.protobuf:protobuf-java:${protobufJavaVersion}"
+    implementation "io.grpc:grpc-protobuf:${grpcVersion}"
+    implementation "io.grpc:grpc-stub:${grpcVersion}"
+    implementation "org.springframework.boot:spring-boot-starter:${springBootVersion}"
+}
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:${protobufProtocVersion}"
+    }
+    plugins {
+        grpc {
+            artifact = "io.grpc:protoc-gen-grpc-java:${grpcVersion}"
+        }
+        dubbo {
+            path = project(':dubbo-plugin:dubbo-compiler').tasks.jar.outputs.files.singleFile.absolutePath
+        }
+    }
+    generateProtoTasks {
+        all().each { task ->
+            task.dependsOn ':dubbo-plugin:dubbo-compiler:jar'
+            task.plugins {
+                grpc {}
+                dubbo {
+                    option 'dubbo'
+                }
+            }
+        }
+    }
+    generatedFilesBaseDir = "$buildDir/generated/source/proto"
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs += [
+                "$buildDir/generated/source/proto/main/java",
+                "$buildDir/generated/source/proto/main/grpc",
+                "$buildDir/generated/source/proto/main/dubbo"
+            ]
+        }
+    }
+}
+
+tasks.named('compileJava') {
+    dependsOn 'generateProto'
+}
