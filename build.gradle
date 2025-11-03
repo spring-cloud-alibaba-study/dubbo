@@ -35,6 +35,7 @@ ext {
     springBoot3Version = '3.5.0'
     springSecurityVersion = '5.8.16'
     springSecurity6Version = '6.5.1'
+    spring_boot_starter_log4j2Version = '2.7.18'  // 别名，与 springBootVersion 保持一致
     
     // 核心依赖
     javassistVersion = '3.30.2-GA'
@@ -42,21 +43,36 @@ ext {
     netty4Version = '4.2.2.Final'
     nettyVersion = '4.1.100.Final'
     nettyCodecHttp3Version = '0.0.21.Final'
+    netty_codec_http2Version = '4.1.100.Final'  // 别名，使用下划线命名
+    netty_codec_http3Version = '0.0.21.Final'  // 别名，使用下划线命名
+    httpclientVersion = '4.5.14'
+    httpcoreVersion = '4.4.16'
+    jsr305Version = '3.0.2'
+    javaxAnnotationApiVersion = '1.3.2'
+    cglibVersion = '2.2.2'
     
     // 序列化
     hessianVersion = '4.0.66'
+    hessianLiteVersion = '4.0.4'
+    fastjsonVersion = '1.2.83_noneautotype'
     fastjson2Version = '2.0.56'
     protobufJavaVersion = '3.25.8'
     protobufProtocVersion = '3.22.3'
     
     // gRPC
     grpcVersion = '1.73.0'
+    grpcContribVersion = '0.8.1'
+    jprotocVersion = '1.2.2'
+    mustacheVersion = '0.9.14'
     
     // 服务发现和配置
     zookeeperVersion = '3.7.2'
     curatorVersion = '5.8.0'
     nacosVersion = '2.5.1'
     apolloClientVersion = '2.4.0'
+    sentinelVersion = '1.8.8'
+    seataVersion = '1.8.0'
+    envoyApiVersion = '0.1.35'
     
     // 监控和追踪
     micrometerVersion = '1.15.1'
@@ -64,12 +80,14 @@ ext {
     micrometerTracingVersion = '1.5.1'
     opentelemetryVersion = '1.50.0'
     zipkinReporterVersion = '3.5.1'
+    zipkinVersion = '3.5.1'
     tDigestVersion = '3.3'
     prometheusClientVersion = '0.16.0'
     
     // 响应式
     reactorVersion = '3.7.11'
     reactiveStreamsVersion = '1.0.4'
+    reactiveVersion = '1.0.4'  // 别名，指向 reactiveStreamsVersion
     mutinyVersion = '2.9.0'
     rxjavaVersion = '2.2.21'
     
@@ -77,14 +95,18 @@ ext {
     slf4jVersion = '1.7.36'
     log4j2Version = '2.24.3'
     logbackVersion = '1.2.13'
+    jclVersion = '1.3.5'
+    log4jVersion = '1.2.17'
     
     // 测试
     junitJupiterVersion = '5.12.2'
+    junitPlatformVersion = '1.13.1'
     mockitoVersion = '4.11.0'
     awaitilityVersion = '4.3.0'
     hamcrestVersion = '2.2'
     spockVersion = '2.3-groovy-4.0'
     groovyVersion = '4.0.27'
+    testContainerVersion = '1.21.0'
     
     // 工具类
     commonsLang3Version = '3.17.0'
@@ -99,19 +121,25 @@ ext {
     servletVersion = '4.0.1'
     jakartaServletVersion = '6.1.0'
     websocketApiVersion = '1.1'
-    jakartaWebsocketApiVersion = '2.1.0'
+    jakartaWebsocketApiVersion = '2.2.0'
+    jakartaWebsocketVersion = '2.2.0'  // 别名，指向 jakartaWebsocketApiVersion
     jettyVersion = '9.4.57.v20241219'
+    mortbayJettyVersion = '6.1.26'
     tomcatEmbedVersion = '8.5.100'
+    okhttpVersion = '3.14.9'
     
     // 验证
     validationVersion = '1.1.0.Final'
     validationNewVersion = '3.1.1'
     hibernateValidatorVersion = '5.4.3.Final'
     hibernateValidatorNewVersion = '7.0.5.Final'
+    jelVersion = '3.0.1-b12'
+    jcacheVersion = '1.1.1'
     
     // REST
     rsApiVersion = '2.1.1'
     resteasyVersion = '3.15.6.Final'
+    codehausJacksonVersion = '1.9.13'
     swaggerVersion = '1.6.16'
     swaggerAnnotationsV3Version = '2.2.22'
     swaggerUiVersion = '4.15.5'
@@ -121,11 +149,18 @@ ext {
     
     // 安全和加密
     bouncycastleVersion = '1.79'
+    bouncycastleBcprovVersion = '1.81'
     
     // 其他
     snakeyamlVersion = '2.4'
     aspectjweaverVersion = '1.9.20.1'
     jaxbVersion = '2.3.1'
+    nashornCoreVersion = '15.6'
+    activationVersion = '1.2.0'
+    jakartaXmlBindApiVersion = '4.0.2'
+    jaxbRuntimeVersion = '2.4.0-b180830.0438'
+    portletVersion = '2.0'
+    curatorTestVersion = '2.12.0'
     
     // ========================================
     // 从 gradle.properties 迁移的版本变量

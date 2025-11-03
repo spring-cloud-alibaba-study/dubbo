@@ -20,7 +20,7 @@ description = 'The multiple registry module of dubbo project'
 dependencies {
     api project(':dubbo-registry:dubbo-registry-api')
     testImplementation project(':dubbo-registry:dubbo-registry-zookeeper')
-    testImplementation "org.apache.commons:commons-lang3:${commons_lang3Version}"
+    testImplementation "org.apache.commons:commons-lang3:${commonsLang3Version}"
     testImplementation project(':dubbo-test:dubbo-test-common')
     testImplementation "org.apache.curator:curator-framework:${curatorFrameworkVersion}"
     testImplementation "org.apache.curator:curator-recipes:${curatorRecipesVersion}"

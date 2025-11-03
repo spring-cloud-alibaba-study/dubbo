@@ -21,7 +21,7 @@ dependencies {
     api project(':dubbo-common')
     implementation "org.junit.platform:junit-platform-launcher:${junitPlatformLauncherVersion}"
     implementation "org.junit.platform:junit-platform-engine:${junitPlatformEngineVersion}"
-    implementation "org.apache.commons:commons-lang3:${commons_lang3Version}"
+    implementation "org.apache.commons:commons-lang3:${commonsLang3Version}"
     implementation "org.apache.zookeeper:zookeeper:${zookeeperVersion}"
     implementation "org.apache.curator:curator-framework:${curatorFrameworkVersion}"
     implementation "org.apache.commons:commons-compress:${commonsCompressVersion}"
