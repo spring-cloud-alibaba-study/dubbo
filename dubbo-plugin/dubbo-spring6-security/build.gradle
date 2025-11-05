@@ -47,12 +47,12 @@ dependencies {
     compileOnly "org.springframework.security:spring-security-oauth2-jose:${springSecurity6Version}"
     compileOnly "org.springframework.security:spring-security-oauth2-resource-server:${springSecurity6Version}"
     // OAuth2 Authorization Server uses separate version (not Spring Security version)
-    compileOnly "org.springframework.security:spring-security-oauth2-authorization-server:${springSecurityOauth2AuthorizationServerVersion}"
+    compileOnly libs.springSecurityOauth2AuthorizationServer
     compileOnly "org.springframework.security:spring-security-oauth2-client:${springSecurity6Version}"
     // Use Spring Boot 3 dependencies
-    compileOnly "org.springframework.boot:spring-boot-starter:${springBoot3Version}"
+    compileOnly libs.springBoot3Starter
     compileOnly "org.springframework.boot:spring-boot:${springBoot3Version}"
-    compileOnly "org.springframework.boot:spring-boot-autoconfigure:${springBoot3Version}"
+    compileOnly libs.springBoot3Autoconfigure
     compileOnly "org.springframework.boot:spring-boot-starter-logging:${springBoot3Version}"
     compileOnly "org.springframework.boot:spring-boot-test:${springBoot3Version}"
     compileOnly "org.springframework.boot:spring-boot-test-autoconfigure:${springBoot3Version}"

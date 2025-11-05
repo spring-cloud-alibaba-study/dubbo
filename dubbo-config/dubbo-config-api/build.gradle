@@ -31,7 +31,7 @@ dependencies {
     api project(':dubbo-rpc:dubbo-rpc-injvm')
     testImplementation project(':dubbo-rpc:dubbo-rpc-dubbo')
     testImplementation project(':dubbo-rpc:dubbo-rpc-triple')
-    testImplementation "io.swagger:swagger-annotations:${swaggerAnnotationsVersion}"
+    testImplementation libs.swaggerAnnotations
     testImplementation "org.jboss.resteasy:resteasy-jaxrs"
     testImplementation project(':dubbo-remoting:dubbo-remoting-netty4')
     testImplementation project(':dubbo-serialization:dubbo-serialization-hessian2')
@@ -49,5 +49,5 @@ dependencies {
     testImplementation project(':dubbo-plugin:dubbo-filter-cache')
     testImplementation project(':dubbo-plugin:dubbo-filter-validation')
     testImplementation "org.testcontainers:testcontainers"
-    testImplementation "org.jboss.resteasy:resteasy-jackson-provider:${resteasyJacksonProviderVersion}"
+    testImplementation libs.resteasyJacksonProvider
 }

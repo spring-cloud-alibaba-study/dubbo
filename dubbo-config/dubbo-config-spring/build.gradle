@@ -25,8 +25,8 @@ dependencies {
     implementation "org.springframework:spring-context"
     compileOnly "javax.servlet:javax.servlet-api"
     // Add javax.annotation support (required for Java 9+)
-    compileOnly "javax.annotation:javax.annotation-api:${javaxAnnotationApiVersion}"
-    testImplementation "org.aspectj:aspectjweaver:${aspectjweaverVersion}"
+    compileOnly libs.javaxAnnotationApi
+    testImplementation libs.aspectjweaver
     testImplementation project(':dubbo-rpc:dubbo-rpc-dubbo')
     testImplementation project(':dubbo-rpc:dubbo-rpc-triple')
     testImplementation project(':dubbo-rpc:dubbo-rpc-injvm')
@@ -37,7 +37,7 @@ dependencies {
     testImplementation "org.hibernate:hibernate-validator"
     testImplementation "org.glassfish:javax.el"
     testImplementation "org.springframework:spring-tx"
-    testImplementation "org.springframework:spring-test:${springVersion}"
+    testImplementation libs.springTest
     testImplementation "org.apache.tomcat.embed:tomcat-embed-core"
     testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootStarterTestVersion}"
     testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"

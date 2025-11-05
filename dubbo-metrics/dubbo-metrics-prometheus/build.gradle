@@ -23,7 +23,7 @@ dependencies {
     // Use micrometerCoreVersion to maintain version consistency
     implementation "io.micrometer:micrometer-registry-prometheus:${micrometerCoreVersion}"
     implementation "io.prometheus:simpleclient_pushgateway:${prometheusClientVersion}"
-    testImplementation "org.apache.httpcomponents:httpclient:${httpclientVersion}"
+    testImplementation libs.httpclient
     api project(':dubbo-plugin:dubbo-qos-api')
     testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
 

@@ -22,8 +22,8 @@ dependencies {
     api project(':dubbo-cluster')
     api project(':dubbo-rpc:dubbo-rpc-api')
     api project(':dubbo-metrics:dubbo-metrics-default')
-    implementation "io.micrometer:micrometer-core:${micrometerCoreVersion}"
-    implementation "io.micrometer:micrometer-tracing:${micrometerTracingVersion}"
+    implementation libs.micrometerCore
+    implementation libs.micrometerTracing
     
     // OpenTelemetry - needs implementation to compile
     implementation "io.micrometer:micrometer-tracing-bridge-otel:${micrometerTracingVersion}"
@@ -36,6 +36,6 @@ dependencies {
     
     // Test dependencies
     testImplementation "io.micrometer:micrometer-test:${micrometerVersion}"
-    testImplementation "io.micrometer:micrometer-tracing-integration-test:${micrometerTracingVersion}"
+    testImplementation libs.micrometerTracingIntegrationTest
     testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
 }

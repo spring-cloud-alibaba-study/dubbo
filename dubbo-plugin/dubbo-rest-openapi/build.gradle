@@ -19,10 +19,10 @@ description = 'The dubbo-parent module of dubbo project'
 
 dependencies {
     api project(':dubbo-rpc:dubbo-rpc-triple')
-    implementation "io.swagger.core.v3:swagger-annotations:${swaggerAnnotationsV3Version}"
-    implementation "org.webjars:swagger-ui:${swaggerUiVersion}"
+    implementation libs.swaggerAnnotationsV3
+    implementation libs.swaggerUi
     implementation "org.webjars:redoc:${redocVersion}"
-    implementation "org.webjars:webjars-locator-lite:${webjarsLocatorLiteVersion}"
-    implementation "com.github.therapi:therapi-runtime-javadoc:${therapiRuntimeJavadocVersion}"
+    implementation libs.webjarsLocatorLite
+    implementation libs.therapiJavadoc
     testImplementation "org.spockframework:spock-core"
 }

@@ -26,8 +26,8 @@ dependencies {
     implementation "org.springframework:spring-web"
     compileOnly "org.springframework:spring-webmvc"
     testImplementation project(':dubbo-remoting:dubbo-remoting-netty4')
-    testImplementation "javax.xml.bind:jaxb-api:${jaxbApiVersion}"
-    testImplementation "org.glassfish.jaxb:jaxb-runtime:${jaxbRuntimeVersion}"
+    testImplementation libs.jaxbApi
+    testImplementation libs.jaxbRuntime
     testImplementation project(':dubbo-rpc:dubbo-rpc-triple')
     testImplementation "com.google.protobuf:protobuf-java-util"
     testImplementation "org.spockframework:spock-core"

@@ -22,9 +22,9 @@ dependencies {
     implementation "javax.ws.rs:javax.ws.rs-api"
     implementation "org.jboss.resteasy:resteasy-jaxrs"
     testImplementation project(':dubbo-remoting:dubbo-remoting-netty4')
-    testImplementation "javax.xml.bind:jaxb-api:${jaxbApiVersion}"
-    testImplementation "org.glassfish.jaxb:jaxb-runtime:${jaxbRuntimeVersion}"
-    testImplementation "org.yaml:snakeyaml:${snakeyamlVersion}"
+    testImplementation libs.jaxbApi
+    testImplementation libs.jaxbRuntime
+    testImplementation libs.snakeyaml
     testImplementation project(':dubbo-rpc:dubbo-rpc-triple')
     testImplementation "com.google.protobuf:protobuf-java-util"
     testImplementation "org.spockframework:spock-core"

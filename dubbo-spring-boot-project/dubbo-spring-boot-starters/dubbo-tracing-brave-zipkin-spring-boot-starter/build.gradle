@@ -19,8 +19,8 @@ description = 'Apache Dubbo Spring Boot Tracing Brave Zipkin Starter'
 
 dependencies {
     api project(':dubbo-spring-boot-project:dubbo-spring-boot-autoconfigure')
-    implementation "io.micrometer:micrometer-tracing-bridge-brave:${micrometerTracingBridgeBraveVersion}"
-    implementation "io.zipkin.reporter2:zipkin-reporter-brave:${zipkinReporterBraveVersion}"
+    implementation libs.micrometerTracingBridgeBrave
+    implementation libs.zipkinReporterBrave
     implementation "io.zipkin.zipkin2:zipkin:${zipkinVersion}"
-    implementation "io.zipkin.reporter2:zipkin-sender-urlconnection:${zipkinSenderUrlconnectionVersion}"
+    implementation libs.zipkinSenderUrlconnection
 }

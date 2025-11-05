@@ -22,7 +22,7 @@ dependencies {
     api project(':dubbo-metrics:dubbo-metrics-api')
     api project(':dubbo-metrics:dubbo-metrics-default')
     api project(':dubbo-metrics:dubbo-metrics-prometheus')
-    implementation "com.ctrip.framework.apollo:apollo-client:${apolloClientVersion}"
-    testImplementation "com.ctrip.framework.apollo:apollo-mockserver:${apolloMockserverVersion}"
+    implementation libs.apolloClient
+    testImplementation libs.apolloMockserver
     api project(':dubbo-metrics:dubbo-metrics-config-center')
 }

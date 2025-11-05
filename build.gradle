@@ -51,7 +51,7 @@ ext {
     springSecurityVersion = libs.versions.springSecurity.get()
     springSecurity6Version = libs.versions.springSecurity6.get()
     springSecurityOauth2AuthorizationServerVersion = libs.versions.springSecurityOauth2AuthorizationServer.get()
-
+    
     // Core Dependencies
     javassistVersion = libs.versions.javassist.get()
     byteBuddyVersion = libs.versions.byteBuddy.get()
@@ -70,7 +70,7 @@ ext {
     jsr305Version = libs.versions.jsr305.get()
     javaxAnnotationApiVersion = libs.versions.javaxAnnotationApi.get()
     cglibVersion = libs.versions.cglib.get()
-
+    
     // Serialization
     hessianVersion = libs.versions.hessian.get()
     hessianLiteVersion = libs.versions.hessianLite.get()
@@ -85,7 +85,7 @@ ext {
     jacksonDatabindVersion = libs.versions.jacksonDatabind.get()
     codehausJacksonVersion = libs.versions.codehausJackson.get()
     snappyJavaVersion = libs.versions.snappyJava.get()
-
+    
     // gRPC
     grpcVersion = libs.versions.grpc.get()
     grpcContribVersion = libs.versions.grpcContrib.get()
@@ -98,7 +98,7 @@ ext {
     grpcTestingVersion = libs.versions.grpcTesting.get()
     jprotocVersion = libs.versions.jprotoc.get()
     mustacheVersion = libs.versions.mustache.get()
-
+    
     // Service Discovery and Configuration
     zookeeperVersion = libs.versions.zookeeper.get()
     curatorVersion = libs.versions.curator.get()
@@ -117,7 +117,7 @@ ext {
     seataCoreVersion = libs.versions.seataCore.get()
     seataSpringBootStarterVersion = libs.versions.seata.get()
     envoyApiVersion = libs.versions.envoyApi.get()
-
+    
     // Monitoring and Tracing
     micrometerVersion = libs.versions.micrometer.get()
     micrometerCoreVersion = libs.versions.micrometerCore.get()
@@ -146,12 +146,12 @@ ext {
     zipkinReporterBraveVersion = libs.versions.zipkinReporterBrave.get()
     zipkinSenderUrlconnectionVersion = libs.versions.zipkinSenderUrlconnection.get()
     braveVersion = libs.versions.brave.get()
-    tDigestVersion = libs.versions.TDigest.get()
+    tDigestVersion = libs.versions.digest.get()
     prometheusClientVersion = libs.versions.prometheusClient.get()
     simpleclientVersion = libs.versions.simpleclient.get()
     simpleclientPushgatewayVersion = libs.versions.simpleclientPushgateway.get()
     hdrhistogramVersion = libs.versions.hdrhistogram.get()
-
+    
     // Reactive
     reactorVersion = libs.versions.reactor.get()
     reactorCoreVersion = libs.versions.reactorCore.get()
@@ -160,7 +160,7 @@ ext {
     mutinyVersion = libs.versions.mutiny.get()
     rxjavaVersion = libs.versions.rxjava.get()
     rxjava2Version = libs.versions.rxjava2.get()
-
+    
     // Logging
     slf4jVersion = libs.versions.slf4j.get()
     slf4jApiVersion = libs.versions.slf4jApi.get()
@@ -172,7 +172,7 @@ ext {
     jclVersion = libs.versions.jcl.get()
     commonsLoggingVersion = libs.versions.commonsLogging.get()
     log4jVersion = libs.versions.log4j.get()
-
+    
     // Testing
     junitVersion = libs.versions.junit.get()
     junitJupiterVersion = libs.versions.junitJupiter.get()
@@ -192,7 +192,7 @@ ext {
     groovyVersion = libs.versions.groovy.get()
     testContainerVersion = libs.versions.testcontainers.get()
     testcontainersVersion = libs.versions.testcontainers.get()
-
+    
     // Utilities
     commonsLang3Version = libs.versions.commonsLang3.get()
     commonsIoVersion = libs.versions.commonsIo.get()
@@ -200,7 +200,7 @@ ext {
     commonsCompressVersion = libs.versions.commonsCompress.get()
     commonsExecVersion = libs.versions.commonsExec.get()
     snakeyamlVersion = libs.versions.snakeyaml.get()
-
+    
     // Container and Web
     servletVersion = libs.versions.servlet.get()
     servletApiVersion = libs.versions.servletApi.get()
@@ -220,7 +220,7 @@ ext {
     tomcatServletApiVersion = libs.versions.tomcatServletApi.get()
     okhttpVersion = libs.versions.okhttp.get()
     asyncHttpClientVersion = libs.versions.asyncHttpClient.get()
-
+    
     // Validation
     validationVersion = libs.versions.validation.get()
     validationApiVersion = libs.versions.validationApi.get()
@@ -233,7 +233,7 @@ ext {
     javaxElApiVersion = libs.versions.javaxElApi.get()
     jcacheVersion = libs.versions.jcache.get()
     cacheApiVersion = libs.versions.cacheApi.get()
-
+    
     // REST and API Documentation
     rsApiVersion = libs.versions.rsApi.get()
     javaxWsRsApiVersion = libs.versions.javaxWsRsApi.get()
@@ -250,13 +250,13 @@ ext {
     therapiJavadocVersion = libs.versions.therapiJavadoc.get()
     therapiRuntimeJavadocVersion = libs.versions.therapiRuntimeJavadoc.get()
     therapiRuntimeJavadocScribeVersion = libs.versions.therapiRuntimeJavadocScribe.get()
-
+    
     // Security
     bouncycastleVersion = libs.versions.bouncycastle.get()
     bouncycastleBcprovVersion = libs.versions.bouncycastleBcprov.get()
     bcpkixJdk18onVersion = libs.versions.bcpkixJdk18on.get()
     bcprovJdk18onVersion = libs.versions.bcprovJdk18on.get()
-
+    
     // XML and Data Binding
     dom4jVersion = libs.versions.dom4j.get()
     jaxbVersion = libs.versions.jaxb.get()
@@ -266,7 +266,7 @@ ext {
     jaxbRuntimeVersion = libs.versions.jaxbRuntime.get()
     jakartaXmlBindApiVersion = libs.versions.jakartaXmlBindApi.get()
     activationVersion = libs.versions.activation.get()
-
+    
     // Others
     aspectjweaverVersion = libs.versions.aspectjweaver.get()
     nashornCoreVersion = libs.versions.nashornCore.get()
@@ -274,7 +274,7 @@ ext {
     mcpVersion = libs.versions.mcp.get()
     hazelcastVersion = libs.versions.hazelcast.get()
     latencyutilsVersion = libs.versions.latencyutils.get()
-
+    
     // Maven Plugins and Tools
     mavenArtifactVersion = libs.versions.mavenArtifact.get()
     mavenCoreVersion = libs.versions.mavenCore.get()
@@ -309,17 +309,17 @@ allprojects {
 }
 
 subprojects {
-    def isPlatformProject = project.name.contains('bom') ||
+    def isPlatformProject = project.name.contains('bom') || 
                            project.name.contains('dependencies-all') ||
                            project.path.contains(':dubbo-distribution:dubbo-bom')
-
+    
     if (!isPlatformProject) {
         // --------------------------------------------------------------------------------
         //  Plugin Application
         // --------------------------------------------------------------------------------
         apply plugin: 'java-library'
-//        apply plugin: 'com.diffplug.spotless'
-//        apply plugin: 'checkstyle'
+        apply plugin: 'com.diffplug.spotless'
+        apply plugin: 'checkstyle'
         apply plugin: 'jacoco'
         // Spotless: Code Formatting (JDK version dependent)
         def javaVersion = JavaVersion.current()
@@ -353,7 +353,7 @@ subprojects {
                 removeUnusedImports()
                 trimTrailingWhitespace()
                 endWithNewline()
-            }
+        }
         }
 
         // Checkstyle: Code Style Verification
@@ -381,13 +381,13 @@ subprojects {
                     '**/org/apache/dubbo/common/logger/helpers/**', '**/org/apache/dubbo/maven/plugin/protoc/DubboProtocCompilerMojo.java',
                     '**/org/apache/dubbo/gen/utils/ProtoTypeMap.java', '**/istio/v1/auth/**', '**/com/google/rpc/**',
                     '**/generated/**', '**/generated-sources/**', '**/grpc/health/**', '**/grpc/reflection/**'
-        }
-
+            }
+            
         checkstyleTest {
             enabled = !project.hasProperty('checkstyle.skip') || project.property('checkstyle.skip') != 'true'
             source = 'src/test/java'
-        }
-
+            }
+            
         // Checkstyle Unix: Line Ending Verification
         task checkstyleUnix(type: Checkstyle) {
             description = 'Run Checkstyle Unix line ending checks'
@@ -427,7 +427,7 @@ subprojects {
                 '-XX:MetaspaceSize=64m', '-XX:MaxMetaspaceSize=128m',
                 '-Dfile.encoding=UTF-8', '-Djava.net.preferIPv4Stack=true'
             ]
-
+            
             if (JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_15)) {
                 jvmArgs += [
                     '--add-opens=java.base/java.lang=ALL-UNNAMED',
@@ -575,7 +575,7 @@ git.commit.id=${getGitCommitId()}
             tasks.withType(GenerateModuleMetadata).configureEach {
                 suppressedValidationErrors.add('enforced-platform')
             }
-
+            
             publishing {
                 publications {
                     mavenJava(MavenPublication) {
@@ -584,7 +584,7 @@ git.commit.id=${getGitCommitId()}
                         } else if (components.findByName('java')) {
                             from components.java
                         }
-
+                        
                         pom {
                             name = project.name
                             description = "The ${project.name} module of Apache Dubbo project"
@@ -622,7 +622,7 @@ git.commit.id=${getGitCommitId()}
                         }
                     }
                 }
-
+                
                 repositories {
                     maven {
                         def releasesRepoUrl = "https://repository.apache.org/service/local/staging/deploy/maven2"
@@ -641,13 +641,13 @@ git.commit.id=${getGitCommitId()}
                                project.hasProperty('signing.password') &&
                                (project.hasProperty('signing.secretKeyRingFile') || project.hasProperty('signing.key'))
             if (hasSigningKey) {
-                signing {
+            signing {
                     required { gradle.taskGraph.hasTask('publish') }
-                    sign publishing.publications.mavenJava
-                }
+                sign publishing.publications.mavenJava
             }
         }
     }
+}
 }
 
 jacoco {

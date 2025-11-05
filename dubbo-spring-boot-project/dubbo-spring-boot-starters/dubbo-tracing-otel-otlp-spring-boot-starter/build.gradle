@@ -19,6 +19,6 @@ description = 'Apache Dubbo Spring Boot Tracing Otel OTLP Starter'
 
 dependencies {
     api project(':dubbo-spring-boot-project:dubbo-spring-boot-autoconfigure')
-    implementation "io.micrometer:micrometer-tracing-bridge-otel:${micrometerTracingBridgeOtelVersion}"
-    implementation "io.opentelemetry:opentelemetry-exporter-otlp:${opentelemetryExporterOtlpVersion}"
+    implementation libs.micrometerTracingBridgeOtel
+    implementation libs.opentelemetryExporterOtlp
 }

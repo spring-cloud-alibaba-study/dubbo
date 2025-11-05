@@ -146,7 +146,7 @@ if (javaVersion >= JavaVersion.VERSION_17) {
 // JDK 21+ modules (loom - Virtual Threads)
 // Note: Gradle 7.4 doesn't have VERSION_21 constant, use majorVersion comparison
 if (javaVersion.isCompatibleWith(JavaVersion.VERSION_17) && javaVersion.majorVersion.toInteger() >= 21) {
-include 'dubbo-plugin:dubbo-plugin-loom'
+    include 'dubbo-plugin:dubbo-plugin-loom'
 }
 
 // Demo modules

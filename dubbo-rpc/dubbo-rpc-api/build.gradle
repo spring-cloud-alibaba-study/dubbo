@@ -23,7 +23,7 @@ dependencies {
     implementation project(':dubbo-plugin:dubbo-native')
     api "org.javassist:javassist"
     
-    testImplementation "org.apache.dubbo:hessian-lite:${hessianLiteVersion}"
+    testImplementation libs.hessianLite
     testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
 
     // Complete missing dependencies

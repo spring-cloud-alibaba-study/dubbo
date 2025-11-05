@@ -21,7 +21,7 @@ dependencies {
     api project(':dubbo-rpc:dubbo-rpc-api')
     api project(':dubbo-common')
     api project(':dubbo-cluster')
-    implementation "org.springframework.security:spring-security-core:${springSecurityVersion}"
+    implementation libs.springSecurityCore
     compileOnly "org.springframework.security:spring-security-oauth2-client:${springSecurityVersion}"
     implementation "com.fasterxml.jackson.core:jackson-core"
     implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"

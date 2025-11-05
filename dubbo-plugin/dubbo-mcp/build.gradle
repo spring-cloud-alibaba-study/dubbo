@@ -33,7 +33,7 @@ dependencies {
     implementation "io.modelcontextprotocol.sdk:mcp:${mcpVersion}"
     api project(':dubbo-config:dubbo-config-api')
     api project(':dubbo-common')
-    testImplementation "org.mockito:mockito-junit-jupiter:${mockitoJunitJupiterVersion}"
+    testImplementation libs.mockitoJunitJupiter
     testImplementation "junit:junit:${junitVersion}"
     testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
 }

@@ -19,7 +19,7 @@ description = 'The cache module of dubbo project'
 
 dependencies {
     api project(':dubbo-rpc:dubbo-rpc-api')
-    implementation "javax.cache:cache-api:${cacheApiVersion}"
-    testImplementation "com.hazelcast:hazelcast:${hazelcastVersion}"
+    implementation libs.jcache
+    testImplementation libs.hazelcast
     testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
 }

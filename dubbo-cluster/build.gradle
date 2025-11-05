@@ -19,7 +19,7 @@ description = 'The cluster module of dubbo project'
 
 dependencies {
     implementation project(':dubbo-rpc:dubbo-rpc-api')
-    implementation "org.yaml:snakeyaml:${snakeyamlVersion}"
+    implementation libs.snakeyaml
     
     implementation project(':dubbo-metrics:dubbo-metrics-registry')
     compileOnly project(':dubbo-metrics:dubbo-metrics-default')
@@ -28,15 +28,15 @@ dependencies {
     testImplementation project(':dubbo-rpc:dubbo-rpc-injvm')
     testImplementation project(':dubbo-serialization:dubbo-serialization-hessian2')
     testImplementation project(':dubbo-serialization:dubbo-serialization-fastjson2')
-    testImplementation "io.micrometer:micrometer-tracing-integration-test:${micrometerTracingVersion}"
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
-    testImplementation "org.apache.logging.log4j:log4j-core"
+    testImplementation libs.micrometerTracingIntegrationTest
+    testImplementation libs.log4jSlf4jImpl
+    testImplementation libs.log4jCore
 }
 
 // Add Nashorn for JDK 11+
 if (JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_11)) {
     dependencies {
-        testImplementation "org.openjdk.nashorn:nashorn-core:${nashornCoreVersion}"
+        testImplementation libs.nashornCore
     }
 }
 

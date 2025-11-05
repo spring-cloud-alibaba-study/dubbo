@@ -38,7 +38,7 @@ dependencies {
     implementation "io.grpc:grpc-stub"
     
     // Add javax.annotation support (required for Java 9+)
-    compileOnly "javax.annotation:javax.annotation-api:${javaxAnnotationApiVersion}"
+    compileOnly libs.javaxAnnotationApi
     
     compileOnly "io.grpc:grpc-netty"
     compileOnly "org.apache.commons:commons-compress"

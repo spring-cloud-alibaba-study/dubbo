@@ -21,7 +21,7 @@ description = 'The dubbo-demo-spring-boot-idl parent module'
 subprojects {
     dependencies {
         implementation project(':dubbo-spring-boot-project:dubbo-spring-boot-starters:dubbo-spring-boot-starter')
-        implementation "org.springframework.boot:spring-boot-starter:${springBootVersion}"
+        implementation libs.springBootStarter
         implementation project(':dubbo-config:dubbo-config-spring')
         implementation project(':dubbo-registry:dubbo-registry-zookeeper')
         implementation project(':dubbo-configcenter:dubbo-configcenter-zookeeper')

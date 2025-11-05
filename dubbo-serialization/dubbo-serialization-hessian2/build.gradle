@@ -20,7 +20,7 @@ description = 'The Hessian2 serialization module of dubbo project'
 dependencies {
     api project(':dubbo-serialization:dubbo-serialization-api')
     implementation project(':dubbo-plugin:dubbo-native')
-    implementation "org.apache.dubbo:hessian-lite:${hessianLiteVersion}"
+    implementation libs.hessianLite
     
     testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
 }

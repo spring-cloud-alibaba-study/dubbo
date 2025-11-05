@@ -34,5 +34,5 @@ dependencies {
     api project(':dubbo-spring-boot-project:dubbo-spring-boot-autoconfigure')
     implementation "org.springframework.boot:spring-boot-starter-web:${springBootStarterWebVersion}"
     implementation "org.springframework.boot:spring-boot-starter-log4j2:${springBootStarterLog4j2Version}"
-    compileOnly "com.github.therapi:therapi-runtime-javadoc-scribe:${therapiRuntimeJavadocScribeVersion}"
+    compileOnly libs.therapiRuntimeJavadocScribe
 }

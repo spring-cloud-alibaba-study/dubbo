@@ -32,21 +32,21 @@ dependencies {
     compileOnly "org.apache.tomcat.embed:tomcat-embed-core"
     compileOnly "jakarta.websocket:jakarta.websocket-api"
     compileOnly "jakarta.websocket:jakarta.websocket-client-api"
-    compileOnly "io.micrometer:micrometer-tracing:${micrometerTracingVersion}"
-    compileOnly "io.micrometer:micrometer-observation:${micrometerObservationVersion}"
-    compileOnly "io.micrometer:micrometer-core:${micrometerCoreVersion}"
+    compileOnly libs.micrometerTracing
+    compileOnly libs.micrometerObservation
+    compileOnly libs.micrometerCore
     compileOnly "io.micrometer:micrometer-registry-prometheus-simpleclient:${micrometerRegistryPrometheusSimpleclientVersion}"
-    compileOnly "com.tdunning:t-digest:${tDigestVersion}"
-    compileOnly "io.prometheus:simpleclient:${simpleclientVersion}"
-    compileOnly "io.prometheus:simpleclient_pushgateway:${simpleclientPushgatewayVersion}"
+    compileOnly libs.digest
+    compileOnly libs.prometheusClient
+    compileOnly libs.simpleclientPushgateway
     compileOnly "org.springframework:spring-webmvc"
     compileOnly "org.springframework:spring-webflux:${springWebfluxVersion}"
-    compileOnly "io.micrometer:micrometer-tracing-bridge-otel:${micrometerTracingBridgeOtelVersion}"
-    compileOnly "io.micrometer:micrometer-tracing-bridge-brave:${micrometerTracingBridgeBraveVersion}"
-    compileOnly "io.opentelemetry:opentelemetry-exporter-zipkin:${opentelemetryExporterZipkinVersion}"
-    compileOnly "io.opentelemetry:opentelemetry-exporter-otlp:${opentelemetryExporterOtlpVersion}"
-    compileOnly "io.zipkin.reporter2:zipkin-reporter-brave:${zipkinReporterBraveVersion}"
-    compileOnly "io.zipkin.reporter2:zipkin-sender-urlconnection:${zipkinSenderUrlconnectionVersion}"
+    compileOnly libs.micrometerTracingBridgeOtel
+    compileOnly libs.micrometerTracingBridgeBrave
+    compileOnly libs.opentelemetryExporterZipkin
+    compileOnly libs.opentelemetryExporterOtlp
+    compileOnly libs.zipkinReporterBrave
+    compileOnly libs.zipkinSenderUrlconnection
     compileOnly project(':dubbo-plugin:dubbo-qos')
     compileOnly project(':dubbo-config:dubbo-config-spring')
     testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootStarterTestVersion}"

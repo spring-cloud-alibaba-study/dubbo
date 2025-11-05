@@ -19,6 +19,6 @@ description = 'Apache Dubbo Spring Boot Tracing Otel Zipkin Starter'
 
 dependencies {
     api project(':dubbo-spring-boot-project:dubbo-spring-boot-autoconfigure')
-    implementation "io.micrometer:micrometer-tracing-bridge-otel:${micrometerTracingBridgeOtelVersion}"
-    implementation "io.opentelemetry:opentelemetry-exporter-zipkin:${opentelemetryExporterZipkinVersion}"
+    implementation libs.micrometerTracingBridgeOtel
+    implementation libs.opentelemetryExporterZipkin
 }
