@@ -26,18 +26,6 @@ plugins {
     alias(libs.plugins.release)
 }
 
-// ========================================
-// Dependency Version Management (Gradle 7.4+ Best Practice)
-// ========================================
-// Primary: gradle/libs.versions.toml (Version Catalog) - Gradle 7+ recommended approach
-// Fallback: ext {} for BOM module compatibility (dubbo-dependencies-bom requires these variables)
-//
-// Usage in subprojects:
-//   - Recommended: implementation libs.spring.core
-//   - Alternative: implementation "org.springframework:spring-core" (version managed by BOM)
-//
-// See: gradle/version-catalog-migration-guide.md
-// ========================================
 
 ext {
     // ========================================
@@ -46,7 +34,7 @@ ext {
     // All versions are managed in gradle/libs.versions.toml
     // These ext{} variables are kept for dubbo-dependencies-bom module compatibility
     // Subprojects should use: implementation libs.spring.core instead of ext variables
-    
+
     // Spring Ecosystem
     springVersion = libs.versions.spring.get()
     springWebVersion = libs.versions.spring.get()
@@ -68,7 +56,7 @@ ext {
     springSecurityVersion = libs.versions.springSecurity.get()
     springSecurity6Version = libs.versions.springSecurity6.get()
     springSecurityOauth2AuthorizationServerVersion = libs.versions.springSecurityOauth2AuthorizationServer.get()
-    
+
     // Core Dependencies
     javassistVersion = libs.versions.javassist.get()
     byteBuddyVersion = libs.versions.byteBuddy.get()
@@ -87,7 +75,7 @@ ext {
     jsr305Version = libs.versions.jsr305.get()
     javaxAnnotationApiVersion = libs.versions.javaxAnnotationApi.get()
     cglibVersion = libs.versions.cglib.get()
-    
+
     // Serialization
     hessianVersion = libs.versions.hessian.get()
     hessianLiteVersion = libs.versions.hessianLite.get()
@@ -102,7 +90,7 @@ ext {
     jacksonDatabindVersion = libs.versions.jacksonDatabind.get()
     codehausJacksonVersion = libs.versions.codehausJackson.get()
     snappyJavaVersion = libs.versions.snappyJava.get()
-    
+
     // gRPC
     grpcVersion = libs.versions.grpc.get()
     grpcContribVersion = libs.versions.grpcContrib.get()
@@ -115,7 +103,7 @@ ext {
     grpcTestingVersion = libs.versions.grpcTesting.get()
     jprotocVersion = libs.versions.jprotoc.get()
     mustacheVersion = libs.versions.mustache.get()
-    
+
     // Service Discovery and Configuration
     zookeeperVersion = libs.versions.zookeeper.get()
     curatorVersion = libs.versions.curator.get()
@@ -134,7 +122,7 @@ ext {
     seataCoreVersion = libs.versions.seataCore.get()
     seataSpringBootStarterVersion = libs.versions.seata.get()
     envoyApiVersion = libs.versions.envoyApi.get()
-    
+
     // Monitoring and Tracing
     micrometerVersion = libs.versions.micrometer.get()
     micrometerCoreVersion = libs.versions.micrometerCore.get()
@@ -168,7 +156,7 @@ ext {
     simpleclientVersion = libs.versions.simpleclient.get()
     simpleclientPushgatewayVersion = libs.versions.simpleclientPushgateway.get()
     hdrhistogramVersion = libs.versions.hdrhistogram.get()
-    
+
     // Reactive
     reactorVersion = libs.versions.reactor.get()
     reactorCoreVersion = libs.versions.reactorCore.get()
@@ -177,7 +165,7 @@ ext {
     mutinyVersion = libs.versions.mutiny.get()
     rxjavaVersion = libs.versions.rxjava.get()
     rxjava2Version = libs.versions.rxjava2.get()
-    
+
     // Logging
     slf4jVersion = libs.versions.slf4j.get()
     slf4jApiVersion = libs.versions.slf4jApi.get()
@@ -189,7 +177,7 @@ ext {
     jclVersion = libs.versions.jcl.get()
     commonsLoggingVersion = libs.versions.commonsLogging.get()
     log4jVersion = libs.versions.log4j.get()
-    
+
     // Testing
     junitVersion = libs.versions.junit.get()
     junitJupiterVersion = libs.versions.junitJupiter.get()
@@ -209,7 +197,7 @@ ext {
     groovyVersion = libs.versions.groovy.get()
     testContainerVersion = libs.versions.testcontainers.get()
     testcontainersVersion = libs.versions.testcontainers.get()
-    
+
     // Utilities
     commonsLang3Version = libs.versions.commonsLang3.get()
     commonsIoVersion = libs.versions.commonsIo.get()
@@ -217,7 +205,7 @@ ext {
     commonsCompressVersion = libs.versions.commonsCompress.get()
     commonsExecVersion = libs.versions.commonsExec.get()
     snakeyamlVersion = libs.versions.snakeyaml.get()
-    
+
     // Container and Web
     servletVersion = libs.versions.servlet.get()
     servletApiVersion = libs.versions.servletApi.get()
@@ -237,7 +225,7 @@ ext {
     tomcatServletApiVersion = libs.versions.tomcatServletApi.get()
     okhttpVersion = libs.versions.okhttp.get()
     asyncHttpClientVersion = libs.versions.asyncHttpClient.get()
-    
+
     // Validation
     validationVersion = libs.versions.validation.get()
     validationApiVersion = libs.versions.validationApi.get()
@@ -250,7 +238,7 @@ ext {
     javaxElApiVersion = libs.versions.javaxElApi.get()
     jcacheVersion = libs.versions.jcache.get()
     cacheApiVersion = libs.versions.cacheApi.get()
-    
+
     // REST and API Documentation
     rsApiVersion = libs.versions.rsApi.get()
     javaxWsRsApiVersion = libs.versions.javaxWsRsApi.get()
@@ -267,13 +255,13 @@ ext {
     therapiJavadocVersion = libs.versions.therapiJavadoc.get()
     therapiRuntimeJavadocVersion = libs.versions.therapiRuntimeJavadoc.get()
     therapiRuntimeJavadocScribeVersion = libs.versions.therapiRuntimeJavadocScribe.get()
-    
+
     // Security
     bouncycastleVersion = libs.versions.bouncycastle.get()
     bouncycastleBcprovVersion = libs.versions.bouncycastleBcprov.get()
     bcpkixJdk18onVersion = libs.versions.bcpkixJdk18on.get()
     bcprovJdk18onVersion = libs.versions.bcprovJdk18on.get()
-    
+
     // XML and Data Binding
     dom4jVersion = libs.versions.dom4j.get()
     jaxbVersion = libs.versions.jaxb.get()
@@ -283,7 +271,7 @@ ext {
     jaxbRuntimeVersion = libs.versions.jaxbRuntime.get()
     jakartaXmlBindApiVersion = libs.versions.jakartaXmlBindApi.get()
     activationVersion = libs.versions.activation.get()
-    
+
     // Others
     aspectjweaverVersion = libs.versions.aspectjweaver.get()
     nashornCoreVersion = libs.versions.nashornCore.get()
@@ -291,7 +279,7 @@ ext {
     mcpVersion = libs.versions.mcp.get()
     hazelcastVersion = libs.versions.hazelcast.get()
     latencyutilsVersion = libs.versions.latencyutils.get()
-    
+
     // Maven Plugins and Tools
     mavenArtifactVersion = libs.versions.mavenArtifact.get()
     mavenCoreVersion = libs.versions.mavenCore.get()
@@ -304,23 +292,11 @@ ext {
     compilerVersion = libs.versions.compiler.get()
 }
 
-// ========================================
-// Version Catalog Migration Summary
-// ========================================
-// ✅ All versions migrated to gradle/libs.versions.toml
-// ✅ BOM compatibility maintained through ext{} variables
-// ✅ Subprojects can use: implementation libs.spring.core
-// ✅ Gradle 7.4+ best practice applied
-// ========================================
-
-// ========================================
-//  Automatic Version Management Configuration (Release and Upgrade)
-// ========================================
 release {
     // Version file configuration
     versionPropertyFile = 'gradle.properties'
     versionProperties = ['version']
-    
+
     // Pre-release checks
     failOnCommitNeeded = true          // Must commit all changes
     failOnPublishNeeded = true         // Must publish to repository
@@ -328,19 +304,19 @@ release {
     failOnUnversionedFiles = true      // Unversioned files not allowed
     failOnUpdateNeeded = true          // Must sync with remote
     revertOnFail = true                // Rollback on failure
-    
+
     // Commit message templates
     preCommitText = ''
     preTagCommitMessage = '[Gradle Release] - pre tag commit: '
     tagCommitMessage = '[Gradle Release] - creating tag: '
     newVersionCommitMessage = '[Gradle Release] - new version commit: '
-    
+
     // Tag template
     tagTemplate = 'v${version}'
-    
+
     // Build tasks
     buildTasks = ['build']
-    
+
     // Git configuration (compatible with release plugin 2.8.1 for Gradle 6.5+)
     git {
         // requireBranch = 'maven_to_gradle'  // No branch restriction for release (commented out)
@@ -361,13 +337,13 @@ allprojects {
 }
 
 subprojects {
-    def isPlatformProject = project.name.contains('bom') || 
+    def isPlatformProject = project.name.contains('bom') ||
                            project.name.contains('dependencies-all') ||
                            project.path.contains(':dubbo-distribution:dubbo-bom')
-    
+
     if (!isPlatformProject) {
         apply plugin: 'java-library'
-        
+
         // ========================================
         // Unified dependency version management - Import BOM
         // ========================================
@@ -381,7 +357,7 @@ subprojects {
         configurations.all {
             exclude group: 'org.apache.logging.log4j', module: 'log4j-to-slf4j'
         }
-        
+
         // Java configuration
         java {
             sourceCompatibility = JavaVersion.VERSION_1_8
@@ -389,7 +365,7 @@ subprojects {
             withSourcesJar()
             withJavadocJar()
         }
-        
+
         // ========================================
         // Package LICENSE and NOTICE files to META-INF/
         // Package .artifacts version file to META-INF/dubbo-versions/
@@ -397,17 +373,17 @@ subprojects {
         tasks.withType(ProcessResources).configureEach {
             // Use WARN strategy to keep first occurrence when duplicates are found
             duplicatesStrategy = DuplicatesStrategy.WARN
-            
+
             // Copy LICENSE to META-INF/
             from(rootProject.file('LICENSE')) {
                 into 'META-INF'
             }
-            
+
             // Copy NOTICE to META-INF/
             from(rootProject.file('NOTICE')) {
                 into 'META-INF'
             }
-            
+
             // Copy .artifacts to META-INF/dubbo-versions/
             from(rootProject.file('.artifacts')) {
                 into 'META-INF/dubbo-versions'
@@ -433,7 +409,7 @@ subprojects {
                 '-Dfile.encoding=UTF-8',
                 '-Djava.net.preferIPv4Stack=true'
             ]
-            
+
             // Add JDK 15+ compatibility
             if (JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_15)) {
                 jvmArgs += [
@@ -454,7 +430,7 @@ subprojects {
             testImplementation "org.mockito:mockito-inline:${mockitoVersion}"
         }
     }
-    
+
     apply plugin: 'maven-publish'
     apply plugin: 'signing'
 
@@ -467,7 +443,7 @@ subprojects {
                 include 'LICENSE'
                 into 'META-INF'
             }
-            
+
             // Add version info
             doLast {
                 def versionFile = file("${buildDir}/resources/main/META-INF/dubbo-versions/${project.name}")
@@ -502,7 +478,7 @@ git.commit.id=${getGitCommitId()}
             if (JavaVersion.current().isJava9Compatible()) {
                 options.addBooleanOption('html5', true)
             }
-            
+
             // Exclude demo packages
             exclude '**/org/apache/dubbo/demo/**'
         }
@@ -515,7 +491,7 @@ git.commit.id=${getGitCommitId()}
             tasks.withType(GenerateModuleMetadata).configureEach {
                 suppressedValidationErrors.add('enforced-platform')
             }
-            
+
             publishing {
                 publications {
                     mavenJava(MavenPublication) {
@@ -524,18 +500,18 @@ git.commit.id=${getGitCommitId()}
                         } else if (components.findByName('java')) {
                             from components.java
                         }
-                        
+
                         pom {
                             name = project.name
                             description = "The ${project.name} module of Apache Dubbo project"
                             url = 'https://github.com/apache/dubbo'
                             inceptionYear = '2011'
-                            
+
                             organization {
                                 name = 'The Apache Software Foundation'
                                 url = 'http://www.apache.org/'
                             }
-                            
+
                             licenses {
                                 license {
                                     name = 'Apache License, Version 2.0'
@@ -543,7 +519,7 @@ git.commit.id=${getGitCommitId()}
                                     distribution = 'repo'
                                 }
                             }
-                            
+
                             developers {
                                 developer {
                                     id = 'dubbo.io'
@@ -552,14 +528,14 @@ git.commit.id=${getGitCommitId()}
                                     url = 'http://dubbo.apache.org/'
                                 }
                             }
-                            
+
                             scm {
                                 connection = 'scm:git:https://github.com/apache/dubbo.git'
                                 developerConnection = 'scm:git:https://github.com/apache/dubbo.git'
                                 url = 'https://github.com/apache/dubbo'
                                 tag = 'HEAD'
                             }
-                            
+
                             issueManagement {
                                 system = 'Github Issues'
                                 url = 'https://github.com/apache/dubbo/issues'
@@ -567,7 +543,7 @@ git.commit.id=${getGitCommitId()}
                         }
                     }
                 }
-                
+
                 repositories {
                     maven {
                         def releasesRepoUrl = "https://repository.apache.org/service/local/staging/deploy/maven2"
@@ -583,7 +559,7 @@ git.commit.id=${getGitCommitId()}
 
             // Signing configuration
             // Only configure signing if all required properties are present
-            def hasSigningKey = project.hasProperty('signing.keyId') && 
+            def hasSigningKey = project.hasProperty('signing.keyId') &&
                                project.hasProperty('signing.password') &&
                                (project.hasProperty('signing.secretKeyRingFile') || project.hasProperty('signing.key'))
             if (hasSigningKey) {
