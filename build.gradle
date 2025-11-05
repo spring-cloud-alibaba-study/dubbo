@@ -19,22 +19,17 @@ plugins {
     id 'java-library'
     id 'maven-publish'
     id 'signing'
-    // Plugin versions using Version Catalog (Gradle 7.4+ Best Practice)
+    id 'checkstyle'
+    id 'jacoco'
     alias(libs.plugins.shadow) apply false
     alias(libs.plugins.protobuf) apply false
     alias(libs.plugins.javadoc) apply false
     alias(libs.plugins.release)
+    alias(libs.plugins.spotless) apply false
+    alias(libs.plugins.licenseReport)
 }
 
-
 ext {
-    // ========================================
-    // Version Catalog Integration (Gradle 7.4+ Best Practice)
-    // ========================================
-    // All versions are managed in gradle/libs.versions.toml
-    // These ext{} variables are kept for dubbo-dependencies-bom module compatibility
-    // Subprojects should use: implementation libs.spring.core instead of ext variables
-
     // Spring Ecosystem
     springVersion = libs.versions.spring.get()
     springWebVersion = libs.versions.spring.get()
@@ -290,41 +285,18 @@ ext {
     plexusUtilsVersion = libs.versions.plexusUtils.get()
     plexusBuildApiVersion = libs.versions.plexusBuildApi.get()
     compilerVersion = libs.versions.compiler.get()
+
+    // Gradle Plugins
+    spotlessPluginVersion = libs.versions.spotlessPlugin.get()
+    palantirJavaFormatJdk8Version = libs.versions.palantirJavaFormat.jdk8.get()
+    palantirJavaFormatJdk11Version = libs.versions.palantirJavaFormat.jdk11.get()
+    palantirJavaFormatJdk21Version = libs.versions.palantirJavaFormat.jdk21.get()
+    checkstyleVersion = libs.versions.checkstyle.get()
 }
 
-release {
-    // Version file configuration
-    versionPropertyFile = 'gradle.properties'
-    versionProperties = ['version']
-
-    // Pre-release checks
-    failOnCommitNeeded = true          // Must commit all changes
-    failOnPublishNeeded = true         // Must publish to repository
-    failOnSnapshotDependencies = true  // SNAPSHOT dependencies not allowed
-    failOnUnversionedFiles = true      // Unversioned files not allowed
-    failOnUpdateNeeded = true          // Must sync with remote
-    revertOnFail = true                // Rollback on failure
-
-    // Commit message templates
-    preCommitText = ''
-    preTagCommitMessage = '[Gradle Release] - pre tag commit: '
-    tagCommitMessage = '[Gradle Release] - creating tag: '
-    newVersionCommitMessage = '[Gradle Release] - new version commit: '
-
-    // Tag template
-    tagTemplate = 'v${version}'
-
-    // Build tasks
-    buildTasks = ['build']
-
-    // Git configuration (compatible with release plugin 2.8.1 for Gradle 6.5+)
-    git {
-        // requireBranch = 'maven_to_gradle'  // No branch restriction for release (commented out)
-        pushToRemote = 'origin'                // Push to remote
-        signTag = false                        // Don't sign tags
-    }
-}
-
+// ================================================================================
+// 3. REPOSITORY CONFIGURATION
+// ================================================================================
 allprojects {
     group = rootProject.group
     version = rootProject.version
@@ -342,75 +314,120 @@ subprojects {
                            project.path.contains(':dubbo-distribution:dubbo-bom')
 
     if (!isPlatformProject) {
+        // --------------------------------------------------------------------------------
+        //  Plugin Application
+        // --------------------------------------------------------------------------------
         apply plugin: 'java-library'
-
-        // ========================================
-        // Unified dependency version management - Import BOM
-        // ========================================
-        dependencies {
-            api enforcedPlatform(project(':dubbo-dependencies-bom'))
+        apply plugin: 'com.diffplug.spotless'
+        apply plugin: 'checkstyle'
+        apply plugin: 'jacoco'
+        // Spotless: Code Formatting (JDK version dependent)
+        def javaVersion = JavaVersion.current()
+        def palantirVersion
+        if (javaVersion.isCompatibleWith(JavaVersion.VERSION_17) && javaVersion.majorVersion.toInteger() >= 21) {
+            palantirVersion = libs.versions.palantirJavaFormat.jdk21.get()
+        } else if (javaVersion >= JavaVersion.VERSION_11) {
+            palantirVersion = libs.versions.palantirJavaFormat.jdk11.get()
+        } else {
+            palantirVersion = libs.versions.palantirJavaFormat.jdk8.get()
         }
 
-        // ========================================
-        // Unified logging configuration
-        // ========================================
-        configurations.all {
-            exclude group: 'org.apache.logging.log4j', module: 'log4j-to-slf4j'
-        }
-
-        // Java configuration
-        java {
-            sourceCompatibility = JavaVersion.VERSION_1_8
-            targetCompatibility = JavaVersion.VERSION_1_8
-            withSourcesJar()
-            withJavadocJar()
-        }
-
-        // ========================================
-        // Package LICENSE and NOTICE files to META-INF/
-        // Package .artifacts version file to META-INF/dubbo-versions/
-        // ========================================
-        tasks.withType(ProcessResources).configureEach {
-            // Use WARN strategy to keep first occurrence when duplicates are found
-            duplicatesStrategy = DuplicatesStrategy.WARN
-
-            // Copy LICENSE to META-INF/
-            from(rootProject.file('LICENSE')) {
-                into 'META-INF'
-            }
-
-            // Copy NOTICE to META-INF/
-            from(rootProject.file('NOTICE')) {
-                into 'META-INF'
-            }
-
-            // Copy .artifacts to META-INF/dubbo-versions/
-            from(rootProject.file('.artifacts')) {
-                into 'META-INF/dubbo-versions'
+        spotless {
+            java {
+                target 'src/**/*.java'
+                targetExclude(
+                    'src/main/java/org/apache/dubbo/common/threadlocal/InternalThreadLocal.java',
+                    'src/main/java/org/apache/dubbo/common/threadlocal/InternalThreadLocalMap.java',
+                    'src/main/java/org/apache/dubbo/common/timer/HashedWheelTimer.java',
+                    'src/main/java/org/apache/dubbo/common/timer/Timeout.java',
+                    'src/main/java/org/apache/dubbo/common/timer/Timer.java',
+                    'src/main/java/org/apache/dubbo/common/timer/TimerTask.java',
+                    'src/main/java/org/apache/dubbo/common/utils/CIDRUtils.java',
+                    'src/main/java/org/apache/dubbo/common/utils/Utf8Utils.java',
+                    'src/test/java/org/apache/dubbo/config/spring/EmbeddedZooKeeper.java',
+                    'src/main/java/org/apache/dubbo/test/common/utils/TestSocketUtils.java',
+                    'src/main/java/org/apache/dubbo/rpc/protocol/tri/TriHttp2RemoteFlowController.java',
+                    'src/main/java/org/apache/dubbo/rpc/protocol/tri/rest/cors/CorsHeaderFilter.java'
+                )
+                palantirJavaFormat(palantirVersion)
+                removeUnusedImports()
+                trimTrailingWhitespace()
+                endWithNewline()
             }
         }
 
-        // Encoding
-        tasks.withType(JavaCompile) {
-            options.encoding = 'UTF-8'
-            options.compilerArgs += ['-parameters', '-proc:none']
+        // Checkstyle: Code Style Verification
+        checkstyle {
+            toolVersion = libs.versions.checkstyle.get()
+            configFile = rootProject.file('codestyle/checkstyle.xml')
+            configProperties = ['checkstyle.suppressions.file': rootProject.file('codestyle/checkstyle-suppressions.xml')]
+            showViolations = true
+            ignoreFailures = false
+            maxWarnings = 0
         }
 
-        // Test configuration
+        checkstyleMain {
+            enabled = !project.hasProperty('checkstyle.skip') || project.property('checkstyle.skip') != 'true'
+            source = 'src/main/java'
+            exclude '**/JSONWriter.java', '**/org/apache/dubbo/maven/plugin/aot/**',
+                    '**/org/apache/dubbo/aot/generate/BasicJsonWriter.java', '**/org/apache/dubbo/aot/api/ExecutableMode.java',
+                    '**/org/apache/dubbo/aot/api/MemberCategory.java', '**/org/apache/dubbo/common/threadpool/serial/SerializingExecutor.java',
+                    '**/org/apache/dubbo/common/threadlocal/InternalThreadLocal.java', '**/org/apache/dubbo/common/threadlocal/InternalThreadLocalMap.java',
+                    '**/org/apache/dubbo/common/timer/**', '**/org/apache/dubbo/common/utils/CIDRUtils.java',
+                    '**/org/apache/dubbo/common/utils/Utf8Utils.java', '**/org/apache/dubbo/common/serialize/protobuf/support/wrapper/**',
+                    '**/org/apache/dubbo/test/common/utils/TestSocketUtils.java', '**/org/apache/dubbo/triple/TripleWrapper.java',
+                    '**/org/apache/dubbo/rpc/protocol/tri/TriHttp2RemoteFlowController.java', '**/org/apache/dubbo/rpc/protocol/tri/rest/cors/CorsHeaderFilter.java',
+                    '**/org/apache/dubbo/metrics/aggregate/DubboMergingDigest.java', '**/org/apache/dubbo/metrics/aggregate/DubboAbstractTDigest.java',
+                    '**/org/apache/dubbo/common/logger/helpers/**', '**/org/apache/dubbo/maven/plugin/protoc/DubboProtocCompilerMojo.java',
+                    '**/org/apache/dubbo/gen/utils/ProtoTypeMap.java', '**/istio/v1/auth/**', '**/com/google/rpc/**',
+                    '**/generated/**', '**/generated-sources/**', '**/grpc/health/**', '**/grpc/reflection/**'
+        }
+
+        checkstyleTest {
+            enabled = !project.hasProperty('checkstyle.skip') || project.property('checkstyle.skip') != 'true'
+            source = 'src/test/java'
+        }
+
+        // Checkstyle Unix: Line Ending Verification
+        task checkstyleUnix(type: Checkstyle) {
+            description = 'Run Checkstyle Unix line ending checks'
+            group = 'verification'
+            enabled = !project.hasProperty('checkstyle_unix.skip') || project.property('checkstyle_unix.skip') != 'true'
+            configFile = rootProject.file('codestyle/checkstyle_unix.xml')
+            
+            // Use doFirst to set source files dynamically
+            doFirst {
+                source = fileTree(projectDir) {
+                    include '**/*.java', '**/*.xml', '**/*.properties', '**/*.gradle', '**/*.sh', '**/*.yml', '**/*.yaml'
+                    exclude '**/target/**', '**/build/**', '**/generated/**', '**/generated-sources/**', '**/.gradle/**', '**/.git/**'
+                }
+            }
+            
+            reports {
+                xml.required = true
+                html.required = true
+            }
+            showViolations = true
+            ignoreFailures = false
+        }
+
+        tasks.named('check') {
+            dependsOn checkstyleUnix
+        }
+        // JaCoCo: Code Coverage
+        jacoco {
+            toolVersion = "0.8.13"
+        }
+
         test {
             useJUnitPlatform()
             maxHeapSize = '512m'
             jvmArgs = [
-                '-server',
-                '-Xms256m',
-                '-Xmx512m',
-                '-XX:MetaspaceSize=64m',
-                '-XX:MaxMetaspaceSize=128m',
-                '-Dfile.encoding=UTF-8',
-                '-Djava.net.preferIPv4Stack=true'
+                '-server', '-Xms256m', '-Xmx512m',
+                '-XX:MetaspaceSize=64m', '-XX:MaxMetaspaceSize=128m',
+                '-Dfile.encoding=UTF-8', '-Djava.net.preferIPv4Stack=true'
             ]
 
-            // Add JDK 15+ compatibility
             if (JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_15)) {
                 jvmArgs += [
                     '--add-opens=java.base/java.lang=ALL-UNNAMED',
@@ -418,10 +435,57 @@ subprojects {
                     '--add-opens=java.base/java.util=ALL-UNNAMED'
                 ]
             }
+
+            jacoco {
+                enabled = !project.hasProperty('jacoco.skip') || project.property('jacoco.skip') != 'true'
+                destinationFile = file("${buildDir}/jacoco/test.exec")
+            }
+
+            finalizedBy jacocoTestReport
         }
 
-        // Common dependencies for all subprojects
+        jacocoTestReport {
+            dependsOn test
+            enabled = !project.hasProperty('jacoco.skip') || project.property('jacoco.skip') != 'true'
+            reports {
+                xml.required = true
+                html.required = true
+                csv.required = false
+            }
+            afterEvaluate {
+                classDirectories.setFrom(files(classDirectories.files.collect {
+                    fileTree(dir: it, exclude: ['**/generated/**', '**/generated-sources/**', '**/org/apache/dubbo/demo/**'])
+                }))
+            }
+        }
+
+        jacocoTestCoverageVerification {
+            enabled = false
+            violationRules {
+                rule {
+                    limit {
+                        minimum = 0.0
+                    }
+                }
+            }
+        }
+        // Java Configuration
+        java {
+            sourceCompatibility = JavaVersion.VERSION_1_8
+            targetCompatibility = JavaVersion.VERSION_1_8
+            withSourcesJar()
+            withJavadocJar()
+        }
+
+        // Compiler Configuration
+        tasks.withType(JavaCompile) {
+            options.encoding = 'UTF-8'
+            options.compilerArgs += ['-parameters', '-proc:none']
+        }
+
+        // Dependencies
         dependencies {
+            api enforcedPlatform(project(':dubbo-dependencies-bom'))
             testImplementation "org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}"
             testImplementation "org.junit.jupiter:junit-jupiter-params:${junitJupiterVersion}"
             testImplementation "org.awaitility:awaitility:${awaitilityVersion}"
@@ -429,22 +493,25 @@ subprojects {
             testImplementation "org.mockito:mockito-core:${mockitoVersion}"
             testImplementation "org.mockito:mockito-inline:${mockitoVersion}"
         }
-    }
 
-    apply plugin: 'maven-publish'
-    apply plugin: 'signing'
+        // Exclude conflicting logging dependencies
+        configurations.all {
+            exclude group: 'org.apache.logging.log4j', module: 'log4j-to-slf4j'
+        }
 
-    // Configure resources and Jar only for non-platform projects
-    if (!isPlatformProject) {
-        // Resources configuration - copy LICENSE and NOTICE to each jar
+        // Resources Processing
+        tasks.withType(ProcessResources).configureEach {
+            duplicatesStrategy = DuplicatesStrategy.WARN
+            from(rootProject.file('LICENSE')) { into 'META-INF' }
+            from(rootProject.file('NOTICE')) { into 'META-INF' }
+            from(rootProject.file('.artifacts')) { into 'META-INF/dubbo-versions' }
+        }
+
         processResources {
             from(rootDir) {
-                include 'NOTICE'
-                include 'LICENSE'
+                include 'NOTICE', 'LICENSE'
                 into 'META-INF'
             }
-
-            // Add version info
             doLast {
                 def versionFile = file("${buildDir}/resources/main/META-INF/dubbo-versions/${project.name}")
                 versionFile.parentFile.mkdirs()
@@ -455,7 +522,7 @@ git.commit.id=${getGitCommitId()}
             }
         }
 
-        // Jar configuration
+        // JAR Manifest
         jar {
             manifest {
                 attributes(
@@ -469,7 +536,7 @@ git.commit.id=${getGitCommitId()}
             }
         }
 
-        // Javadoc configuration
+        // Javadoc Configuration
         javadoc {
             options.encoding = 'UTF-8'
             options.charSet = 'UTF-8'
@@ -478,16 +545,33 @@ git.commit.id=${getGitCommitId()}
             if (JavaVersion.current().isJava9Compatible()) {
                 options.addBooleanOption('html5', true)
             }
-
-            // Exclude demo packages
+            options.showFromPublic()
+            options.docTitle = "Apache Dubbo ${project.version} API"
+            options.windowTitle = "Apache Dubbo ${project.version} API"
+            options.links = ['https://docs.oracle.com/javase/8/docs/api/']
+            failOnError = false
             exclude '**/org/apache/dubbo/demo/**'
         }
     }
 
-    // Publishing configuration - Use afterEvaluate to ensure components are created
+    apply plugin: 'maven-publish'
+    apply plugin: 'signing'
+
     afterEvaluate {
+        // Check if deployment should be skipped
+        def shouldSkipDeploy = project.hasProperty('skip_maven_deploy') && project.property('skip_maven_deploy').toString() == 'true'
+        if (project.hasProperty('ext') && project.ext.has('skip_maven_deploy')) {
+            shouldSkipDeploy = project.ext.skip_maven_deploy
+        }
+
+        if (shouldSkipDeploy) {
+            logger.lifecycle("⊗ Maven deploy skipped for ${project.name} (skip_maven_deploy=true)")
+            tasks.withType(PublishToMavenRepository).configureEach { enabled = false }
+            tasks.withType(PublishToMavenLocal).configureEach { enabled = false }
+            return
+        }
+
         if (components.findByName('java') || components.findByName('javaPlatform')) {
-            // Suppress validation errors for enforced-platform dependencies
             tasks.withType(GenerateModuleMetadata).configureEach {
                 suppressedValidationErrors.add('enforced-platform')
             }
@@ -506,12 +590,10 @@ git.commit.id=${getGitCommitId()}
                             description = "The ${project.name} module of Apache Dubbo project"
                             url = 'https://github.com/apache/dubbo'
                             inceptionYear = '2011'
-
                             organization {
                                 name = 'The Apache Software Foundation'
                                 url = 'http://www.apache.org/'
                             }
-
                             licenses {
                                 license {
                                     name = 'Apache License, Version 2.0'
@@ -519,7 +601,6 @@ git.commit.id=${getGitCommitId()}
                                     distribution = 'repo'
                                 }
                             }
-
                             developers {
                                 developer {
                                     id = 'dubbo.io'
@@ -528,14 +609,12 @@ git.commit.id=${getGitCommitId()}
                                     url = 'http://dubbo.apache.org/'
                                 }
                             }
-
                             scm {
                                 connection = 'scm:git:https://github.com/apache/dubbo.git'
                                 developerConnection = 'scm:git:https://github.com/apache/dubbo.git'
                                 url = 'https://github.com/apache/dubbo'
                                 tag = 'HEAD'
                             }
-
                             issueManagement {
                                 system = 'Github Issues'
                                 url = 'https://github.com/apache/dubbo/issues'
@@ -557,15 +636,12 @@ git.commit.id=${getGitCommitId()}
                 }
             }
 
-            // Signing configuration
-            // Only configure signing if all required properties are present
+            // Signing Configuration
             def hasSigningKey = project.hasProperty('signing.keyId') &&
                                project.hasProperty('signing.password') &&
                                (project.hasProperty('signing.secretKeyRingFile') || project.hasProperty('signing.key'))
             if (hasSigningKey) {
                 signing {
-                    // Required for all publish tasks to remote repositories (Maven Central, etc.)
-                    // Not required for publishToMavenLocal (local development)
                     required { gradle.taskGraph.hasTask('publish') }
                     sign publishing.publications.mavenJava
                 }
@@ -574,7 +650,127 @@ git.commit.id=${getGitCommitId()}
     }
 }
 
-// Helper function to get git commit ID
+jacoco {
+    toolVersion = "0.8.13"
+}
+
+task jacocoRootReport(type: JacocoReport) {
+    description = 'Generates an aggregate JaCoCo coverage report from all subprojects'
+    group = 'verification'
+
+    onlyIf {
+        !project.hasProperty('jacoco.skip') || project.property('jacoco.skip') != 'true'
+    }
+
+    doFirst {
+        executionData fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec")
+        def sourceFiles = []
+        def classFiles = []
+        allprojects.each { p ->
+            if (p.plugins.hasPlugin('java')) {
+                p.sourceSets.main.allSource.srcDirs.each { sourceFiles << it }
+                classFiles << p.sourceSets.main.output
+            }
+        }
+        sourceDirectories.setFrom(files(sourceFiles))
+        classDirectories.setFrom(files(classFiles))
+    }
+
+    reports {
+        xml.required = true
+        html.required = true
+        csv.required = false
+        xml.destination file("${buildDir}/reports/jacoco/aggregate/jacocoTestReport.xml")
+        html.destination file("${buildDir}/reports/jacoco/aggregate/html")
+    }
+}
+
+gradle.projectsEvaluated {
+    def testTasks = allprojects.findAll { it.tasks.findByName('test') }.collect { it.tasks.test }
+    jacocoRootReport.dependsOn testTasks
+}
+
+licenseReport {
+    outputDir = "${project.buildDir}/reports/dependency-license"
+    renderers = [
+        new com.github.jk1.license.render.InventoryHtmlReportRenderer('index.html', 'Third-Party Licenses'),
+        new com.github.jk1.license.render.CsvReportRenderer('licenses.csv'),
+        new com.github.jk1.license.render.JsonReportRenderer('licenses.json'),
+        new com.github.jk1.license.render.TextReportRenderer('THIRD-PARTY-LICENSES.txt')
+    ]
+    projects = [project] + project.subprojects
+    excludeGroups = []
+    excludes = []
+    configurations = ['runtimeClasspath']
+    filters = [new com.github.jk1.license.filter.LicenseBundleNormalizer()]
+    allowedLicensesFile = null
+    excludeBoms = true
+}
+
+task enforceSnapshotVersion {
+    description = 'Enforces that the project version is a SNAPSHOT version'
+    group = 'verification'
+    doLast {
+        if (!version.toString().endsWith('-SNAPSHOT')) {
+            throw new GradleException("No Releases Allowed! Current version is '${version}'. " +
+                "This task requires a SNAPSHOT version (e.g., '${version}-SNAPSHOT'). " +
+                "Disable this check by not setting '-PenforceSnapshot=true'.")
+        }
+        logger.lifecycle("✓ Version check passed: ${version} is a SNAPSHOT version")
+    }
+}
+
+task enforceReleaseVersion {
+    description = 'Enforces that the project version is NOT a SNAPSHOT version'
+    group = 'verification'
+    doLast {
+        if (version.toString().endsWith('-SNAPSHOT')) {
+            throw new GradleException("SNAPSHOT versions are not allowed for release! Current version is '${version}'. " +
+                "Please update version in gradle.properties to a release version (e.g., '3.3.6'). " +
+                "Disable this check by not setting '-PenforceRelease=true'.")
+        }
+        logger.lifecycle("✓ Version check passed: ${version} is a release version")
+    }
+}
+
+gradle.taskGraph.whenReady { graph ->
+    if (project.hasProperty('enforceSnapshot') && project.property('enforceSnapshot') == 'true') {
+        if (graph.hasTask(':publish') || graph.hasTask(':publishToMavenLocal')) {
+            graph.allTasks.findAll { it.name.startsWith('publish') }.each { publishTask ->
+                publishTask.dependsOn enforceSnapshotVersion
+            }
+        }
+    }
+    if (project.hasProperty('enforceRelease') && project.property('enforceRelease') == 'true') {
+        if (graph.hasTask(':publish') || graph.hasTask(':publishToMavenLocal')) {
+            graph.allTasks.findAll { it.name.startsWith('publish') }.each { publishTask ->
+                publishTask.dependsOn enforceReleaseVersion
+            }
+        }
+    }
+}
+
+release {
+    versionPropertyFile = 'gradle.properties'
+    versionProperties = ['version']
+    failOnCommitNeeded = true
+    failOnPublishNeeded = true
+    failOnSnapshotDependencies = true
+    failOnUnversionedFiles = true
+    failOnUpdateNeeded = true
+    revertOnFail = true
+    preCommitText = ''
+    preTagCommitMessage = '[Gradle Release] - pre tag commit: '
+    tagCommitMessage = '[Gradle Release] - creating tag: '
+    newVersionCommitMessage = '[Gradle Release] - new version commit: '
+    tagTemplate = 'v${version}'
+    buildTasks = ['build']
+    git {
+        pushToRemote = 'origin'
+        signTag = false
+    }
+}
+
 def getGitCommitId() {
     try {
         def stdout = new ByteArrayOutputStream()
@@ -590,11 +786,7 @@ def getGitCommitId() {
     }
 }
 
-// Wrapper configuration
-// Note: Using Gradle 7.4 for Java 17 compatibility (minimum version that fully supports Java 17)
-// Gradle 7.4+ is required when using Java 17
 wrapper {
     gradleVersion = '7.4'
     distributionType = Wrapper.DistributionType.BIN
 }
-

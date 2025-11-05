@@ -134,11 +134,11 @@ include 'dubbo-plugin:dubbo-triple-websocket'
 // ========================================
 def javaVersion = JavaVersion.current()
 
-// JDK 17+ modules (mcp, mcp-demo, spring6, mutiny)
+// JDK 17+ modules (mcp, mcp-demo, spring6, mutiny, spring-boot-3)
 if (javaVersion >= JavaVersion.VERSION_17) {
-    // include 'dubbo-spring-boot-project:dubbo-spring-boot-3-autoconfigure'  // Temporarily skipped: missing jakarta package related class files
+    include 'dubbo-spring-boot-project:dubbo-spring-boot-3-autoconfigure'
     include 'dubbo-plugin:dubbo-spring6-security'
-include 'dubbo-plugin:dubbo-mutiny'
+    include 'dubbo-plugin:dubbo-mutiny'
     include 'dubbo-plugin:dubbo-mcp'               // Requires JDK 17+ (pattern matching)
     include 'dubbo-demo:dubbo-demo-mcp-server'     // MCP demo requires JDK 17+
 }

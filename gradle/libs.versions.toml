@@ -292,8 +292,24 @@ shadowPlugin = "7.1.2"
 protobufPlugin = "0.8.18"
 javadocPlugin = "6.3.0"
 releasePlugin = "2.8.1"
+spotlessPlugin = "7.0.0.BETA4"
+checkstylePlugin = "10.12.3"
+licenseReportPlugin = "2.5"
+
+# Checkstyle version (must be compatible with plugin)
+checkstyle = "10.12.3"
+
+# Spotless PalantirJavaFormat versions (JDK version dependent)
+palantirJavaFormat-jdk8 = "1.1.0"
+palantirJavaFormat-jdk11 = "2.28.0"
+palantirJavaFormat-jdk21 = "2.39.0"
 
 [libraries]
+# ========================================
+# Code Quality Tools
+# ========================================
+checkstyle = { module = "com.puppycrawl.tools:checkstyle", version.ref = "checkstyle" }
+
 # ========================================
 # Spring Framework 5.x
 # ========================================
@@ -617,3 +633,6 @@ shadow = { id = "com.github.johnrengelman.shadow", version.ref = "shadowPlugin" 
 protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }
 javadoc = { id = "io.freefair.aggregate-javadoc", version.ref = "javadocPlugin" }
 release = { id = "net.researchgate.release", version.ref = "releasePlugin" }
+spotless = { id = "com.diffplug.spotless", version.ref = "spotlessPlugin" }
+checkstyle = { id = "checkstyle" }
+licenseReport = { id = "com.github.jk1.dependency-license-report", version.ref = "licenseReportPlugin" }
