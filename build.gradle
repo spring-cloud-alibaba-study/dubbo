@@ -296,7 +296,8 @@ git.commit.id=${getGitCommitId()}
         // Check if deployment should be skipped
         def shouldSkipDeploy = project.hasProperty('skip_maven_deploy') && project.property('skip_maven_deploy').toString() == 'true'
         if (project.hasProperty('ext') && project.ext.has('skip_maven_deploy')) {
-            shouldSkipDeploy = project.ext.skip_maven_deploy
+            // Ensure boolean conversion (gradle.properties values are strings!)
+            shouldSkipDeploy = project.ext.skip_maven_deploy.toString() == 'true'
         }
 
         if (shouldSkipDeploy) {
