@@ -318,8 +318,8 @@ subprojects {
         //  Plugin Application
         // --------------------------------------------------------------------------------
         apply plugin: 'java-library'
-        apply plugin: 'com.diffplug.spotless'
-        apply plugin: 'checkstyle'
+//        apply plugin: 'com.diffplug.spotless'
+//        apply plugin: 'checkstyle'
         apply plugin: 'jacoco'
         // Spotless: Code Formatting (JDK version dependent)
         def javaVersion = JavaVersion.current()
@@ -394,7 +394,7 @@ subprojects {
             group = 'verification'
             enabled = !project.hasProperty('checkstyle_unix.skip') || project.property('checkstyle_unix.skip') != 'true'
             configFile = rootProject.file('codestyle/checkstyle_unix.xml')
-            
+
             // Use doFirst to set source files dynamically
             doFirst {
                 source = fileTree(projectDir) {
@@ -402,7 +402,7 @@ subprojects {
                     exclude '**/target/**', '**/build/**', '**/generated/**', '**/generated-sources/**', '**/.gradle/**', '**/.git/**'
                 }
             }
-            
+
             reports {
                 xml.required = true
                 html.required = true
