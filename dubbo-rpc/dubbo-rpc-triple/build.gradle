@@ -16,7 +16,7 @@
  */
 
 plugins {
-    id 'com.google.protobuf' version '0.9.4'
+    id 'com.google.protobuf'  // Version inherited from root project (0.8.18 for Gradle 6.5+ compatibility)
 }
 
 description = 'The Triple RPC module of dubbo project'
@@ -37,7 +37,7 @@ dependencies {
     implementation "io.grpc:grpc-protobuf"
     implementation "io.grpc:grpc-stub"
     
-    // 添加 javax.annotation 支持（Java 9+ 需要）
+    // Add javax.annotation support (required for Java 9+)
     compileOnly "javax.annotation:javax.annotation-api:${javaxAnnotationApiVersion}"
     
     compileOnly "io.grpc:grpc-netty"
@@ -59,7 +59,7 @@ protobuf {
             artifact = "io.grpc:protoc-gen-grpc-java:${grpcVersion}"
         }
         dubbo {
-            // 使用 dubbo-compiler 生成 Dubbo Triple 代码
+            // Use dubbo-compiler to generate Dubbo Triple code
             path = project(':dubbo-plugin:dubbo-compiler').tasks.jar.outputs.files.singleFile.absolutePath
         }
     }
@@ -77,7 +77,7 @@ protobuf {
     generatedFilesBaseDir = "$buildDir/generated/source/proto"
 }
 
-// 添加生成的源码目录
+// Add generated source directories
 sourceSets {
     main {
         java {
@@ -90,12 +90,12 @@ sourceSets {
     }
 }
 
-// 确保编译前先生成 protobuf 代码
+// Ensure protobuf code is generated before compilation
 tasks.named('compileJava') {
     dependsOn 'generateProto'
 }
 
-// 确保 sourcesJar 在 Protobuf 生成后执行
+// Ensure sourcesJar executes after Protobuf generation
 tasks.named('sourcesJar') {
     dependsOn 'generateProto'
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE

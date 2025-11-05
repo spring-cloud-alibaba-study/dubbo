@@ -32,7 +32,7 @@ dependencies {
     api project(':dubbo-configcenter:dubbo-configcenter-zookeeper')
     api project(':dubbo-configcenter:dubbo-configcenter-apollo')
     api project(':dubbo-configcenter:dubbo-configcenter-nacos')
-    // api project(':dubbo') // 模块不存在，已注释
+    // api project(':dubbo') // Module does not exist, commented out
     api project(':dubbo-plugin:dubbo-filter-cache')
     api project(':dubbo-plugin:dubbo-filter-validation')
     api project(':dubbo-metadata:dubbo-metadata-api')
@@ -82,13 +82,13 @@ dependencies {
     api project(':dubbo-serialization:dubbo-serialization-hessian2')
     api project(':dubbo-serialization:dubbo-serialization-fastjson2')
     
-    // === Spring Boot 模块（优先支持Spring Boot 3.x） ===
+    // === Spring Boot modules (priority support for Spring Boot 3.x) ===
     api project(':dubbo-spring-boot-project:dubbo-spring-boot')
     api project(':dubbo-spring-boot-project:dubbo-spring-boot-actuator')
     api project(':dubbo-spring-boot-project:dubbo-spring-boot-autoconfigure')
     api project(':dubbo-spring-boot-project:dubbo-spring-boot-actuator-autoconfigure')
-    // api project(':dubbo-spring-boot-project:dubbo-spring-boot-3-autoconfigure')  // Spring Boot 3.x自动配置（暂时跳过，等待jakarta文件补全）
-    // Spring Boot 1.x兼容模块已不再包含
+    // api project(':dubbo-spring-boot-project:dubbo-spring-boot-3-autoconfigure')  // Spring Boot 3.x autoconfigure (temporarily skipped, waiting for jakarta files completion)
+    // Spring Boot 1.x compatibility module is no longer included
     api project(':dubbo-spring-boot-project:dubbo-spring-boot-starters:dubbo-spring-boot-starter')
     api project(':dubbo-spring-boot-project:dubbo-spring-boot-starters:dubbo-tracing-otel-zipkin-spring-boot-starter')
     api project(':dubbo-spring-boot-project:dubbo-spring-boot-starters:dubbo-tracing-otel-otlp-spring-boot-starter')
@@ -101,12 +101,12 @@ dependencies {
     api project(':dubbo-test:dubbo-test-check')
     api project(':dubbo-test:dubbo-test-common')
     api project(':dubbo-test:dubbo-test-modules')
-    // api project(':dubbo-test:dubbo-test-spring')  // 暂时禁用：Spring版本兼容性问题
+    // api project(':dubbo-test:dubbo-test-spring')  // Temporarily disabled: Spring version compatibility issues
     api project(':dubbo-test:dubbo-test-spring3.2')
     api project(':dubbo-test:dubbo-test-spring4.1')
     api project(':dubbo-test:dubbo-test-spring4.2')
 
-    // 注意：Spring Boot 1.x 兼容模块已 EOL，已从 settings.gradle 中移除
+    // Note: Spring Boot 1.x compatibility module is EOL, removed from settings.gradle
     // api project(':dubbo-spring-boot-project:dubbo-spring-boot-compatible:dubbo-spring-boot-actuator-autoconfigure-compatible')
     // api project(':dubbo-spring-boot-project:dubbo-spring-boot-compatible:dubbo-spring-boot-autoconfigure-compatible')
 }

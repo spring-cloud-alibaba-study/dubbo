@@ -21,7 +21,7 @@ dependencies {
     compileOnly "org.springframework.boot:spring-boot-starter-web:${springBootStarterWebVersion}"
     compileOnly "org.springframework.boot:spring-boot-starter-actuator:${springBootStarterActuatorVersion}"
     api project(':dubbo-spring-boot-project:dubbo-spring-boot')
-    // api project(':dubbo') // 模块不存在，已注释
+    // api project(':dubbo') // Module does not exist, commented out
     compileOnly project(':dubbo-common')
     compileOnly project(':dubbo-config:dubbo-config-spring')
     compileOnly project(':dubbo-remoting:dubbo-remoting-netty4')

@@ -25,7 +25,7 @@ dependencies {
     compileOnly "org.springframework.boot:spring-boot-autoconfigure:${springBootAutoconfigureVersion}"
     compileOnly "org.springframework.boot:spring-boot-configuration-processor:${springBootConfigurationProcessorVersion}"
     api project(':dubbo-spring-boot-project:dubbo-spring-boot-autoconfigure')
-    // api project(':dubbo') // 模块不存在，已注释
+    // api project(':dubbo') // Module does not exist, commented out
     compileOnly project(':dubbo-common')
     compileOnly project(':dubbo-config:dubbo-config-spring')
     testImplementation project(':dubbo-rpc:dubbo-rpc-dubbo')

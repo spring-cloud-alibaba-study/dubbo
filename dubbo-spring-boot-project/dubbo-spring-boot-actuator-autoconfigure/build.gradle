@@ -24,8 +24,8 @@ dependencies {
     compileOnly "org.springframework.boot:spring-boot-actuator-autoconfigure:${springBootActuatorAutoconfigureVersion}"
     api project(':dubbo-spring-boot-project:dubbo-spring-boot-autoconfigure')
     compileOnly "org.springframework.boot:spring-boot-configuration-processor:${springBootConfigurationProcessorVersion}"
-    // api project(':dubbo-spring-boot-project:dubbo-spring-boot-compatible:dubbo-spring-boot-actuator-autoconfigure-compatible')  // 暂时禁用：Spring Boot 1.x已EOL
-    // api project(':dubbo') // 模块不存在，已注释
+    // api project(':dubbo-spring-boot-project:dubbo-spring-boot-compatible:dubbo-spring-boot-actuator-autoconfigure-compatible')  // Temporarily disabled: Spring Boot 1.x is EOL
+    // api project(':dubbo') // Module does not exist, commented out
     compileOnly project(':dubbo-common')
     compileOnly project(':dubbo-config:dubbo-config-spring')
     testImplementation project(':dubbo-rpc:dubbo-rpc-dubbo')

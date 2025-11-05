@@ -28,7 +28,7 @@ dependencies {
     testImplementation project(':dubbo-serialization:dubbo-serialization-fastjson2')
     testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
 
-    // 补全缺失的依赖
+    // Complete missing dependencies
     compileOnly "io.netty:netty-transport-classes-epoll:${nettyVersion}"
     runtimeOnly "io.netty:netty-transport-native-epoll:${nettyVersion}:linux-x86_64"
     implementation "io.netty:netty-codec-http2"

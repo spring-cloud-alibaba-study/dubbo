@@ -17,7 +17,7 @@
 
 description = 'The dubbo-parent module of dubbo project'
 
-// MCP模块需要Java 17+ (使用了pattern matching特性)
+// MCP module requires Java 17+ (uses pattern matching features)
 java {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17

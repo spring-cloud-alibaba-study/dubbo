@@ -1,0 +1,619 @@
+# ========================================
+# Dubbo Version Catalog
+# Gradle 7.0+ Best Practice for Dependency Management
+# https://docs.gradle.org/current/userguide/platforms.html
+# ========================================
+
+[versions]
+# ========================================
+# Spring Ecosystem
+# ========================================
+spring = "5.3.39"
+spring6 = "6.2.11"
+springWebflux = "5.3.39"
+springFrameworkBom = "5.3.39"
+springBoot = "2.7.18"
+springBoot1 = "1.5.22.RELEASE"
+springBoot3 = "3.5.0"
+springSecurity = "5.8.16"
+springSecurity6 = "6.5.1"
+springSecurityOauth2AuthorizationServer = "1.4.1"
+
+# ========================================
+# Core Dependencies
+# ========================================
+javassist = "3.30.2-GA"
+byteBuddy = "1.17.5"
+byteBuddyAgent = "1.14.10"
+netty4 = "4.2.2.Final"
+netty = "3.2.10.Final"
+nettyCodecHttp2 = "4.1.100.Final"
+nettyCodecHttp3 = "0.0.21.Final"
+nettyHandler = "4.1.100.Final"
+nettyNativeKqueue = "4.1.100.Final"
+nettytcnativeboringssl = "2.0.73.Final"
+httpclient = "4.5.14"
+httpclient5 = "5.4.1"
+httpcore = "4.4.16"
+httpcore5 = "5.3.1"
+jsr305 = "3.0.2"
+javaxAnnotationApi = "1.3.2"
+cglib = "2.2.2"
+
+# ========================================
+# Serialization
+# ========================================
+hessian = "4.0.66"
+hessianLite = "4.0.4"
+fastjson = "1.2.83_noneautotype"
+fastjson2 = "2.0.56"
+protobufJava = "3.25.8"
+protobufProtoc = "3.22.3"
+protobufJavaUtil = "3.25.8"
+gson = "2.13.1"
+jackson = "2.19.0"
+jacksonCore = "2.15.3"
+jacksonDatabind = "2.15.3"
+codehausJackson = "1.9.13"
+snappyJava = "1.1.10.7"
+
+# ========================================
+# gRPC
+# ========================================
+grpc = "1.73.0"
+grpcContrib = "0.8.1"
+grpcContext = "1.59.1"
+grpcCore = "1.59.1"
+grpcNettShaded = "4.1.100.Final"
+grpcProtobuf = "1.59.1"
+grpcServices = "1.59.1"
+grpcStub = "1.59.1"
+grpcTesting = "1.59.1"
+jprotoc = "1.2.2"
+mustache = "0.9.11"
+
+# ========================================
+# Service Discovery and Configuration
+# ========================================
+zookeeper = "3.7.2"
+curator = "5.8.0"
+curatorFramework = "5.8.0"
+curatorRecipes = "5.8.0"
+curatorTest = "2.12.0"
+curatorXDiscovery = "5.5.0"
+nacos = "2.5.1"
+nacosClient = "2.5.1"
+apolloClient = "2.4.0"
+apolloMockserver = "2.1.0"
+sentinel = "1.8.8"
+sentinelApacheDubbo3Adapter = "1.8.8"
+sentinelTransportSimpleHttp = "1.8.8"
+seata = "1.8.0"
+seataCore = "1.8.0"
+envoyApi = "0.1.35"
+
+# ========================================
+# Monitoring and Tracing
+# ========================================
+micrometer = "1.15.1"
+micrometerCore = "1.11.5"
+micrometerObservation = "1.11.5"
+micrometerRegistryPrometheusSimpleclient = "1.15.1"
+micrometerTest = "1.11.5"
+micrometerTracing = "1.5.1"
+micrometerTracingBridgeBrave = "1.5.1"
+micrometerTracingBridgeOtel = "1.5.1"
+micrometerTracingIntegrationTest = "1.11.5"
+opentelemetry = "1.50.0"
+opentelemetryApi = "1.50.0"
+opentelemetryContext = "1.50.0"
+opentelemetryExtensionAnnotations = "1.50.0"
+opentelemetryExporterOtlp = "1.50.0"
+opentelemetryExporterZipkin = "1.35.0"
+opentelemetryInstrumentation = "2.12.0"
+opentelemetrySdk = "1.50.0"
+opentelemetrySdkCommon = "1.50.0"
+opentelemetrySdkExtensionAutoconfigure = "1.50.0"
+opentelemetrySdkTrace = "1.50.0"
+opentelemetrySemanticconventions = "1.29.0"
+opentelemetryTracingSdk = "1.50.0"
+zipkin = "3.5.1"
+zipkinReporter = "3.5.1"
+zipkinReporterBrave = "3.5.1"
+zipkinSenderUrlconnection = "3.5.1"
+brave = "5.18.1"
+tDigest = "3.3"
+prometheusClient = "0.16.0"
+simpleclient = "0.16.0"
+simpleclientPushgateway = "0.16.0"
+hdrhistogram = "2.1.12"
+
+# ========================================
+# Reactive
+# ========================================
+reactor = "3.7.11"
+reactorCore = "3.7.11"
+reactiveStreams = "1.0.4"
+reactive = "1.0.4"
+mutiny = "2.9.0"
+rxjava = "2.2.21"
+rxjava2 = "2.2.21"
+
+# ========================================
+# Logging
+# ========================================
+slf4j = "1.7.36"
+slf4jApi = "1.7.36"
+log4j2 = "2.24.3"
+log4jApi = "2.20.0"
+log4jCore = "2.20.0"
+log4jSlf4jImpl = "2.20.0"
+logback = "1.2.13"
+jcl = "1.3.5"
+commonsLogging = "1.2"
+log4j = "1.2.17"
+
+# ========================================
+# Testing
+# ========================================
+junit = "5.10.1"
+junitJupiter = "5.12.2"
+junitJupiterEngine = "5.12.2"
+junitPlatform = "1.13.1"
+junitPlatformEngine = "1.10.1"
+junitPlatformLauncher = "1.10.1"
+junitPlatformRunner = "1.10.1"
+mockito = "4.11.0"
+mockitoCore = "4.11.0"
+mockitoInline = "4.11.0"
+mockitoJunitJupiter = "5.10.1"
+awaitility = "4.3.0"
+hamcrest = "2.2"
+assertjCore = "3.24.2"
+spock = "2.3-groovy-4.0"
+groovy = "4.0.27"
+testcontainers = "1.21.0"
+
+# ========================================
+# Utilities
+# ========================================
+commonsLang3 = "3.17.0"
+commonsIo = "2.19.0"
+commonsCodec = "1.18.0"
+commonsCompress = "1.27.1"
+commonsExec = "1.3"
+snakeyaml = "2.4"
+
+# ========================================
+# Container and Web
+# ========================================
+servlet = "3.1.0"
+servletApi = "3.1.0"
+jakartaServlet = "6.1.0"
+jakartaServletApi = "6.1.0"
+jakartaWebsocket = "2.2.0"
+jakartaWebsocketApi = "2.2.0"
+jakartaWebsocketClientApi = "2.2.0"
+websocketApi = "1.1"
+javaxWebsocketApi = "1.1"
+jetty = "9.4.57.v20241219"
+jettyServlet = "9.4.53.v20231009"
+mortbayJetty = "6.1.26"
+tomcatEmbed = "8.5.100"
+tomcatEmbedCore = "8.5.100"
+tomcatServletApi = "9.0.95"
+okhttp = "3.14.9"
+okhttpVersion = "3.14.9"
+asyncHttpClient = "2.12.3"
+
+# ========================================
+# Validation
+# ========================================
+validation = "1.1.0.Final"
+validationApi = "1.1.0.Final"
+validationNew = "3.1.1"
+jakartaValidationApi = "3.0.2"
+hibernateValidator = "5.4.3.Final"
+hibernateValidatorNew = "7.0.5.Final"
+jel = "3.0.1-b12"
+javaxEl = "3.0.1-b12"
+javaxElApi = "3.0.0"
+jcache = "1.1.1"
+cacheApi = "1.1.1"
+
+# ========================================
+# REST and API Documentation
+# ========================================
+rsApi = "2.1.1"
+javaxWsRsApi = "2.1.1"
+resteasy = "3.15.6.Final"
+resteasyJaxrs = "3.15.6.Final"
+resteasyJacksonProvider = "3.15.6.Final"
+swagger = "1.6.16"
+swaggerAnnotations = "1.6.16"
+swaggerV3 = "2.2.32"
+swaggerAnnotationsV3 = "2.2.32"
+swaggerUi = "5.22.0"
+redoc = "2.3.0"
+webjarsLocator = "0.52"
+webjarsLocatorLite = "1.0.1"
+therapiJavadoc = "0.15.0"
+therapiRuntimeJavadoc = "0.15.0"
+therapiRuntimeJavadocScribe = "0.15.0"
+
+# ========================================
+# Security
+# ========================================
+bouncycastle = "1.79"
+bouncycastleBcprov = "1.81"
+bcpkixJdk18on = "1.81"
+bcprovJdk18on = "1.81"
+
+# ========================================
+# XML and Data Binding
+# ========================================
+dom4j = "2.1.4"
+jaxb = "2.2.7"
+jaxbApi = "2.3.1"
+jaxbCore = "2.2.11"
+jaxbImpl = "2.2.11"
+jaxbRuntime = "2.4.0-b180830.0438"
+jakartaXmlBindApi = "4.0.2"
+activation = "1.2.0"
+
+# ========================================
+# Others
+# ========================================
+aspectjweaver = "1.9.20.1"
+nashornCore = "15.6"
+portlet = "2.0"
+mcp = "0.11.2"
+hazelcast = "5.3.6"
+latencyutils = "2.0.3"
+
+# ========================================
+# Maven Plugins and Tools
+# ========================================
+mavenArtifact = "3.9.6"
+mavenCore = "3.9.6"
+mavenPluginApi = "3.9.6"
+mavenPluginAnnotations = "3.11.0"
+mavenPluginToolsAnnotations = "3.10.2"
+mavenCommonArtifactFilters = "3.3.2"
+plexusUtils = "3.5.1"
+plexusBuildApi = "0.0.7"
+plexusXmlVelocity = "1.0.0"
+compiler = "0.9.4"
+
+# ========================================
+# Gradle Plugins
+# ========================================
+shadowPlugin = "7.1.2"
+protobufPlugin = "0.8.18"
+javadocPlugin = "6.3.0"
+releasePlugin = "2.8.1"
+
+[libraries]
+# ========================================
+# Spring Framework 5.x
+# ========================================
+spring-aop = { module = "org.springframework:spring-aop", version.ref = "spring" }
+spring-aspects = { module = "org.springframework:spring-aspects", version.ref = "spring" }
+spring-beans = { module = "org.springframework:spring-beans", version.ref = "spring" }
+spring-context = { module = "org.springframework:spring-context", version.ref = "spring" }
+spring-contextSupport = { module = "org.springframework:spring-context-support", version.ref = "spring" }
+spring-core = { module = "org.springframework:spring-core", version.ref = "spring" }
+spring-expression = { module = "org.springframework:spring-expression", version.ref = "spring" }
+spring-jdbc = { module = "org.springframework:spring-jdbc", version.ref = "spring" }
+spring-test = { module = "org.springframework:spring-test", version.ref = "spring" }
+spring-tx = { module = "org.springframework:spring-tx", version.ref = "spring" }
+spring-web = { module = "org.springframework:spring-web", version.ref = "spring" }
+spring-webmvc = { module = "org.springframework:spring-webmvc", version.ref = "spring" }
+
+# ========================================
+# Spring Framework 6.x
+# ========================================
+spring6-aop = { module = "org.springframework:spring-aop", version.ref = "spring6" }
+spring6-beans = { module = "org.springframework:spring-beans", version.ref = "spring6" }
+spring6-context = { module = "org.springframework:spring-context", version.ref = "spring6" }
+spring6-core = { module = "org.springframework:spring-core", version.ref = "spring6" }
+spring6-test = { module = "org.springframework:spring-test", version.ref = "spring6" }
+spring6-web = { module = "org.springframework:spring-web", version.ref = "spring6" }
+
+# ========================================
+# Spring Boot 2.x
+# ========================================
+springBoot-actuator = { module = "org.springframework.boot:spring-boot-actuator", version.ref = "springBoot" }
+springBoot-actuatorAutoconfigure = { module = "org.springframework.boot:spring-boot-actuator-autoconfigure", version.ref = "springBoot" }
+springBoot-autoconfigure = { module = "org.springframework.boot:spring-boot-autoconfigure", version.ref = "springBoot" }
+springBoot-configurationProcessor = { module = "org.springframework.boot:spring-boot-configuration-processor", version.ref = "springBoot" }
+springBoot-starter = { module = "org.springframework.boot:spring-boot-starter", version.ref = "springBoot" }
+springBoot-starterActuator = { module = "org.springframework.boot:spring-boot-starter-actuator", version.ref = "springBoot" }
+springBoot-starterLog4j2 = { module = "org.springframework.boot:spring-boot-starter-log4j2", version.ref = "springBoot" }
+springBoot-starterTest = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "springBoot" }
+springBoot-starterWeb = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "springBoot" }
+springBoot-test = { module = "org.springframework.boot:spring-boot-test", version.ref = "springBoot" }
+
+# ========================================
+# Spring Boot 3.x
+# ========================================
+springBoot3-actuator = { module = "org.springframework.boot:spring-boot-actuator", version.ref = "springBoot3" }
+springBoot3-autoconfigure = { module = "org.springframework.boot:spring-boot-autoconfigure", version.ref = "springBoot3" }
+springBoot3-starter = { module = "org.springframework.boot:spring-boot-starter", version.ref = "springBoot3" }
+springBoot3-starterWeb = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "springBoot3" }
+
+# ========================================
+# Spring Security
+# ========================================
+springSecurity-config = { module = "org.springframework.security:spring-security-config", version.ref = "springSecurity" }
+springSecurity-core = { module = "org.springframework.security:spring-security-core", version.ref = "springSecurity" }
+springSecurity-oauth2AuthorizationServer = { module = "org.springframework.security:spring-security-oauth2-authorization-server", version.ref = "springSecurityOauth2AuthorizationServer" }
+
+springSecurity6-config = { module = "org.springframework.security:spring-security-config", version.ref = "springSecurity6" }
+springSecurity6-core = { module = "org.springframework.security:spring-security-core", version.ref = "springSecurity6" }
+
+# ========================================
+# Core Libraries
+# ========================================
+javassist = { module = "org.javassist:javassist", version.ref = "javassist" }
+byteBuddy = { module = "net.bytebuddy:byte-buddy", version.ref = "byteBuddy" }
+byteBuddyAgent = { module = "net.bytebuddy:byte-buddy-agent", version.ref = "byteBuddyAgent" }
+cglib = { module = "cglib:cglib", version.ref = "cglib" }
+jsr305 = { module = "com.google.code.findbugs:jsr305", version.ref = "jsr305" }
+javaxAnnotationApi = { module = "javax.annotation:javax.annotation-api", version.ref = "javaxAnnotationApi" }
+
+# ========================================
+# Netty
+# ========================================
+netty-all = { module = "io.netty:netty-all", version.ref = "netty4" }
+netty-buffer = { module = "io.netty:netty-buffer", version.ref = "nettyCodecHttp2" }
+netty-codec = { module = "io.netty:netty-codec", version.ref = "nettyCodecHttp2" }
+netty-codecHttp = { module = "io.netty:netty-codec-http", version.ref = "nettyCodecHttp2" }
+netty-codecHttp2 = { module = "io.netty:netty-codec-http2", version.ref = "nettyCodecHttp2" }
+netty-codecHttp3 = { module = "io.netty.incubator:netty-incubator-codec-http3", version.ref = "nettyCodecHttp3" }
+netty-common = { module = "io.netty:netty-common", version.ref = "nettyCodecHttp2" }
+netty-handler = { module = "io.netty:netty-handler", version.ref = "nettyHandler" }
+netty-handlerProxy = { module = "io.netty:netty-handler-proxy", version.ref = "nettyCodecHttp2" }
+netty-resolver = { module = "io.netty:netty-resolver", version.ref = "nettyCodecHttp2" }
+netty-transport = { module = "io.netty:netty-transport", version.ref = "nettyCodecHttp2" }
+netty-transportClassesEpoll = { module = "io.netty:netty-transport-classes-epoll", version.ref = "nettyCodecHttp2" }
+netty-transportNativeEpoll = { module = "io.netty:netty-transport-native-epoll", version.ref = "nettyCodecHttp2" }
+netty-transportNativeKqueue = { module = "io.netty:netty-transport-native-kqueue", version.ref = "nettyNativeKqueue" }
+netty-transportNativeUnixCommon = { module = "io.netty:netty-transport-native-unix-common", version.ref = "nettyCodecHttp2" }
+netty = { module = "org.jboss.netty:netty", version.ref = "netty" }
+nettytcnativeboringssl = { module = "io.netty:netty-tcnative-boringssl-static", version.ref = "nettytcnativeboringssl" }
+
+# ========================================
+# HTTP Clients
+# ========================================
+httpclient = { module = "org.apache.httpcomponents:httpclient", version.ref = "httpclient" }
+httpcore = { module = "org.apache.httpcomponents:httpcore", version.ref = "httpcore" }
+httpclient5 = { module = "org.apache.httpcomponents.client5:httpclient5", version.ref = "httpclient5" }
+httpcore5 = { module = "org.apache.httpcomponents.core5:httpcore5", version.ref = "httpcore5" }
+okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
+asyncHttpClient = { module = "org.asynchttpclient:async-http-client", version.ref = "asyncHttpClient" }
+
+# ========================================
+# Serialization
+# ========================================
+hessian = { module = "com.caucho:hessian", version.ref = "hessian" }
+hessianLite = { module = "org.apache.dubbo:hessian-lite", version.ref = "hessianLite" }
+fastjson = { module = "com.alibaba:fastjson", version.ref = "fastjson" }
+fastjson2 = { module = "com.alibaba.fastjson2:fastjson2", version.ref = "fastjson2" }
+protobuf-java = { module = "com.google.protobuf:protobuf-java", version.ref = "protobufJava" }
+protobuf-javaUtil = { module = "com.google.protobuf:protobuf-java-util", version.ref = "protobufJavaUtil" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+jackson-annotations = { module = "com.fasterxml.jackson.core:jackson-annotations", version.ref = "jackson" }
+jackson-core = { module = "com.fasterxml.jackson.core:jackson-core", version.ref = "jacksonCore" }
+jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jacksonDatabind" }
+codehausJackson-coreAsl = { module = "org.codehaus.jackson:jackson-core-asl", version.ref = "codehausJackson" }
+codehausJackson-mapperAsl = { module = "org.codehaus.jackson:jackson-mapper-asl", version.ref = "codehausJackson" }
+snappyJava = { module = "org.xerial.snappy:snappy-java", version.ref = "snappyJava" }
+
+# ========================================
+# gRPC
+# ========================================
+grpc-api = { module = "io.grpc:grpc-api", version.ref = "grpc" }
+grpc-context = { module = "io.grpc:grpc-context", version.ref = "grpcContext" }
+grpc-core = { module = "io.grpc:grpc-core", version.ref = "grpcCore" }
+grpc-netty = { module = "io.grpc:grpc-netty", version.ref = "grpc" }
+grpc-protobuf = { module = "io.grpc:grpc-protobuf", version.ref = "grpcProtobuf" }
+grpc-services = { module = "io.grpc:grpc-services", version.ref = "grpcServices" }
+grpc-stub = { module = "io.grpc:grpc-stub", version.ref = "grpcStub" }
+grpc-testing = { module = "io.grpc:grpc-testing", version.ref = "grpcTesting" }
+grpc-contrib = { module = "io.grpc:grpc-contrib", version.ref = "grpcContrib" }
+jprotoc = { module = "com.salesforce.servicelibs:jprotoc", version.ref = "jprotoc" }
+mustache = { module = "com.github.spullara.mustache.java:compiler", version.ref = "mustache" }
+
+# ========================================
+# Service Discovery
+# ========================================
+zookeeper = { module = "org.apache.zookeeper:zookeeper", version.ref = "zookeeper" }
+curator-framework = { module = "org.apache.curator:curator-framework", version.ref = "curatorFramework" }
+curator-recipes = { module = "org.apache.curator:curator-recipes", version.ref = "curatorRecipes" }
+curator-test = { module = "org.apache.curator:curator-test", version.ref = "curatorTest" }
+curator-xDiscovery = { module = "org.apache.curator:curator-x-discovery", version.ref = "curatorXDiscovery" }
+nacos-client = { module = "com.alibaba.nacos:nacos-client", version.ref = "nacosClient" }
+apolloClient = { module = "com.ctrip.framework.apollo:apollo-client", version.ref = "apolloClient" }
+apolloMockserver = { module = "com.ctrip.framework.apollo:apollo-mockserver", version.ref = "apolloMockserver" }
+sentinel-apacheDubbo3Adapter = { module = "com.alibaba.csp:sentinel-apache-dubbo3-adapter", version.ref = "sentinelApacheDubbo3Adapter" }
+sentinel-transportSimpleHttp = { module = "com.alibaba.csp:sentinel-transport-simple-http", version.ref = "sentinelTransportSimpleHttp" }
+seata-core = { module = "io.seata:seata-core", version.ref = "seataCore" }
+envoyApi = { module = "io.envoyproxy.controlplane:api", version.ref = "envoyApi" }
+
+# ========================================
+# Monitoring
+# ========================================
+micrometer-core = { module = "io.micrometer:micrometer-core", version.ref = "micrometerCore" }
+micrometer-observation = { module = "io.micrometer:micrometer-observation", version.ref = "micrometerObservation" }
+micrometer-registryPrometheusSimpleclient = { module = "io.micrometer:micrometer-registry-prometheus-simpleclient", version.ref = "micrometerRegistryPrometheusSimpleclient" }
+micrometer-test = { module = "io.micrometer:micrometer-test", version.ref = "micrometerTest" }
+micrometer-tracing = { module = "io.micrometer:micrometer-tracing", version.ref = "micrometerTracing" }
+micrometer-tracingBridgeBrave = { module = "io.micrometer:micrometer-tracing-bridge-brave", version.ref = "micrometerTracingBridgeBrave" }
+micrometer-tracingBridgeOtel = { module = "io.micrometer:micrometer-tracing-bridge-otel", version.ref = "micrometerTracingBridgeOtel" }
+micrometer-tracingIntegrationTest = { module = "io.micrometer:micrometer-tracing-integration-test", version.ref = "micrometerTracingIntegrationTest" }
+opentelemetry-api = { module = "io.opentelemetry:opentelemetry-api", version.ref = "opentelemetryApi" }
+opentelemetry-context = { module = "io.opentelemetry:opentelemetry-context", version.ref = "opentelemetryContext" }
+opentelemetry-extensionAnnotations = { module = "io.opentelemetry:opentelemetry-extension-annotations", version.ref = "opentelemetryExtensionAnnotations" }
+opentelemetry-exporterZipkin = { module = "io.opentelemetry:opentelemetry-exporter-zipkin", version.ref = "opentelemetryExporterZipkin" }
+opentelemetry-instrumentation = { module = "io.opentelemetry:opentelemetry-instrumentation-api", version.ref = "opentelemetryInstrumentation" }
+opentelemetry-sdk = { module = "io.opentelemetry:opentelemetry-sdk", version.ref = "opentelemetrySdk" }
+opentelemetry-sdkCommon = { module = "io.opentelemetry:opentelemetry-sdk-common", version.ref = "opentelemetrySdkCommon" }
+opentelemetry-sdkExtensionAutoconfigure = { module = "io.opentelemetry:opentelemetry-sdk-extension-autoconfigure", version.ref = "opentelemetrySdkExtensionAutoconfigure" }
+opentelemetry-sdkTrace = { module = "io.opentelemetry:opentelemetry-sdk-trace", version.ref = "opentelemetrySdkTrace" }
+opentelemetry-semanticconventions = { module = "io.opentelemetry.semconv:opentelemetry-semconv", version.ref = "opentelemetrySemanticconventions" }
+zipkin-reporter = { module = "io.zipkin.reporter2:zipkin-reporter", version.ref = "zipkinReporter" }
+zipkin-reporterBrave = { module = "io.zipkin.reporter2:zipkin-reporter-brave", version.ref = "zipkinReporterBrave" }
+brave = { module = "io.zipkin.brave:brave", version.ref = "brave" }
+tDigest = { module = "com.tdunning:t-digest", version.ref = "tDigest" }
+prometheusClient = { module = "io.prometheus:simpleclient", version.ref = "prometheusClient" }
+hdrhistogram = { module = "org.hdrhistogram:HdrHistogram", version.ref = "hdrhistogram" }
+
+# ========================================
+# Reactive
+# ========================================
+reactor-core = { module = "io.projectreactor:reactor-core", version.ref = "reactorCore" }
+reactiveStreams = { module = "org.reactivestreams:reactive-streams", version.ref = "reactiveStreams" }
+mutiny = { module = "io.smallrye.reactive:mutiny", version.ref = "mutiny" }
+rxjava = { module = "io.reactivex.rxjava2:rxjava", version.ref = "rxjava" }
+rxjava2 = { module = "io.reactivex.rxjava2:rxjava", version.ref = "rxjava2" }
+
+# ========================================
+# Testing
+# ========================================
+junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junitJupiter" }
+junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junitJupiterEngine" }
+junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junitJupiter" }
+junit-platform-commons = { module = "org.junit.platform:junit-platform-commons", version.ref = "junitPlatform" }
+junit-platform-engine = { module = "org.junit.platform:junit-platform-engine", version.ref = "junitPlatformEngine" }
+junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher", version.ref = "junitPlatformLauncher" }
+junit-platform-runner = { module = "org.junit.platform:junit-platform-runner", version.ref = "junitPlatformRunner" }
+mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockitoCore" }
+mockito-inline = { module = "org.mockito:mockito-inline", version.ref = "mockitoInline" }
+mockito-junitJupiter = { module = "org.mockito:mockito-junit-jupiter", version.ref = "mockitoJunitJupiter" }
+awaitility = { module = "org.awaitility:awaitility", version.ref = "awaitility" }
+hamcrest = { module = "org.hamcrest:hamcrest", version.ref = "hamcrest" }
+assertjCore = { module = "org.assertj:assertj-core", version.ref = "assertjCore" }
+spock-core = { module = "org.spockframework:spock-core", version.ref = "spock" }
+groovy = { module = "org.apache.groovy:groovy", version.ref = "groovy" }
+testcontainers = { module = "org.testcontainers:testcontainers", version.ref = "testcontainers" }
+
+# ========================================
+# Logging
+# ========================================
+slf4j-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4jApi" }
+log4j-api = { module = "org.apache.logging.log4j:log4j-api", version.ref = "log4jApi" }
+log4j-core = { module = "org.apache.logging.log4j:log4j-core", version.ref = "log4jCore" }
+log4j-slf4jImpl = { module = "org.apache.logging.log4j:log4j-slf4j-impl", version.ref = "log4jSlf4jImpl" }
+log4j-old = { module = "log4j:log4j", version.ref = "log4j" }
+logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
+commonsLogging = { module = "commons-logging:commons-logging", version.ref = "commonsLogging" }
+
+# ========================================
+# Utilities
+# ========================================
+commonsLang3 = { module = "org.apache.commons:commons-lang3", version.ref = "commonsLang3" }
+commonsIo = { module = "commons-io:commons-io", version.ref = "commonsIo" }
+commonsCodec = { module = "commons-codec:commons-codec", version.ref = "commonsCodec" }
+commonsCompress = { module = "org.apache.commons:commons-compress", version.ref = "commonsCompress" }
+commonsExec = { module = "org.apache.commons:commons-exec", version.ref = "commonsExec" }
+snakeyaml = { module = "org.yaml:snakeyaml", version.ref = "snakeyaml" }
+
+# ========================================
+# Container and Web
+# ========================================
+servlet-api = { module = "javax.servlet:javax.servlet-api", version.ref = "servletApi" }
+jakartaServlet-api = { module = "jakarta.servlet:jakarta.servlet-api", version.ref = "jakartaServletApi" }
+jakartaWebsocket-api = { module = "jakarta.websocket:jakarta.websocket-api", version.ref = "jakartaWebsocketApi" }
+jakartaWebsocket-clientApi = { module = "jakarta.websocket:jakarta.websocket-client-api", version.ref = "jakartaWebsocketClientApi" }
+javaxWebsocket-api = { module = "javax.websocket:javax.websocket-api", version.ref = "javaxWebsocketApi" }
+jetty-server = { module = "org.eclipse.jetty:jetty-server", version.ref = "jetty" }
+jetty-servlet = { module = "org.eclipse.jetty:jetty-servlet", version.ref = "jettyServlet" }
+mortbayJetty = { module = "org.mortbay.jetty:jetty", version.ref = "mortbayJetty" }
+tomcatEmbed-core = { module = "org.apache.tomcat.embed:tomcat-embed-core", version.ref = "tomcatEmbedCore" }
+tomcat-servletApi = { module = "org.apache.tomcat:tomcat-servlet-api", version.ref = "tomcatServletApi" }
+
+# ========================================
+# Validation
+# ========================================
+validation-api = { module = "javax.validation:validation-api", version.ref = "validationApi" }
+jakartaValidation-api = { module = "jakarta.validation:jakarta.validation-api", version.ref = "jakartaValidationApi" }
+hibernateValidator = { module = "org.hibernate:hibernate-validator", version.ref = "hibernateValidator" }
+hibernateValidator-new = { module = "org.hibernate.validator:hibernate-validator", version.ref = "hibernateValidatorNew" }
+jel = { module = "org.glassfish:javax.el", version.ref = "jel" }
+javaxEl-api = { module = "javax.el:javax.el-api", version.ref = "javaxElApi" }
+jcache = { module = "javax.cache:cache-api", version.ref = "jcache" }
+
+# ========================================
+# REST
+# ========================================
+rsApi = { module = "javax.ws.rs:javax.ws.rs-api", version.ref = "javaxWsRsApi" }
+resteasy-jaxrs = { module = "org.jboss.resteasy:resteasy-jaxrs", version.ref = "resteasyJaxrs" }
+resteasy-jacksonProvider = { module = "org.jboss.resteasy:resteasy-jackson-provider", version.ref = "resteasyJacksonProvider" }
+swagger-annotations = { module = "io.swagger:swagger-annotations", version.ref = "swaggerAnnotations" }
+swagger-annotationsV3 = { module = "io.swagger.core.v3:swagger-annotations", version.ref = "swaggerAnnotationsV3" }
+swagger-ui = { module = "org.webjars:swagger-ui", version.ref = "swaggerUi" }
+redoc = { module = "org.webjars:redoc", version.ref = "redoc" }
+webjarsLocator = { module = "org.webjars:webjars-locator", version.ref = "webjarsLocator" }
+therapi-javadoc = { module = "com.github.therapi:therapi-runtime-javadoc", version.ref = "therapiJavadoc" }
+
+# ========================================
+# Security
+# ========================================
+bouncycastle-bcprov = { module = "org.bouncycastle:bcprov-jdk15on", version.ref = "bouncycastleBcprov" }
+bouncycastle-bcprovJdk18on = { module = "org.bouncycastle:bcprov-jdk18on", version.ref = "bcprovJdk18on" }
+bouncycastle-bcpkixJdk18on = { module = "org.bouncycastle:bcpkix-jdk18on", version.ref = "bcpkixJdk18on" }
+
+# ========================================
+# XML and Data Binding
+# ========================================
+dom4j = { module = "org.dom4j:dom4j", version.ref = "dom4j" }
+jaxb-api = { module = "javax.xml.bind:jaxb-api", version.ref = "jaxbApi" }
+jaxb-core = { module = "com.sun.xml.bind:jaxb-core", version.ref = "jaxbCore" }
+jaxb-impl = { module = "com.sun.xml.bind:jaxb-impl", version.ref = "jaxbImpl" }
+jaxb-runtime = { module = "org.glassfish.jaxb:jaxb-runtime", version.ref = "jaxbRuntime" }
+jakartaXmlBind-api = { module = "jakarta.xml.bind:jakarta.xml.bind-api", version.ref = "jakartaXmlBindApi" }
+activation = { module = "javax.activation:activation", version.ref = "activation" }
+
+# ========================================
+# Others
+# ========================================
+aspectjweaver = { module = "org.aspectj:aspectjweaver", version.ref = "aspectjweaver" }
+nashornCore = { module = "org.openjdk.nashorn:nashorn-core", version.ref = "nashornCore" }
+portlet-api = { module = "javax.portlet:portlet-api", version.ref = "portlet" }
+mcp-sdk = { module = "io.modelcontextprotocol:sdk", version.ref = "mcp" }
+hazelcast = { module = "com.hazelcast:hazelcast", version.ref = "hazelcast" }
+latencyutils = { module = "org.latencyutils:LatencyUtils", version.ref = "latencyutils" }
+
+# ========================================
+# Maven
+# ========================================
+maven-artifact = { module = "org.apache.maven:maven-artifact", version.ref = "mavenArtifact" }
+maven-core = { module = "org.apache.maven:maven-core", version.ref = "mavenCore" }
+maven-pluginApi = { module = "org.apache.maven:maven-plugin-api", version.ref = "mavenPluginApi" }
+maven-pluginAnnotations = { module = "org.apache.maven.plugin-tools:maven-plugin-annotations", version.ref = "mavenPluginAnnotations" }
+maven-pluginToolsAnnotations = { module = "org.apache.maven.plugin-tools:maven-plugin-tools-annotations", version.ref = "mavenPluginToolsAnnotations" }
+maven-commonArtifactFilters = { module = "org.apache.maven.shared:maven-common-artifact-filters", version.ref = "mavenCommonArtifactFilters" }
+plexus-utils = { module = "org.codehaus.plexus:plexus-utils", version.ref = "plexusUtils" }
+
+[bundles]
+# ========================================
+# Common Bundles (Frequently Used Together)
+# ========================================
+spring-core = ["spring-core", "spring-beans", "spring-context"]
+spring-web = ["spring-core", "spring-beans", "spring-context", "spring-web"]
+spring6-core = ["spring6-core", "spring6-beans", "spring6-context"]
+testing = ["junit-jupiter-engine", "junit-jupiter-api", "junit-jupiter-params", "mockito-core", "mockito-inline", "awaitility", "hamcrest"]
+grpc = ["grpc-core", "grpc-netty", "grpc-protobuf", "grpc-stub"]
+curator = ["curator-framework", "curator-recipes"]
+netty = ["netty-all", "netty-codecHttp2", "netty-handler"]
+logging = ["slf4j-api", "log4j-api", "log4j-core"]
+
+[plugins]
+# ========================================
+# Gradle Plugins (Gradle 7.4+ Compatible)
+# ========================================
+shadow = { id = "com.github.johnrengelman.shadow", version.ref = "shadowPlugin" }
+protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }
+javadoc = { id = "io.freefair.aggregate-javadoc", version.ref = "javadocPlugin" }
+release = { id = "net.researchgate.release", version.ref = "releasePlugin" }

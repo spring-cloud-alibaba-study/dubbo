@@ -26,7 +26,7 @@ dependencies {
     testImplementation "org.apache.dubbo:hessian-lite:${hessianLiteVersion}"
     testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
 
-    // 补全缺失的依赖
+    // Complete missing dependencies
     api project(':dubbo-common')
 }
 

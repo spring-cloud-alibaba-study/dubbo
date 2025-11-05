@@ -20,18 +20,18 @@ description = 'The dubbo-parent module of dubbo project'
 dependencies {
     api project(':dubbo-rpc:dubbo-rpc-triple')
     
-    // 同时支持javax.servlet和jakarta.servlet API，按package区分：
+    // Support both javax.servlet and jakarta.servlet APIs, differentiated by package:
     // - org.apache.dubbo.rpc.protocol.tri.servlet.*         → javax.servlet (Spring Boot 2.x)
     // - org.apache.dubbo.rpc.protocol.tri.servlet.jakarta.* → jakarta.servlet (Spring Boot 3.x)
     
     // Servlet API dependencies
-    compileOnly "org.apache.tomcat:tomcat-servlet-api"  // javax.servlet (HTTP/2支持)
+    compileOnly "org.apache.tomcat:tomcat-servlet-api"  // javax.servlet (HTTP/2 support)
     compileOnly "jakarta.servlet:jakarta.servlet-api"  // jakarta.servlet (Spring Boot 3.x)
     
     testImplementation project(':dubbo-remoting:dubbo-remoting-netty4')
     testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
 
-    // 补全缺失的依赖
+    // Complete missing dependencies
     compileOnly "javax.servlet:javax.servlet-api"
 }
 

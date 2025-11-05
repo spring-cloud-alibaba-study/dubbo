@@ -17,7 +17,7 @@
 
 description = 'The dubbo-parent module of dubbo project'
 
-// Spring 6 Security模块需要Java 17+
+// Spring 6 Security module requires Java 17+
 java {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
@@ -28,7 +28,7 @@ tasks.withType(JavaCompile) {
 }
 
 dependencies {
-    // 使用 Spring 6 依赖
+    // Use Spring 6 dependencies
     implementation "org.springframework:spring-core"
     implementation "org.springframework:spring-beans"
     implementation "org.springframework:spring-context"
@@ -38,7 +38,7 @@ dependencies {
     implementation "org.springframework:spring-expression"
     compileOnly "org.springframework:spring-test:${spring6Version}"
     api project(':dubbo-plugin:dubbo-spring-security')
-    // 使用 Spring Security 6 依赖
+    // Use Spring Security 6 dependencies
     implementation "org.springframework.security:spring-security-config:${springSecurity6Version}"
     implementation "org.springframework.security:spring-security-core:${springSecurity6Version}"
     implementation "org.springframework.security:spring-security-web:${springSecurity6Version}"
@@ -46,10 +46,10 @@ dependencies {
     compileOnly "org.springframework.security:spring-security-oauth2-core:${springSecurity6Version}"
     compileOnly "org.springframework.security:spring-security-oauth2-jose:${springSecurity6Version}"
     compileOnly "org.springframework.security:spring-security-oauth2-resource-server:${springSecurity6Version}"
-    // OAuth2 Authorization Server 使用独立版本（非Spring Security版本）
+    // OAuth2 Authorization Server uses separate version (not Spring Security version)
     compileOnly "org.springframework.security:spring-security-oauth2-authorization-server:${springSecurityOauth2AuthorizationServerVersion}"
     compileOnly "org.springframework.security:spring-security-oauth2-client:${springSecurity6Version}"
-    // 使用 Spring Boot 3 依赖
+    // Use Spring Boot 3 dependencies
     compileOnly "org.springframework.boot:spring-boot-starter:${springBoot3Version}"
     compileOnly "org.springframework.boot:spring-boot:${springBoot3Version}"
     compileOnly "org.springframework.boot:spring-boot-autoconfigure:${springBoot3Version}"

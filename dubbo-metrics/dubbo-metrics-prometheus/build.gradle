@@ -20,14 +20,14 @@ description = 'The prometheus metrics module of dubbo project'
 dependencies {
     api project(':dubbo-common')
     api project(':dubbo-metrics:dubbo-metrics-default')
-    // 使用micrometerCoreVersion以保持版本一致
+    // Use micrometerCoreVersion to maintain version consistency
     implementation "io.micrometer:micrometer-registry-prometheus:${micrometerCoreVersion}"
     implementation "io.prometheus:simpleclient_pushgateway:${prometheusClientVersion}"
     testImplementation "org.apache.httpcomponents:httpclient:${httpclientVersion}"
     api project(':dubbo-plugin:dubbo-qos-api')
     testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
 
-    // 补全缺失的依赖
+    // Complete missing dependencies
     implementation "io.micrometer:micrometer-registry-prometheus-simpleclient:${micrometerRegistryPrometheusSimpleclientVersion}"
 }
 

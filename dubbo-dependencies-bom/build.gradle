@@ -198,7 +198,7 @@ dependencies {
         api "com.tdunning:t-digest:${tDigestVersion}"
         api "io.prometheus:simpleclient:${prometheusClientVersion}"
         api "io.prometheus:simpleclient_pushgateway:${prometheusClientVersion}"
-        // zipkin 版本由 zipkin-reporter-bom 管理
+        // zipkin versions managed by zipkin-reporter-bom
         
         // Reactive
         api "org.reactivestreams:reactive-streams:${reactiveVersion}"
@@ -216,5 +216,5 @@ dependencies {
     }
 }
 
-// Publishing 配置已在根 build.gradle 中定义，无需重复
+// Publishing configuration is already defined in root build.gradle, no need to repeat
 

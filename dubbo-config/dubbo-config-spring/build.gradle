@@ -24,7 +24,7 @@ dependencies {
     implementation "org.springframework:spring-web"
     implementation "org.springframework:spring-context"
     compileOnly "javax.servlet:javax.servlet-api"
-    // 添加 javax.annotation 支持（Java 9+ 需要）
+    // Add javax.annotation support (required for Java 9+)
     compileOnly "javax.annotation:javax.annotation-api:${javaxAnnotationApiVersion}"
     testImplementation "org.aspectj:aspectjweaver:${aspectjweaverVersion}"
     testImplementation project(':dubbo-rpc:dubbo-rpc-dubbo')

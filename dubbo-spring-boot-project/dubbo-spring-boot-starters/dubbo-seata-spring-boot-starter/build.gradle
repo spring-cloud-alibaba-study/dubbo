@@ -18,7 +18,7 @@
 description = 'Apache Dubbo Seata Spring Boot Starter'
 
 dependencies {
-    // api project(':dubbo') // 模块不存在，已注释
+    // api project(':dubbo') // Module does not exist, commented out
     implementation "io.seata:seata-spring-boot-starter:${seataSpringBootStarterVersion}"
     implementation "io.seata:seata-core:${seataCoreVersion}"
 }

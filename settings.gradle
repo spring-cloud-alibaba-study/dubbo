@@ -128,15 +128,25 @@ include 'dubbo-plugin:dubbo-rest-spring'
 include 'dubbo-plugin:dubbo-rest-openapi'
 include 'dubbo-plugin:dubbo-triple-servlet'
 include 'dubbo-plugin:dubbo-triple-websocket'
-include 'dubbo-plugin:dubbo-mcp'
-include 'dubbo-plugin:dubbo-plugin-loom'
 
-// JDK 17+ 专用模块（与 Maven Profile 保持一致）
+// ========================================
+// JDK Version-Specific Modules (Consistent with Maven Profiles)
+// ========================================
 def javaVersion = JavaVersion.current()
+
+// JDK 17+ modules (mcp, mcp-demo, spring6, mutiny)
 if (javaVersion >= JavaVersion.VERSION_17) {
-    // include 'dubbo-spring-boot-project:dubbo-spring-boot-3-autoconfigure'  // 暂时跳过：缺少jakarta包相关类文件
+    // include 'dubbo-spring-boot-project:dubbo-spring-boot-3-autoconfigure'  // Temporarily skipped: missing jakarta package related class files
     include 'dubbo-plugin:dubbo-spring6-security'
-    include 'dubbo-plugin:dubbo-mutiny'
+include 'dubbo-plugin:dubbo-mutiny'
+    include 'dubbo-plugin:dubbo-mcp'               // Requires JDK 17+ (pattern matching)
+    include 'dubbo-demo:dubbo-demo-mcp-server'     // MCP demo requires JDK 17+
+}
+
+// JDK 21+ modules (loom - Virtual Threads)
+// Note: Gradle 7.4 doesn't have VERSION_21 constant, use majorVersion comparison
+if (javaVersion.isCompatibleWith(JavaVersion.VERSION_17) && javaVersion.majorVersion.toInteger() >= 21) {
+include 'dubbo-plugin:dubbo-plugin-loom'
 }
 
 // Demo modules

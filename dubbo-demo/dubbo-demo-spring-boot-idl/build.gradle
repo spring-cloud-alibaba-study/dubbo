@@ -17,7 +17,7 @@
 
 description = 'The dubbo-demo-spring-boot-idl parent module'
 
-// 为所有子项目配置通用依赖
+// Configure common dependencies for all subprojects
 subprojects {
     dependencies {
         implementation project(':dubbo-spring-boot-project:dubbo-spring-boot-starters:dubbo-spring-boot-starter')

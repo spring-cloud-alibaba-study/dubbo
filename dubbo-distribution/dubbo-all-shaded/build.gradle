@@ -75,7 +75,7 @@ dependencies {
     implementation "org.javassist:javassist"
     implementation "io.netty:netty-all"
     implementation "org.yaml:snakeyaml:${snakeyamlVersion}"
-    // api project(':hessian-lite') // 模块不存在，已注释
+    // api project(':hessian-lite') // Module does not exist, commented out
     implementation "com.alibaba.fastjson2:fastjson2"
     implementation "com.google.protobuf:protobuf-java"
 }

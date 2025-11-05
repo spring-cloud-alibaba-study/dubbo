@@ -23,7 +23,7 @@ dependencies {
     implementation "io.projectreactor:reactor-core"
     testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
 
-    // 补全缺失的依赖
+    // Complete missing dependencies
     compileOnly "io.projectreactor:reactor-core"
 }
 

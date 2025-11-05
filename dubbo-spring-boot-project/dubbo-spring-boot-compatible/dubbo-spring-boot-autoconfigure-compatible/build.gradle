@@ -18,16 +18,16 @@
 description = 'Apache Dubbo Spring Boot Compatible for Spring Boot 1.x Auto-Configure'
 
 // ========================================
-// 特殊说明：此模块必须使用 Spring Boot 1.x
-// 因为它依赖 Spring Boot 1.x 特有的 API（RelaxedPropertyResolver、RelaxedDataBinder）
-// 需要强制覆盖 BOM 中的 Spring Boot 2.x 版本
+// Special note: This module must use Spring Boot 1.x
+// Because it depends on Spring Boot 1.x specific APIs (RelaxedPropertyResolver, RelaxedDataBinder)
+// Need to force override Spring Boot 2.x version in BOM
 // ========================================
 ext {
     springBoot1Version = '1.5.22.RELEASE'
 }
 
 dependencies {
-    // 使用 strictly 强制指定 Spring Boot 1.x 版本，覆盖 BOM
+    // Use strictly to force Spring Boot 1.x version, override BOM
     compileOnly("org.springframework.boot:spring-boot-autoconfigure") {
         version {
             strictly springBoot1Version

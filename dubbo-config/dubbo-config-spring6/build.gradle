@@ -17,7 +17,7 @@
 
 description = 'The dubbo-config module of dubbo project'
 
-// Spring 6模块需要Java 17+
+// Spring 6 module requires Java 17+
 java {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
@@ -32,7 +32,7 @@ dependencies {
     api project(':dubbo-config:dubbo-config-spring')
     
     // ========================================
-    // 使用 Spring 6 依赖（强制覆盖 BOM 中的 Spring 5）
+    // Use Spring 6 dependencies (force override Spring 5 in BOM)
     // ========================================
     implementation("org.springframework:spring-beans") {
         version { strictly spring6Version }
@@ -47,12 +47,12 @@ dependencies {
         version { strictly spring6Version }
     }
     
-    // Spring 6 AOT 功能已集成在 spring-core 和 spring-context 中，无需单独依赖
+    // Spring 6 AOT functionality is integrated in spring-core and spring-context, no separate dependency needed
     compileOnly "jakarta.servlet:jakarta.servlet-api"
     testImplementation "org.springframework.boot:spring-boot-starter-test:${springBoot3Version}"
     testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
 
-    // 补全缺失的依赖（同时支持 javax 和 jakarta）
+    // Complete missing dependencies (support both javax and jakarta)
     compileOnly "javax.servlet:javax.servlet-api"
 }
 

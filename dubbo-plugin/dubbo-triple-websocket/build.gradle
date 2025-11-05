@@ -21,7 +21,7 @@ dependencies {
     api project(':dubbo-rpc:dubbo-rpc-triple')
     api project(':dubbo-remoting:dubbo-remoting-websocket')
     
-    // 同时支持javax和jakarta API，按package区分：
+    // Support both javax and jakarta APIs, differentiated by package:
     // - org.apache.dubbo.rpc.protocol.tri.websocket.*         → javax API (Spring Boot 2.x)
     // - org.apache.dubbo.rpc.protocol.tri.websocket.jakarta.* → jakarta API (Spring Boot 3.x)
     

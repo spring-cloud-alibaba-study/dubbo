@@ -17,7 +17,7 @@
 
 description = 'Apache Dubbo Spring Boot 3 Auto-Configure'
 
-// Spring Boot 3需要Java 17+
+// Spring Boot 3 requires Java 17+
 java {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
@@ -28,22 +28,22 @@ tasks.withType(JavaCompile) {
 }
 
 dependencies {
-    // 使用Spring Boot 3的BOM
+    // Use Spring Boot 3 BOM
     implementation platform("org.springframework.boot:spring-boot-dependencies:${springBoot3Version}")
     compileOnly "org.springframework.boot:spring-boot-autoconfigure"
     
-    // Dubbo核心依赖（triple-servlet和websocket需要api以获取传递依赖）
+    // Dubbo core dependencies (triple-servlet and websocket need api to get transitive dependencies)
     compileOnly project(':dubbo-config:dubbo-config-api')
     api project(':dubbo-plugin:dubbo-triple-servlet')
     api project(':dubbo-plugin:dubbo-triple-websocket')
     
-    // Jakarta EE依赖（Spring Boot 3使用Jakarta而非Javax）
+    // Jakarta EE dependencies (Spring Boot 3 uses Jakarta instead of Javax)
     compileOnly "jakarta.servlet:jakarta.servlet-api"
     compileOnly "org.apache.tomcat.embed:tomcat-embed-core"
     compileOnly "jakarta.websocket:jakarta.websocket-api"
     compileOnly "jakarta.websocket:jakarta.websocket-client-api"
     
-    // 测试依赖
+    // Test dependencies
     testImplementation "org.springframework.boot:spring-boot-starter-test"
     testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
 }

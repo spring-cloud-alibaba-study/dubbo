@@ -19,357 +19,333 @@ plugins {
     id 'java-library'
     id 'maven-publish'
     id 'signing'
-    id 'com.github.johnrengelman.shadow' version '8.1.1' apply false
-    id 'com.google.protobuf' version '0.9.4' apply false
-    id 'io.freefair.aggregate-javadoc' version '8.6' apply false
-    id 'net.researchgate.release' version '3.0.2'
+    // Plugin versions using Version Catalog (Gradle 7.4+ Best Practice)
+    alias(libs.plugins.shadow) apply false
+    alias(libs.plugins.protobuf) apply false
+    alias(libs.plugins.javadoc) apply false
+    alias(libs.plugins.release)
 }
+
+// ========================================
+// Dependency Version Management (Gradle 7.4+ Best Practice)
+// ========================================
+// Primary: gradle/libs.versions.toml (Version Catalog) - Gradle 7+ recommended approach
+// Fallback: ext {} for BOM module compatibility (dubbo-dependencies-bom requires these variables)
+//
+// Usage in subprojects:
+//   - Recommended: implementation libs.spring.core
+//   - Alternative: implementation "org.springframework:spring-core" (version managed by BOM)
+//
+// See: gradle/version-catalog-migration-guide.md
+// ========================================
 
 ext {
-    // Spring 生态系统
-    springVersion = '5.3.39'
-    springWebVersion = '5.3.39'
-    springTxVersion = '5.3.39'
-    spring6Version = '6.2.11'
-    springBootVersion = '2.7.18'
-    springBootStarterTestVersion = '2.7.18'
-    springBootStarterVersion = '2.7.18'
-    springBootStarterWebVersion = '2.7.18'
-    springBoot3Version = '3.5.0'
-    springSecurityVersion = '5.8.16'
-    springSecurity6Version = '6.5.1'
-    springBootStarterLog4j2Version = '2.7.18'
-
-    // 核心依赖
-    javassistVersion = '3.30.2-GA'
-    byteBuddyVersion = '1.17.5'
-    netty4Version = '4.2.2.Final'
-    nettyVersion = '3.2.10.Final'  // org.jboss.netty:netty (Netty 3.x)
-    nettyCodecHttp2Version = '4.1.100.Final'
-    nettyCodecHttp3Version = '0.0.21.Final'
-    httpclientVersion = '4.5.14'
-    httpcoreVersion = '4.4.16'
-    jsr305Version = '3.0.2'
-    javaxAnnotationApiVersion = '1.3.2'
-    cglibVersion = '2.2.2'
-
-    // 序列化
-    hessianVersion = '4.0.66'
-    hessianLiteVersion = '4.0.4'
-    fastjsonVersion = '1.2.83_noneautotype'
-    fastjson2Version = '2.0.56'
-    protobufJavaVersion = '3.25.8'
-    protobufProtocVersion = '3.22.3'
-
+    // ========================================
+    // Version Catalog Integration (Gradle 7.4+ Best Practice)
+    // ========================================
+    // All versions are managed in gradle/libs.versions.toml
+    // These ext{} variables are kept for dubbo-dependencies-bom module compatibility
+    // Subprojects should use: implementation libs.spring.core instead of ext variables
+    
+    // Spring Ecosystem
+    springVersion = libs.versions.spring.get()
+    springWebVersion = libs.versions.spring.get()
+    springTxVersion = libs.versions.spring.get()
+    spring6Version = libs.versions.spring6.get()
+    springWebfluxVersion = libs.versions.springWebflux.get()
+    springFrameworkBomVersion = libs.versions.springFrameworkBom.get()
+    springBootVersion = libs.versions.springBoot.get()
+    springBoot1Version = libs.versions.springBoot1.get()
+    springBoot3Version = libs.versions.springBoot3.get()
+    springBootAutoconfigureVersion = libs.versions.springBoot.get()
+    springBootActuatorAutoconfigureVersion = libs.versions.springBoot.get()
+    springBootConfigurationProcessorVersion = libs.versions.springBoot.get()
+    springBootStarterVersion = libs.versions.springBoot.get()
+    springBootStarterActuatorVersion = libs.versions.springBoot.get()
+    springBootStarterLog4j2Version = libs.versions.springBoot.get()
+    springBootStarterTestVersion = libs.versions.springBoot.get()
+    springBootStarterWebVersion = libs.versions.springBoot.get()
+    springSecurityVersion = libs.versions.springSecurity.get()
+    springSecurity6Version = libs.versions.springSecurity6.get()
+    springSecurityOauth2AuthorizationServerVersion = libs.versions.springSecurityOauth2AuthorizationServer.get()
+    
+    // Core Dependencies
+    javassistVersion = libs.versions.javassist.get()
+    byteBuddyVersion = libs.versions.byteBuddy.get()
+    byteBuddyAgentVersion = libs.versions.byteBuddyAgent.get()
+    netty4Version = libs.versions.netty4.get()
+    nettyVersion = libs.versions.netty.get()
+    nettyCodecHttp2Version = libs.versions.nettyCodecHttp2.get()
+    nettyCodecHttp3Version = libs.versions.nettyCodecHttp3.get()
+    nettyHandlerVersion = libs.versions.nettyHandler.get()
+    nettyNativeKqueueVersion = libs.versions.nettyNativeKqueue.get()
+    nettytcnativeboringsslStaticVersion = libs.versions.nettytcnativeboringssl.get()
+    httpclientVersion = libs.versions.httpclient.get()
+    httpclient5Version = libs.versions.httpclient5.get()
+    httpcoreVersion = libs.versions.httpcore.get()
+    httpcore5Version = libs.versions.httpcore5.get()
+    jsr305Version = libs.versions.jsr305.get()
+    javaxAnnotationApiVersion = libs.versions.javaxAnnotationApi.get()
+    cglibVersion = libs.versions.cglib.get()
+    
+    // Serialization
+    hessianVersion = libs.versions.hessian.get()
+    hessianLiteVersion = libs.versions.hessianLite.get()
+    fastjsonVersion = libs.versions.fastjson.get()
+    fastjson2Version = libs.versions.fastjson2.get()
+    protobufJavaVersion = libs.versions.protobufJava.get()
+    protobufJavaUtilVersion = libs.versions.protobufJavaUtil.get()
+    protobufProtocVersion = libs.versions.protobufProtoc.get()
+    gsonVersion = libs.versions.gson.get()
+    jacksonVersion = libs.versions.jackson.get()
+    jacksonCoreVersion = libs.versions.jacksonCore.get()
+    jacksonDatabindVersion = libs.versions.jacksonDatabind.get()
+    codehausJacksonVersion = libs.versions.codehausJackson.get()
+    snappyJavaVersion = libs.versions.snappyJava.get()
+    
     // gRPC
-    grpcVersion = '1.73.0'
-    grpcContribVersion = '0.8.1'
-    jprotocVersion = '1.2.2'
-    mustacheVersion = '0.9.11'  // Mustache compiler for code generation
-
-    // 服务发现和配置
-    zookeeperVersion = '3.7.2'
-    curatorVersion = '5.8.0'
-    curatorFrameworkVersion = '5.8.0'
-    curatorRecipesVersion = '5.8.0'
-    nacosVersion = '2.5.1'
-    apolloClientVersion = '2.4.0'
-    sentinelVersion = '1.8.8'
-    seataVersion = '1.8.0'
-    envoyApiVersion = '0.1.35'
-
-    // 监控和追踪
-    micrometerVersion = '1.15.1'
-    micrometerCoreVersion = '1.11.5'
-    micrometerTracingVersion = '1.5.1'
-    opentelemetryVersion = '1.50.0'
-    zipkinReporterVersion = '3.5.1'
-    zipkinVersion = '3.5.1'
-    tDigestVersion = '3.3'
-    prometheusClientVersion = '0.16.0'
-
-    // 响应式
-    reactorVersion = '3.7.11'
-    reactiveStreamsVersion = '1.0.4'
-    reactiveVersion = '1.0.4'
-    mutinyVersion = '2.9.0'
-    rxjavaVersion = '2.2.21'
-
-    // 日志
-    slf4jVersion = '1.7.36'
-    log4j2Version = '2.24.3'
-    logbackVersion = '1.2.13'
-    jclVersion = '1.3.5'
-    log4jVersion = '1.2.17'
-
-    // 测试
-    junitJupiterVersion = '5.12.2'
-    junitPlatformVersion = '1.13.1'
-    mockitoVersion = '4.11.0'
-    awaitilityVersion = '4.3.0'
-    hamcrestVersion = '2.2'
-    spockVersion = '2.3-groovy-4.0'
-    groovyVersion = '4.0.27'
-    testContainerVersion = '1.21.0'
-    testcontainersVersion = '1.21.0'
-
-    // 工具类
-    commonsLang3Version = '3.17.0'
-    commonsIoVersion = '2.19.0'
-    commonsCodecVersion = '1.18.0'
-    commonsCompressVersion = '1.27.1'
-    snappyJavaVersion = '1.1.10.7'
-    gsonVersion = '2.13.1'
-    jacksonVersion = '2.19.0'
-
-    // 容器和Web
-    servletVersion = '3.1.0'
-    javaxServletApiVersion = '3.1.0'
-    jakartaServletVersion = '6.1.0'
-    websocketApiVersion = '1.1'
-    javaxWebsocketApiVersion = '1.1'
-    jakartaWebsocketApiVersion = '2.2.0'
-    jakartaWebsocketVersion = '2.2.0'
-    jettyVersion = '9.4.57.v20241219'
-    mortbayJettyVersion = '6.1.26'
-    tomcatEmbedVersion = '8.5.100'
-    tomcatEmbedCoreVersion = '8.5.100'
-    tomcatServletApiVersion = '9.0.95'  // Tomcat Servlet API 版本
-    okhttpVersion = '3.14.9'
-
-    // 验证
-    validationVersion = '1.1.0.Final'
-    validationApiVersion = '1.1.0.Final'
-    validationNewVersion = '3.1.1'
-    hibernateValidatorVersion = '5.4.3.Final'
-    hibernateValidatorNewVersion = '7.0.5.Final'
-    jelVersion = '3.0.1-b12'
-    javaxElVersion = '3.0.1-b12'
-    jcacheVersion = '1.1.1'
-
-    // REST
-    rsApiVersion = '2.1.1'
-    resteasyVersion = '3.15.6.Final'
-    resteasyJaxrsVersion = '3.15.6.Final'
-    resteasyJacksonProviderVersion = '3.15.6.Final'
-    codehausJacksonVersion = '1.9.13'
-    swaggerVersion = '1.6.16'
-    swaggerAnnotationsVersion = '1.6.16'
-    swaggerAnnotationsV3Version = '2.2.32'  // OpenAPI 3.x annotations
-    swaggerUiVersion = '5.22.0'  // Swagger UI webjar
-    redocVersion = '2.3.0'  // Redoc webjar
-    webjarsLocatorVersion = '0.52'
-    therapiJavadocVersion = '0.15.0'
-
-    // 安全和加密
-    bouncycastleVersion = '1.79'
-    bouncycastleBcprovVersion = '1.81'
-
-    // 其他
-    snakeyamlVersion = '2.4'
-    aspectjweaverVersion = '1.9.20.1'
-    jaxbVersion = '2.2.7'
-    nashornCoreVersion = '15.6'
-    activationVersion = '1.2.0'
-    jakartaXmlBindApiVersion = '4.0.2'
-    jaxbRuntimeVersion = '2.4.0-b180830.0438'
-    portletVersion = '2.0'
-    curatorTestVersion = '2.12.0'
-
-    // ========================================
-    // 从 gradle.properties 迁移的版本变量
-    // ========================================
-
-    // A
-    activationVersion = '1.2.0'
-    apolloMockserverVersion = '2.1.0'
-    assertjCoreVersion = '3.24.2'
-    asyncHttpClientVersion = '2.12.3'
-
-    // B
-    bcpkixJdk18onVersion = '1.0.0'
-    bcprovJdk18onVersion = '1.0.0'
-    braveVersion = '5.18.1'
-    byteBuddyAgentVersion = '1.14.10'
-
-    // C
-    cacheApiVersion = '1.1.1'
-    commonsExecVersion = '1.3'
-    commonsLoggingVersion = '1.2'
-    compilerVersion = '0.9.4'
-    curatorXDiscoveryVersion = '5.5.0'
-
-    // D
-    dom4jVersion = '1.0.0'
-
-    // G
-    grpcContextVersion = '1.59.1'
-    grpcCoreVersion = '1.59.1'
-    grpcNettyShadedVersion = '4.1.100.Final'
-    grpcProtobufVersion = '1.59.1'
-    grpcServicesVersion = '1.59.1'
-    grpcStubVersion = '1.59.1'
-    grpcTestingVersion = '1.59.1'
-
-    // H
-    hazelcastVersion = '1.0.0'
-    hdrhistogramVersion = '2.1.12'
-
-    // J
-    jacksonCoreVersion = '2.15.3'
-    jacksonDatabindVersion = '2.15.3'
-    jakartaServletApiVersion = '6.1.0'
-    jakartaValidationApiVersion = '3.0.2'
-    jakartaWebsocketClientApiVersion = '2.2.0'
-    javaxElApiVersion = '1.0.0'
-    javaxWsRsApiVersion = '2.1.1'
-    jaxbApiVersion = '2.3.1'
-    jaxbCoreVersion = '1.0.0'
-    jaxbImplVersion = '1.0.0'
-    jettyServletVersion = '9.4.53.v20231009'
-    junitPlatformEngineVersion = '1.10.1'
-    junitPlatformLauncherVersion = '1.10.1'
-    junitPlatformRunnerVersion = '1.10.1'
-    junitVersion = '5.10.1'
-
-    // L
-    latencyutilsVersion = '2.0.3'
-    log4jApiVersion = '2.20.0'
-    log4jCoreVersion = '2.20.0'
-    log4jSlf4jImplVersion = '2.20.0'
-
-    // M
-    mavenArtifactVersion = '3.9.6'
-    mavenCommonArtifactFiltersVersion = '3.3.2'
-    mavenCoreVersion = '3.9.6'
-    mavenPluginAnnotationsVersion = '3.11.0'
-    mavenPluginApiVersion = '3.9.6'
-    mavenPluginToolsAnnotationsVersion = '3.10.2'
-    mcpVersion = '0.11.2'  // Model Context Protocol SDK version
-    micrometerObservationVersion = '1.11.5'
-    micrometerRegistryPrometheusSimpleclientVersion = '1.15.1'
-    micrometerTestVersion = '1.11.5'
-    micrometerTracingBridgeBraveVersion = '1.5.1'
-    micrometerTracingBridgeOtelVersion = '1.5.1'
-    micrometerTracingIntegrationTestVersion = '1.11.5'
-    mockitoCoreVersion = '4.11.0'
-    mockitoInlineVersion = '4.11.0'
-    mockitoJunitJupiterVersion = '5.10.1'
-
-    // N
-    nacosClientVersion = '2.5.1'
-    nettyCodecHaproxyVersion = '4.1.100.Final'
-    nettyCodecHttpVersion = '4.1.100.Final'
-    nettyHandlerVersion = '4.1.100.Final'
-    nettyTransportNativeUnixCommonVersion = '4.1.100.Final'
-    nettyTransportVersion = '4.1.100.Final'
-
-    // O
-    opentelemetryApiVersion = '1.32.0'
-    opentelemetryExporterOtlpVersion = '1.32.0'
-    opentelemetryExporterZipkinVersion = '1.32.0'
-    opentelemetrySdkVersion = '1.32.0'
-
-    // P
-    plexusBuildApiVersion = '0.0.7'
-    plexusComponentAnnotationsVersion = '2.2.0'
-    plexusUtilsVersion = '3.5.1'
-    protobufJavaUtilVersion = '3.25.8'
-
-    // R
-    reactorCoreVersion = '1.0.0'
-    resteasyNetty4Version = '3.15.6.Final'
-
-    // S
-    seataCoreVersion = '1.0.0'
-    seataSpringBootStarterVersion = '5.3.39'
-    sentinelApacheDubbo3AdapterVersion = '1.0.0'
-    sentinelTransportSimpleHttpVersion = '1.0.0'
-    simpleclientPushgatewayVersion = '0.16.0'
-    simpleclientVersion = '0.16.0'
-    slf4jApiVersion = '1.7.36'
-    spockCoreVersion = '2.3-groovy-3.0'
-    springAopVersion = '5.3.39'
-    springBootActuatorAutoconfigureVersion = '2.7.18'
-    springBootAutoconfigureVersion = '2.7.18'
-    springBootConfigurationProcessorVersion = '2.7.18'
-    springBootDependenciesVersion = '3.2.0'
-    springBootStarterActuatorVersion = '2.7.18'
-    springBootStarterLoggingVersion = '2.7.18'
-    springBootStarterTestVersion = '2.7.18'
-    springBootStarterVersion = '2.7.18'
-    springBootStarterWebVersion = '2.7.18'
-    springBootTestAutoconfigureVersion = '2.7.18'
-    springBootTestVersion = '2.7.18'
-    springExpressionVersion = '5.3.39'
-    springFrameworkBomVersion = '5.3.39'
-    springJclVersion = '5.3.39'
-    springSecurityConfigVersion = '5.3.39'
-    springSecurityCoreVersion = '5.3.39'
-    springSecurityCryptoVersion = '5.3.39'
-    springSecurityOauth2AuthorizationServerVersion = '1.4.1'  // Spring Authorization Server (独立项目)
-    springSecurityOauth2ClientVersion = '5.3.39'
-    springSecurityOauth2CoreVersion = '5.3.39'
-    springSecurityOauth2JoseVersion = '5.3.39'
-    springSecurityOauth2ResourceServerVersion = '5.3.39'
-    springSecurityWebVersion = '5.3.39'
-    springTxVersion = '5.3.39'
-    springWebVersion = '5.3.39'
-    springWebfluxVersion = '5.3.39'
-    springWebmvcVersion = '5.3.39'
-    swaggerAnnotationsVersion = '1.6.16'
-
-    // T
-    testcontainersVersion = '1.19.3'
-    therapiRuntimeJavadocScribeVersion = '0.15.0'
-    therapiRuntimeJavadocVersion = '0.15.0'
-    tomcatAnnotationsApiVersion = '6.0.53'
-    tomcatEmbedCoreVersion = '8.5.100'
-
-    // V
-    validationApiVersion = '1.1.0.Final'
-
-    // W
-    webjarsLocatorLiteVersion = '1.0.1'  // Webjars Locator Lite
-
-    // Z
-    zipkinReporterBraveVersion = '3.5.1'
-    zipkinSenderUrlconnectionVersion = '3.5.1'
+    grpcVersion = libs.versions.grpc.get()
+    grpcContribVersion = libs.versions.grpcContrib.get()
+    grpcContextVersion = libs.versions.grpcContext.get()
+    grpcCoreVersion = libs.versions.grpcCore.get()
+    grpcNettyShadedVersion = libs.versions.grpcNettShaded.get()
+    grpcProtobufVersion = libs.versions.grpcProtobuf.get()
+    grpcServicesVersion = libs.versions.grpcServices.get()
+    grpcStubVersion = libs.versions.grpcStub.get()
+    grpcTestingVersion = libs.versions.grpcTesting.get()
+    jprotocVersion = libs.versions.jprotoc.get()
+    mustacheVersion = libs.versions.mustache.get()
+    
+    // Service Discovery and Configuration
+    zookeeperVersion = libs.versions.zookeeper.get()
+    curatorVersion = libs.versions.curator.get()
+    curatorFrameworkVersion = libs.versions.curatorFramework.get()
+    curatorRecipesVersion = libs.versions.curatorRecipes.get()
+    curatorTestVersion = libs.versions.curatorTest.get()
+    curatorXDiscoveryVersion = libs.versions.curatorXDiscovery.get()
+    nacosVersion = libs.versions.nacos.get()
+    nacosClientVersion = libs.versions.nacosClient.get()
+    apolloClientVersion = libs.versions.apolloClient.get()
+    apolloMockserverVersion = libs.versions.apolloMockserver.get()
+    sentinelVersion = libs.versions.sentinel.get()
+    sentinelApacheDubbo3AdapterVersion = libs.versions.sentinelApacheDubbo3Adapter.get()
+    sentinelTransportSimpleHttpVersion = libs.versions.sentinelTransportSimpleHttp.get()
+    seataVersion = libs.versions.seata.get()
+    seataCoreVersion = libs.versions.seataCore.get()
+    seataSpringBootStarterVersion = libs.versions.seata.get()
+    envoyApiVersion = libs.versions.envoyApi.get()
+    
+    // Monitoring and Tracing
+    micrometerVersion = libs.versions.micrometer.get()
+    micrometerCoreVersion = libs.versions.micrometerCore.get()
+    micrometerObservationVersion = libs.versions.micrometerObservation.get()
+    micrometerRegistryPrometheusSimpleclientVersion = libs.versions.micrometerRegistryPrometheusSimpleclient.get()
+    micrometerTestVersion = libs.versions.micrometerTest.get()
+    micrometerTracingVersion = libs.versions.micrometerTracing.get()
+    micrometerTracingBridgeBraveVersion = libs.versions.micrometerTracingBridgeBrave.get()
+    micrometerTracingBridgeOtelVersion = libs.versions.micrometerTracingBridgeOtel.get()
+    micrometerTracingIntegrationTestVersion = libs.versions.micrometerTracingIntegrationTest.get()
+    opentelemetryVersion = libs.versions.opentelemetry.get()
+    opentelemetryApiVersion = libs.versions.opentelemetryApi.get()
+    opentelemetryContextVersion = libs.versions.opentelemetryContext.get()
+    opentelemetryExtensionAnnotationsVersion = libs.versions.opentelemetryExtensionAnnotations.get()
+    opentelemetryExporterOtlpVersion = libs.versions.opentelemetryExporterOtlp.get()
+    opentelemetryExporterZipkinVersion = libs.versions.opentelemetryExporterZipkin.get()
+    opentelemetryInstrumentationVersion = libs.versions.opentelemetryInstrumentation.get()
+    opentelemetrySdkVersion = libs.versions.opentelemetrySdk.get()
+    opentelemetrySdkCommonVersion = libs.versions.opentelemetrySdkCommon.get()
+    opentelemetrySdkExtensionAutoconfigureVersion = libs.versions.opentelemetrySdkExtensionAutoconfigure.get()
+    opentelemetrySdkTraceVersion = libs.versions.opentelemetrySdkTrace.get()
+    opentelemetrySemanticconventionsVersion = libs.versions.opentelemetrySemanticconventions.get()
+    opentelemetryTracingSdkVersion = libs.versions.opentelemetryTracingSdk.get()
+    zipkinVersion = libs.versions.zipkin.get()
+    zipkinReporterVersion = libs.versions.zipkinReporter.get()
+    zipkinReporterBraveVersion = libs.versions.zipkinReporterBrave.get()
+    zipkinSenderUrlconnectionVersion = libs.versions.zipkinSenderUrlconnection.get()
+    braveVersion = libs.versions.brave.get()
+    tDigestVersion = libs.versions.TDigest.get()
+    prometheusClientVersion = libs.versions.prometheusClient.get()
+    simpleclientVersion = libs.versions.simpleclient.get()
+    simpleclientPushgatewayVersion = libs.versions.simpleclientPushgateway.get()
+    hdrhistogramVersion = libs.versions.hdrhistogram.get()
+    
+    // Reactive
+    reactorVersion = libs.versions.reactor.get()
+    reactorCoreVersion = libs.versions.reactorCore.get()
+    reactiveStreamsVersion = libs.versions.reactiveStreams.get()
+    reactiveVersion = libs.versions.reactive.get()
+    mutinyVersion = libs.versions.mutiny.get()
+    rxjavaVersion = libs.versions.rxjava.get()
+    rxjava2Version = libs.versions.rxjava2.get()
+    
+    // Logging
+    slf4jVersion = libs.versions.slf4j.get()
+    slf4jApiVersion = libs.versions.slf4jApi.get()
+    log4j2Version = libs.versions.log4j2.get()
+    log4jApiVersion = libs.versions.log4jApi.get()
+    log4jCoreVersion = libs.versions.log4jCore.get()
+    log4jSlf4jImplVersion = libs.versions.log4jSlf4jImpl.get()
+    logbackVersion = libs.versions.logback.get()
+    jclVersion = libs.versions.jcl.get()
+    commonsLoggingVersion = libs.versions.commonsLogging.get()
+    log4jVersion = libs.versions.log4j.get()
+    
+    // Testing
+    junitVersion = libs.versions.junit.get()
+    junitJupiterVersion = libs.versions.junitJupiter.get()
+    junitJupiterEngineVersion = libs.versions.junitJupiterEngine.get()
+    junitPlatformVersion = libs.versions.junitPlatform.get()
+    junitPlatformEngineVersion = libs.versions.junitPlatformEngine.get()
+    junitPlatformLauncherVersion = libs.versions.junitPlatformLauncher.get()
+    junitPlatformRunnerVersion = libs.versions.junitPlatformRunner.get()
+    mockitoVersion = libs.versions.mockito.get()
+    mockitoCoreVersion = libs.versions.mockitoCore.get()
+    mockitoInlineVersion = libs.versions.mockitoInline.get()
+    mockitoJunitJupiterVersion = libs.versions.mockitoJunitJupiter.get()
+    awaitilityVersion = libs.versions.awaitility.get()
+    hamcrestVersion = libs.versions.hamcrest.get()
+    assertjCoreVersion = libs.versions.assertjCore.get()
+    spockVersion = libs.versions.spock.get()
+    groovyVersion = libs.versions.groovy.get()
+    testContainerVersion = libs.versions.testcontainers.get()
+    testcontainersVersion = libs.versions.testcontainers.get()
+    
+    // Utilities
+    commonsLang3Version = libs.versions.commonsLang3.get()
+    commonsIoVersion = libs.versions.commonsIo.get()
+    commonsCodecVersion = libs.versions.commonsCodec.get()
+    commonsCompressVersion = libs.versions.commonsCompress.get()
+    commonsExecVersion = libs.versions.commonsExec.get()
+    snakeyamlVersion = libs.versions.snakeyaml.get()
+    
+    // Container and Web
+    servletVersion = libs.versions.servlet.get()
+    servletApiVersion = libs.versions.servletApi.get()
+    javaxServletApiVersion = libs.versions.servletApi.get()
+    jakartaServletVersion = libs.versions.jakartaServlet.get()
+    jakartaServletApiVersion = libs.versions.jakartaServletApi.get()
+    websocketApiVersion = libs.versions.websocketApi.get()
+    javaxWebsocketApiVersion = libs.versions.javaxWebsocketApi.get()
+    jakartaWebsocketVersion = libs.versions.jakartaWebsocket.get()
+    jakartaWebsocketApiVersion = libs.versions.jakartaWebsocketApi.get()
+    jakartaWebsocketClientApiVersion = libs.versions.jakartaWebsocketClientApi.get()
+    jettyVersion = libs.versions.jetty.get()
+    jettyServletVersion = libs.versions.jettyServlet.get()
+    mortbayJettyVersion = libs.versions.mortbayJetty.get()
+    tomcatEmbedVersion = libs.versions.tomcatEmbed.get()
+    tomcatEmbedCoreVersion = libs.versions.tomcatEmbedCore.get()
+    tomcatServletApiVersion = libs.versions.tomcatServletApi.get()
+    okhttpVersion = libs.versions.okhttp.get()
+    asyncHttpClientVersion = libs.versions.asyncHttpClient.get()
+    
+    // Validation
+    validationVersion = libs.versions.validation.get()
+    validationApiVersion = libs.versions.validationApi.get()
+    validationNewVersion = libs.versions.validationNew.get()
+    jakartaValidationApiVersion = libs.versions.jakartaValidationApi.get()
+    hibernateValidatorVersion = libs.versions.hibernateValidator.get()
+    hibernateValidatorNewVersion = libs.versions.hibernateValidatorNew.get()
+    jelVersion = libs.versions.jel.get()
+    javaxElVersion = libs.versions.javaxEl.get()
+    javaxElApiVersion = libs.versions.javaxElApi.get()
+    jcacheVersion = libs.versions.jcache.get()
+    cacheApiVersion = libs.versions.cacheApi.get()
+    
+    // REST and API Documentation
+    rsApiVersion = libs.versions.rsApi.get()
+    javaxWsRsApiVersion = libs.versions.javaxWsRsApi.get()
+    resteasyVersion = libs.versions.resteasy.get()
+    resteasyJaxrsVersion = libs.versions.resteasyJaxrs.get()
+    resteasyJacksonProviderVersion = libs.versions.resteasyJacksonProvider.get()
+    swaggerVersion = libs.versions.swagger.get()
+    swaggerAnnotationsVersion = libs.versions.swaggerAnnotations.get()
+    swaggerAnnotationsV3Version = libs.versions.swaggerAnnotationsV3.get()
+    swaggerUiVersion = libs.versions.swaggerUi.get()
+    redocVersion = libs.versions.redoc.get()
+    webjarsLocatorVersion = libs.versions.webjarsLocator.get()
+    webjarsLocatorLiteVersion = libs.versions.webjarsLocatorLite.get()
+    therapiJavadocVersion = libs.versions.therapiJavadoc.get()
+    therapiRuntimeJavadocVersion = libs.versions.therapiRuntimeJavadoc.get()
+    therapiRuntimeJavadocScribeVersion = libs.versions.therapiRuntimeJavadocScribe.get()
+    
+    // Security
+    bouncycastleVersion = libs.versions.bouncycastle.get()
+    bouncycastleBcprovVersion = libs.versions.bouncycastleBcprov.get()
+    bcpkixJdk18onVersion = libs.versions.bcpkixJdk18on.get()
+    bcprovJdk18onVersion = libs.versions.bcprovJdk18on.get()
+    
+    // XML and Data Binding
+    dom4jVersion = libs.versions.dom4j.get()
+    jaxbVersion = libs.versions.jaxb.get()
+    jaxbApiVersion = libs.versions.jaxbApi.get()
+    jaxbCoreVersion = libs.versions.jaxbCore.get()
+    jaxbImplVersion = libs.versions.jaxbImpl.get()
+    jaxbRuntimeVersion = libs.versions.jaxbRuntime.get()
+    jakartaXmlBindApiVersion = libs.versions.jakartaXmlBindApi.get()
+    activationVersion = libs.versions.activation.get()
+    
+    // Others
+    aspectjweaverVersion = libs.versions.aspectjweaver.get()
+    nashornCoreVersion = libs.versions.nashornCore.get()
+    portletVersion = libs.versions.portlet.get()
+    mcpVersion = libs.versions.mcp.get()
+    hazelcastVersion = libs.versions.hazelcast.get()
+    latencyutilsVersion = libs.versions.latencyutils.get()
+    
+    // Maven Plugins and Tools
+    mavenArtifactVersion = libs.versions.mavenArtifact.get()
+    mavenCoreVersion = libs.versions.mavenCore.get()
+    mavenPluginApiVersion = libs.versions.mavenPluginApi.get()
+    mavenPluginAnnotationsVersion = libs.versions.mavenPluginAnnotations.get()
+    mavenPluginToolsAnnotationsVersion = libs.versions.mavenPluginToolsAnnotations.get()
+    mavenCommonArtifactFiltersVersion = libs.versions.mavenCommonArtifactFilters.get()
+    plexusUtilsVersion = libs.versions.plexusUtils.get()
+    plexusBuildApiVersion = libs.versions.plexusBuildApi.get()
+    compilerVersion = libs.versions.compiler.get()
 }
 
 // ========================================
-// 🚀 版本自动管理配置（发布和升级）
+// Version Catalog Migration Summary
+// ========================================
+// ✅ All versions migrated to gradle/libs.versions.toml
+// ✅ BOM compatibility maintained through ext{} variables
+// ✅ Subprojects can use: implementation libs.spring.core
+// ✅ Gradle 7.4+ best practice applied
+// ========================================
+
+// ========================================
+//  Automatic Version Management Configuration (Release and Upgrade)
 // ========================================
 release {
-    // 版本文件配置
+    // Version file configuration
     versionPropertyFile = 'gradle.properties'
     versionProperties = ['version']
     
-    // 发布前检查
-    failOnCommitNeeded = true          // 必须提交所有更改
-    failOnPublishNeeded = true         // 必须发布到仓库
-    failOnSnapshotDependencies = true  // 不允许 SNAPSHOT 依赖
-    failOnUnversionedFiles = true      // 不允许未版本化文件
-    failOnUpdateNeeded = true          // 必须同步远程
-    revertOnFail = true                // 失败时回滚
+    // Pre-release checks
+    failOnCommitNeeded = true          // Must commit all changes
+    failOnPublishNeeded = true         // Must publish to repository
+    failOnSnapshotDependencies = true  // SNAPSHOT dependencies not allowed
+    failOnUnversionedFiles = true      // Unversioned files not allowed
+    failOnUpdateNeeded = true          // Must sync with remote
+    revertOnFail = true                // Rollback on failure
     
-    // 提交信息模板
+    // Commit message templates
     preCommitText = ''
     preTagCommitMessage = '[Gradle Release] - pre tag commit: '
     tagCommitMessage = '[Gradle Release] - creating tag: '
     newVersionCommitMessage = '[Gradle Release] - new version commit: '
     
-    // Tag 模板
+    // Tag template
     tagTemplate = 'v${version}'
     
-    // 构建任务
+    // Build tasks
     buildTasks = ['build']
     
-    // Git 配置
+    // Git configuration (compatible with release plugin 2.8.1 for Gradle 6.5+)
     git {
-        requireBranch.set('maven_to_gradle')  // 只允许在此分支发布
-        pushToRemote.set('origin')            // 推送到远程
-        signTag.set(false)                    // 不签名 tag
+        // requireBranch = 'maven_to_gradle'  // No branch restriction for release (commented out)
+        pushToRemote = 'origin'                // Push to remote
+        signTag = false                        // Don't sign tags
     }
 }
 
@@ -385,33 +361,57 @@ allprojects {
 }
 
 subprojects {
-    def isPlatformProject = project.name.contains('bom') ||
-        project.name.contains('dependencies-all') ||
-        project.path.contains(':dubbo-distribution:dubbo-bom')
-
+    def isPlatformProject = project.name.contains('bom') || 
+                           project.name.contains('dependencies-all') ||
+                           project.path.contains(':dubbo-distribution:dubbo-bom')
+    
     if (!isPlatformProject) {
         apply plugin: 'java-library'
-
+        
         // ========================================
-        // 统一依赖版本管理 - 导入 BOM
+        // Unified dependency version management - Import BOM
         // ========================================
         dependencies {
             api enforcedPlatform(project(':dubbo-dependencies-bom'))
         }
 
         // ========================================
-        // 统一日志管理配置
+        // Unified logging configuration
         // ========================================
         configurations.all {
             exclude group: 'org.apache.logging.log4j', module: 'log4j-to-slf4j'
         }
-
+        
         // Java configuration
         java {
             sourceCompatibility = JavaVersion.VERSION_1_8
             targetCompatibility = JavaVersion.VERSION_1_8
             withSourcesJar()
             withJavadocJar()
+        }
+        
+        // ========================================
+        // Package LICENSE and NOTICE files to META-INF/
+        // Package .artifacts version file to META-INF/dubbo-versions/
+        // ========================================
+        tasks.withType(ProcessResources).configureEach {
+            // Use WARN strategy to keep first occurrence when duplicates are found
+            duplicatesStrategy = DuplicatesStrategy.WARN
+            
+            // Copy LICENSE to META-INF/
+            from(rootProject.file('LICENSE')) {
+                into 'META-INF'
+            }
+            
+            // Copy NOTICE to META-INF/
+            from(rootProject.file('NOTICE')) {
+                into 'META-INF'
+            }
+            
+            // Copy .artifacts to META-INF/dubbo-versions/
+            from(rootProject.file('.artifacts')) {
+                into 'META-INF/dubbo-versions'
+            }
         }
 
         // Encoding
@@ -433,7 +433,7 @@ subprojects {
                 '-Dfile.encoding=UTF-8',
                 '-Djava.net.preferIPv4Stack=true'
             ]
-
+            
             // Add JDK 15+ compatibility
             if (JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_15)) {
                 jvmArgs += [
@@ -454,11 +454,11 @@ subprojects {
             testImplementation "org.mockito:mockito-inline:${mockitoVersion}"
         }
     }
-
+    
     apply plugin: 'maven-publish'
     apply plugin: 'signing'
 
-    // 仅为非 platform 项目配置资源和 Jar
+    // Configure resources and Jar only for non-platform projects
     if (!isPlatformProject) {
         // Resources configuration - copy LICENSE and NOTICE to each jar
         processResources {
@@ -467,7 +467,7 @@ subprojects {
                 include 'LICENSE'
                 into 'META-INF'
             }
-
+            
             // Add version info
             doLast {
                 def versionFile = file("${buildDir}/resources/main/META-INF/dubbo-versions/${project.name}")
@@ -502,15 +502,20 @@ git.commit.id=${getGitCommitId()}
             if (JavaVersion.current().isJava9Compatible()) {
                 options.addBooleanOption('html5', true)
             }
-
+            
             // Exclude demo packages
             exclude '**/org/apache/dubbo/demo/**'
         }
     }
 
-    // Publishing configuration - 使用 afterEvaluate 确保组件已创建
+    // Publishing configuration - Use afterEvaluate to ensure components are created
     afterEvaluate {
         if (components.findByName('java') || components.findByName('javaPlatform')) {
+            // Suppress validation errors for enforced-platform dependencies
+            tasks.withType(GenerateModuleMetadata).configureEach {
+                suppressedValidationErrors.add('enforced-platform')
+            }
+            
             publishing {
                 publications {
                     mavenJava(MavenPublication) {
@@ -519,18 +524,18 @@ git.commit.id=${getGitCommitId()}
                         } else if (components.findByName('java')) {
                             from components.java
                         }
-
+                        
                         pom {
                             name = project.name
                             description = "The ${project.name} module of Apache Dubbo project"
                             url = 'https://github.com/apache/dubbo'
                             inceptionYear = '2011'
-
+                            
                             organization {
                                 name = 'The Apache Software Foundation'
                                 url = 'http://www.apache.org/'
                             }
-
+                            
                             licenses {
                                 license {
                                     name = 'Apache License, Version 2.0'
@@ -538,7 +543,7 @@ git.commit.id=${getGitCommitId()}
                                     distribution = 'repo'
                                 }
                             }
-
+                            
                             developers {
                                 developer {
                                     id = 'dubbo.io'
@@ -547,14 +552,14 @@ git.commit.id=${getGitCommitId()}
                                     url = 'http://dubbo.apache.org/'
                                 }
                             }
-
+                            
                             scm {
                                 connection = 'scm:git:https://github.com/apache/dubbo.git'
                                 developerConnection = 'scm:git:https://github.com/apache/dubbo.git'
                                 url = 'https://github.com/apache/dubbo'
                                 tag = 'HEAD'
                             }
-
+                            
                             issueManagement {
                                 system = 'Github Issues'
                                 url = 'https://github.com/apache/dubbo/issues'
@@ -562,7 +567,7 @@ git.commit.id=${getGitCommitId()}
                         }
                     }
                 }
-
+                
                 repositories {
                     maven {
                         def releasesRepoUrl = "https://repository.apache.org/service/local/staging/deploy/maven2"
@@ -577,9 +582,17 @@ git.commit.id=${getGitCommitId()}
             }
 
             // Signing configuration
-            signing {
-                required { gradle.taskGraph.hasTask('publish') && !version.endsWith('SNAPSHOT') }
-                sign publishing.publications.mavenJava
+            // Only configure signing if all required properties are present
+            def hasSigningKey = project.hasProperty('signing.keyId') && 
+                               project.hasProperty('signing.password') &&
+                               (project.hasProperty('signing.secretKeyRingFile') || project.hasProperty('signing.key'))
+            if (hasSigningKey) {
+                signing {
+                    // Required for all publish tasks to remote repositories (Maven Central, etc.)
+                    // Not required for publishToMavenLocal (local development)
+                    required { gradle.taskGraph.hasTask('publish') }
+                    sign publishing.publications.mavenJava
+                }
             }
         }
     }
@@ -602,8 +615,10 @@ def getGitCommitId() {
 }
 
 // Wrapper configuration
+// Note: Using Gradle 7.4 for Java 17 compatibility (minimum version that fully supports Java 17)
+// Gradle 7.4+ is required when using Java 17
 wrapper {
-    gradleVersion = '8.5'
+    gradleVersion = '7.4'
     distributionType = Wrapper.DistributionType.BIN
 }
 

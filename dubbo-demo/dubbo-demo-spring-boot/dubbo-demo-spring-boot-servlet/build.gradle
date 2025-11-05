@@ -18,7 +18,7 @@
 description = 'The dubbo-demo-spring-boot module of dubbo project'
 
 configurations {
-    // 使用 Log4j2 作为日志实现，排除 Spring Boot 默认的 Logback
+    // Use Log4j2 as logging implementation, exclude Spring Boot default Logback
     all*.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
     all*.exclude group: 'ch.qos.logback'
 }

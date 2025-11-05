@@ -17,14 +17,14 @@
 
 description = 'Dubbo customized RPC stub compiler.'
 
-// 配置 jar 任务，创建可执行的 protoc 插件
+// Configure jar task to create executable protoc plugin
 jar {
     manifest {
         attributes(
             'Main-Class': 'org.apache.dubbo.gen.tri.Dubbo3TripleGenerator'
         )
     }
-    // 打包所有依赖到一个 fat jar
+    // Package all dependencies into a fat jar
     from {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
@@ -40,7 +40,7 @@ dependencies {
     implementation "com.google.protobuf:protobuf-java"
     testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
 
-    // 补全缺失的依赖
+    // Complete missing dependencies
     implementation "com.salesforce.servicelibs:grpc-contrib"
 }
 

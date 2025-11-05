@@ -17,7 +17,7 @@
 
 description = 'The dubbo-parent module of dubbo project'
 
-// MCP Demo需要Java 17+ (依赖dubbo-mcp模块)
+// MCP Demo requires Java 17+ (depends on dubbo-mcp module)
 java {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
@@ -28,7 +28,7 @@ tasks.withType(JavaCompile) {
 }
 
 configurations {
-    // 使用 Log4j2 作为日志实现，排除 Spring Boot 默认的 Logback
+    // Use Log4j2 as logging implementation, exclude Spring Boot default Logback
     all*.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
     all*.exclude group: 'ch.qos.logback'
 }
