@@ -20,11 +20,11 @@ description = 'Dubbo Maven Plugin'
 dependencies {
     compileOnly libs.mavenPluginApi
     compileOnly libs.mavenCore
-    implementation "org.codehaus.plexus:plexus-utils:${plexusUtilsVersion}"
+    implementation libs.plexusUtils
     compileOnly libs.mavenPluginAnnotations
-    implementation "org.apache.maven.shared:maven-common-artifact-filters:${mavenCommonArtifactFiltersVersion}"
+    implementation libs.mavenCommonArtifactFilters
     api project(':dubbo-common')
-    implementation "commons-io:commons-io"
-    compileOnly "com.google.protobuf:protobuf-java"
-    implementation "org.sonatype.plexus:plexus-build-api:${plexusBuildApiVersion}"
+    implementation libs.commonsIo
+    compileOnly libs.protobufJava
+    implementation libs.plexusBuildApi
 }

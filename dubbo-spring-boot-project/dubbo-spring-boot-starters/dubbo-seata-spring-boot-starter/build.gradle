@@ -19,6 +19,5 @@ description = 'Apache Dubbo Seata Spring Boot Starter'
 
 dependencies {
     // api project(':dubbo') // Module does not exist, commented out
-    implementation "io.seata:seata-spring-boot-starter:${seataSpringBootStarterVersion}"
     implementation libs.seataCore
 }

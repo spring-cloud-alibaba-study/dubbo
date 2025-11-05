@@ -17,15 +17,24 @@
 
 description = 'The spring config module of dubbo project'
 
+// ========================================
+// This module uses Spring 5.x (default version)
+// All dependencies use libs.springXxx (without version suffix)
+// ========================================
+
 dependencies {
     api project(':dubbo-config:dubbo-config-api')
     testImplementation project(':dubbo-metrics:dubbo-metrics-prometheus')
-    implementation "org.springframework:spring-beans"
-    implementation "org.springframework:spring-web"
-    implementation "org.springframework:spring-context"
-    compileOnly "javax.servlet:javax.servlet-api"
-    // Add javax.annotation support (required for Java 9+)
+    
+    // Spring 5.x dependencies (default version from BOM)
+    implementation libs.springBeans
+    implementation libs.springWeb
+    implementation libs.springContext
+    
+    // Javax (Spring 5.x uses javax, not jakarta)
+    compileOnly libs.servletApi
     compileOnly libs.javaxAnnotationApi
+    
     testImplementation libs.aspectjweaver
     testImplementation project(':dubbo-rpc:dubbo-rpc-dubbo')
     testImplementation project(':dubbo-rpc:dubbo-rpc-triple')
@@ -33,21 +42,21 @@ dependencies {
     testImplementation project(':dubbo-remoting:dubbo-remoting-netty4')
     testImplementation project(':dubbo-serialization:dubbo-serialization-hessian2')
     testImplementation project(':dubbo-serialization:dubbo-serialization-fastjson2')
-    testImplementation "javax.validation:validation-api"
-    testImplementation "org.hibernate:hibernate-validator"
-    testImplementation "org.glassfish:javax.el"
-    testImplementation "org.springframework:spring-tx"
+    testImplementation libs.validationApi
+    testImplementation libs.hibernateValidator
+    testImplementation libs.jel
+    testImplementation libs.springTx
     testImplementation libs.springTest
-    testImplementation "org.apache.tomcat.embed:tomcat-embed-core"
-    testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootStarterTestVersion}"
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
+    testImplementation libs.tomcatEmbedCore
+    testImplementation libs.springBootStarterTest
+    testImplementation libs.log4jSlf4jImpl
     testImplementation project(':dubbo-registry:dubbo-registry-zookeeper')
     testImplementation project(':dubbo-metadata:dubbo-metadata-report-zookeeper')
     testImplementation project(':dubbo-remoting:dubbo-remoting-zookeeper-curator5')
-    testImplementation "org.apache.curator:curator-recipes"
-    testImplementation "org.apache.curator:curator-x-discovery"
-    testImplementation "org.apache.zookeeper:zookeeper"
+    testImplementation libs.curatorRecipes
+    testImplementation libs.curatorXDiscovery
+    testImplementation libs.zookeeper
     testImplementation project(':dubbo-registry:dubbo-registry-nacos')
     testImplementation project(':dubbo-configcenter:dubbo-configcenter-nacos')
-    testImplementation "com.alibaba.nacos:nacos-client"
+    testImplementation libs.nacosClient
 }

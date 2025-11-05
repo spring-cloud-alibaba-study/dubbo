@@ -17,6 +17,17 @@
 
 description = 'The dubbo-test module of dubbo project'
 
+// ========================================
+// This module is for Spring 4.1.x compatibility testing
+// Spring 4.1.x was released in 2014 and is EOL (End of Life)
+// This module forces Spring 4.1.x version for compatibility testing
+// ========================================
+ext {
+    spring41Version = libs.versions.spring41.get()
+}
+
 dependencies {
-    implementation "org.springframework:spring-framework-bom:${springFrameworkBomVersion}"
+    implementation(libs.spring41Core) {
+        version { strictly spring41Version }
+    }
 }

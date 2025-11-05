@@ -21,6 +21,5 @@ dependencies {
     api project(':dubbo-spring-boot-project:dubbo-spring-boot-autoconfigure')
     implementation libs.micrometerTracingBridgeBrave
     implementation libs.zipkinReporterBrave
-    implementation "io.zipkin.zipkin2:zipkin:${zipkinVersion}"
     implementation libs.zipkinSenderUrlconnection
 }

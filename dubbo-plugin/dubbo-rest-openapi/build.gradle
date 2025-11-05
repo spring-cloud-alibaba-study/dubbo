@@ -21,8 +21,8 @@ dependencies {
     api project(':dubbo-rpc:dubbo-rpc-triple')
     implementation libs.swaggerAnnotationsV3
     implementation libs.swaggerUi
-    implementation "org.webjars:redoc:${redocVersion}"
+    implementation libs.redoc
     implementation libs.webjarsLocatorLite
     implementation libs.therapiJavadoc
-    testImplementation "org.spockframework:spock-core"
+    testImplementation libs.spockCore
 }

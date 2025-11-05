@@ -10,6 +10,9 @@
 # ========================================
 spring = "5.3.39"
 spring6 = "6.2.11"
+spring3 = "3.2.18.RELEASE"
+spring41 = "4.1.9.RELEASE"
+spring42 = "4.2.9.RELEASE"
 springWebflux = "5.3.39"
 springFrameworkBom = "5.3.39"
 springBoot = "2.7.18"
@@ -325,6 +328,22 @@ springTest = { module = "org.springframework:spring-test", version.ref = "spring
 springTx = { module = "org.springframework:spring-tx", version.ref = "spring" }
 springWeb = { module = "org.springframework:spring-web", version.ref = "spring" }
 springWebmvc = { module = "org.springframework:spring-webmvc", version.ref = "spring" }
+springWebflux = { module = "org.springframework:spring-webflux", version.ref = "springWebflux" }
+
+# ========================================
+# Spring Framework 3.x (for compatibility testing only)
+# ========================================
+spring3Core = { module = "org.springframework:spring-core", version.ref = "spring3" }
+
+# ========================================
+# Spring Framework 4.1.x (for compatibility testing only)
+# ========================================
+spring41Core = { module = "org.springframework:spring-core", version.ref = "spring41" }
+
+# ========================================
+# Spring Framework 4.2.x (for compatibility testing only)
+# ========================================
+spring42Core = { module = "org.springframework:spring-core", version.ref = "spring42" }
 
 # ========================================
 # Spring Framework 6.x
@@ -333,12 +352,26 @@ spring6Aop = { module = "org.springframework:spring-aop", version.ref = "spring6
 spring6Beans = { module = "org.springframework:spring-beans", version.ref = "spring6" }
 spring6Context = { module = "org.springframework:spring-context", version.ref = "spring6" }
 spring6Core = { module = "org.springframework:spring-core", version.ref = "spring6" }
+spring6Expression = { module = "org.springframework:spring-expression", version.ref = "spring6" }
+spring6Jcl = { module = "org.springframework:spring-jcl", version.ref = "spring6" }
 spring6Test = { module = "org.springframework:spring-test", version.ref = "spring6" }
 spring6Web = { module = "org.springframework:spring-web", version.ref = "spring6" }
 
 # ========================================
-# Spring Boot 2.x
+# Spring Boot 1.x (for compatibility modules only)
 # ========================================
+springBoot1 = { module = "org.springframework.boot:spring-boot", version.ref = "springBoot1" }
+springBoot1Autoconfigure = { module = "org.springframework.boot:spring-boot-autoconfigure", version.ref = "springBoot1" }
+springBoot1Starter = { module = "org.springframework.boot:spring-boot-starter", version.ref = "springBoot1" }
+springBoot1StarterLog4j2 = { module = "org.springframework.boot:spring-boot-starter-log4j2", version.ref = "springBoot1" }
+springBoot1StarterTest = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "springBoot1" }
+springBoot1StarterWeb = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "springBoot1" }
+springBoot1StarterActuator = { module = "org.springframework.boot:spring-boot-starter-actuator", version.ref = "springBoot1" }
+
+# ========================================
+# Spring Boot 2.x (default version)
+# ========================================
+springBoot = { module = "org.springframework.boot:spring-boot", version.ref = "springBoot" }
 springBootActuator = { module = "org.springframework.boot:spring-boot-actuator", version.ref = "springBoot" }
 springBootActuatorAutoconfigure = { module = "org.springframework.boot:spring-boot-actuator-autoconfigure", version.ref = "springBoot" }
 springBootAutoconfigure = { module = "org.springframework.boot:spring-boot-autoconfigure", version.ref = "springBoot" }
@@ -351,22 +384,38 @@ springBootStarterWeb = { module = "org.springframework.boot:spring-boot-starter-
 springBootTest = { module = "org.springframework.boot:spring-boot-test", version.ref = "springBoot" }
 
 # ========================================
-# Spring Boot 3.x
+# Spring Boot 3.x (for Spring 6 compatible modules)
 # ========================================
+springBoot3Bom = { module = "org.springframework.boot:spring-boot-dependencies", version.ref = "springBoot3" }
+springBoot3 = { module = "org.springframework.boot:spring-boot", version.ref = "springBoot3" }
 springBoot3Actuator = { module = "org.springframework.boot:spring-boot-actuator", version.ref = "springBoot3" }
 springBoot3Autoconfigure = { module = "org.springframework.boot:spring-boot-autoconfigure", version.ref = "springBoot3" }
 springBoot3Starter = { module = "org.springframework.boot:spring-boot-starter", version.ref = "springBoot3" }
 springBoot3StarterWeb = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "springBoot3" }
+springBoot3StarterTest = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "springBoot3" }
+springBoot3StarterLogging = { module = "org.springframework.boot:spring-boot-starter-logging", version.ref = "springBoot3" }
+springBoot3Test = { module = "org.springframework.boot:spring-boot-test", version.ref = "springBoot3" }
+springBoot3TestAutoconfigure = { module = "org.springframework.boot:spring-boot-test-autoconfigure", version.ref = "springBoot3" }
 
 # ========================================
-# Spring Security
+# Spring Security 5.x
 # ========================================
 springSecurityConfig = { module = "org.springframework.security:spring-security-config", version.ref = "springSecurity" }
 springSecurityCore = { module = "org.springframework.security:spring-security-core", version.ref = "springSecurity" }
+springSecurityOauth2Client = { module = "org.springframework.security:spring-security-oauth2-client", version.ref = "springSecurity" }
 springSecurityOauth2AuthorizationServer = { module = "org.springframework.security:spring-security-oauth2-authorization-server", version.ref = "springSecurityOauth2AuthorizationServer" }
 
+# ========================================
+# Spring Security 6.x
+# ========================================
 springSecurity6Config = { module = "org.springframework.security:spring-security-config", version.ref = "springSecurity6" }
 springSecurity6Core = { module = "org.springframework.security:spring-security-core", version.ref = "springSecurity6" }
+springSecurity6Web = { module = "org.springframework.security:spring-security-web", version.ref = "springSecurity6" }
+springSecurity6Crypto = { module = "org.springframework.security:spring-security-crypto", version.ref = "springSecurity6" }
+springSecurity6Oauth2Client = { module = "org.springframework.security:spring-security-oauth2-client", version.ref = "springSecurity6" }
+springSecurity6Oauth2Core = { module = "org.springframework.security:spring-security-oauth2-core", version.ref = "springSecurity6" }
+springSecurity6Oauth2Jose = { module = "org.springframework.security:spring-security-oauth2-jose", version.ref = "springSecurity6" }
+springSecurity6Oauth2ResourceServer = { module = "org.springframework.security:spring-security-oauth2-resource-server", version.ref = "springSecurity6" }
 
 # ========================================
 # Core Libraries
@@ -422,6 +471,7 @@ gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 jacksonAnnotations = { module = "com.fasterxml.jackson.core:jackson-annotations", version.ref = "jackson" }
 jacksonCore = { module = "com.fasterxml.jackson.core:jackson-core", version.ref = "jacksonCore" }
 jacksonDatabind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jacksonDatabind" }
+jacksonDatatypeJsr310 = { module = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310", version.ref = "jackson" }
 codehausJacksonCoreAsl = { module = "org.codehaus.jackson:jackson-core-asl", version.ref = "codehausJackson" }
 codehausJacksonMapperAsl = { module = "org.codehaus.jackson:jackson-mapper-asl", version.ref = "codehausJackson" }
 snappyJava = { module = "org.xerial.snappy:snappy-java", version.ref = "snappyJava" }
@@ -616,6 +666,7 @@ mavenPluginAnnotations = { module = "org.apache.maven.plugin-tools:maven-plugin-
 mavenPluginToolsAnnotations = { module = "org.apache.maven.plugin-tools:maven-plugin-tools-annotations", version.ref = "mavenPluginToolsAnnotations" }
 mavenCommonArtifactFilters = { module = "org.apache.maven.shared:maven-common-artifact-filters", version.ref = "mavenCommonArtifactFilters" }
 plexusUtils = { module = "org.codehaus.plexus:plexus-utils", version.ref = "plexusUtils" }
+plexusBuildApi = { module = "org.sonatype.plexus:plexus-build-api", version.ref = "plexusBuildApi" }
 
 [bundles]
 # ========================================

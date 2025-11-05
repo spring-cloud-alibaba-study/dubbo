@@ -25,6 +25,6 @@ dependencies {
     implementation "org.apache.zookeeper:zookeeper"
     implementation "org.apache.curator:curator-framework"
     implementation "org.apache.commons:commons-compress"
-    implementation "org.apache.commons:commons-exec:${commonsExecVersion}"
-    implementation "org.asynchttpclient:async-http-client:${asyncHttpClientVersion}"
+    implementation libs.commonsExec
+    implementation libs.asyncHttpClient
 }

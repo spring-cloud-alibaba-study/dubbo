@@ -38,7 +38,7 @@ dependencies {
     implementation "io.grpc:grpc-protobuf"
     implementation "io.grpc:grpc-context"
     implementation "com.google.protobuf:protobuf-java"
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
+    testImplementation libs.log4jSlf4jImpl
 
     // Complete missing dependencies
     implementation "com.salesforce.servicelibs:grpc-contrib"

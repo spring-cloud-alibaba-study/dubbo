@@ -20,38 +20,35 @@ description = 'Apache Dubbo Spring Boot Compatible for Spring Boot 1.x Auto-Conf
 // ========================================
 // Special note: This module must use Spring Boot 1.x
 // Because it depends on Spring Boot 1.x specific APIs (RelaxedPropertyResolver, RelaxedDataBinder)
-// Need to force override Spring Boot 2.x version in BOM
+// Uses libs.springBoot1Xxx from version catalog to force override BOM
 // ========================================
-ext {
-    springBoot1Version = '1.5.22.RELEASE'
-}
 
 dependencies {
-    // Use strictly to force Spring Boot 1.x version, override BOM
-    compileOnly("org.springframework.boot:spring-boot-autoconfigure") {
+    // Use Spring Boot 1.x dependencies (will override BOM's 2.x version)
+    compileOnly(libs.springBoot1Autoconfigure) {
         version {
-            strictly springBoot1Version
+            strictly libs.versions.springBoot1.get()
         }
     }
-    compileOnly("org.springframework.boot:spring-boot") {
+    compileOnly(libs.springBoot1) {
         version {
-            strictly springBoot1Version
+            strictly libs.versions.springBoot1.get()
         }
     }
-    compileOnly("org.springframework.boot:spring-boot-starter-log4j2") {
+    compileOnly(libs.springBoot1StarterLog4j2) {
         version {
-            strictly springBoot1Version
+            strictly libs.versions.springBoot1.get()
         }
     }
     
     compileOnly project(':dubbo-common')
     compileOnly project(':dubbo-config:dubbo-config-spring')
     api project(':dubbo-spring-boot-project:dubbo-spring-boot')
-    compileOnly "javax.websocket:javax.websocket-api"
+    compileOnly libs.javaxWebsocketApi
     
-    testImplementation("org.springframework.boot:spring-boot-starter-test") {
+    testImplementation(libs.springBoot1StarterTest) {
         version {
-            strictly springBoot1Version
+            strictly libs.versions.springBoot1.get()
         }
     }
 }

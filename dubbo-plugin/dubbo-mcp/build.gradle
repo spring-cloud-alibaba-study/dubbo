@@ -30,10 +30,9 @@ tasks.withType(JavaCompile) {
 dependencies {
     api project(':dubbo-plugin:dubbo-rest-openapi')
     api project(':dubbo-plugin:dubbo-filter-cache')
-    implementation "io.modelcontextprotocol.sdk:mcp:${mcpVersion}"
+    implementation libs.mcpSdk
     api project(':dubbo-config:dubbo-config-api')
     api project(':dubbo-common')
     testImplementation libs.mockitoJunitJupiter
-    testImplementation "junit:junit:${junitVersion}"
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
+    testImplementation libs.log4jSlf4jImpl
 }

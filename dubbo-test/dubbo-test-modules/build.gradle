@@ -18,6 +18,6 @@
 description = 'Check if dependencies configured properly'
 
 dependencies {
-    testImplementation "org.dom4j:dom4j:${dom4jVersion}"
+    testImplementation libs.dom4j
     api project(':dubbo-common')
 }

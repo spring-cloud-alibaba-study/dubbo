@@ -18,6 +18,6 @@
 description = 'Apache Dubbo Spring Boot Starter'
 
 dependencies {
-    compileOnly "org.springframework.boot:spring-boot-starter:${springBootStarterVersion}"
+    compileOnly libs.springBootStarter
     api project(':dubbo-spring-boot-project:dubbo-spring-boot-autoconfigure')
 }

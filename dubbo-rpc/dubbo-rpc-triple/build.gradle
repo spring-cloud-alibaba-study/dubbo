@@ -44,7 +44,7 @@ dependencies {
     compileOnly "org.apache.commons:commons-compress"
     compileOnly "org.xerial.snappy:snappy-java"
     
-    testImplementation "org.apache.groovy:groovy:${groovyVersion}"
+    testImplementation "org.apache.groovy:groovy:${libs.versions.groovy.get()}"
     testImplementation "org.spockframework:spock-core"
     testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
     testImplementation "io.grpc:grpc-netty"
@@ -52,11 +52,11 @@ dependencies {
 
 protobuf {
     protoc {
-        artifact = "com.google.protobuf:protoc:${protobufProtocVersion}"
+        artifact = "com.google.protobuf:protoc:${libs.versions.protobufProtoc.get()}"
     }
     plugins {
         grpc {
-            artifact = "io.grpc:protoc-gen-grpc-java:${grpcVersion}"
+            artifact = "io.grpc:protoc-gen-grpc-java:${libs.versions.grpc.get()}"
         }
         dubbo {
             // Use dubbo-compiler to generate Dubbo Triple code

@@ -37,5 +37,5 @@ dependencies {
     implementation project(':dubbo-remoting:dubbo-remoting-http3')
     
     implementation libs.springBootStarter
-    implementation "org.springframework.boot:spring-boot-starter-log4j2:${springBootVersion}"
+    implementation libs.springBootStarterLog4j2
 }

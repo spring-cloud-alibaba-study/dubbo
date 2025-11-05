@@ -17,6 +17,17 @@
 
 description = 'The dubbo-test module of dubbo project'
 
+// ========================================
+// This module is for Spring 4.2.x compatibility testing
+// Spring 4.2.x was released in 2015 and is EOL (End of Life)
+// This module forces Spring 4.2.x version for compatibility testing
+// ========================================
+ext {
+    spring42Version = libs.versions.spring42.get()
+}
+
 dependencies {
-    implementation "org.springframework:spring-framework-bom:${springFrameworkBomVersion}"
+    implementation(libs.spring42Core) {
+        version { strictly spring42Version }
+    }
 }

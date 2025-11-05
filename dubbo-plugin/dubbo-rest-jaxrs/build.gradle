@@ -19,14 +19,17 @@ description = 'The dubbo-parent module of dubbo project'
 
 dependencies {
     api project(':dubbo-rpc:dubbo-rpc-triple')
-    implementation "javax.ws.rs:javax.ws.rs-api"
-    implementation "org.jboss.resteasy:resteasy-jaxrs"
+    
+    // JAX-RS dependencies
+    implementation libs.rsApi
+    implementation libs.resteasyJaxrs
+    
     testImplementation project(':dubbo-remoting:dubbo-remoting-netty4')
     testImplementation libs.jaxbApi
     testImplementation libs.jaxbRuntime
     testImplementation libs.snakeyaml
     testImplementation project(':dubbo-rpc:dubbo-rpc-triple')
-    testImplementation "com.google.protobuf:protobuf-java-util"
-    testImplementation "org.spockframework:spock-core"
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
+    testImplementation libs.protobufJavaUtil
+    testImplementation libs.spockCore
+    testImplementation libs.log4jSlf4jImpl
 }

@@ -21,5 +21,5 @@ dependencies {
     api project(':dubbo-rpc:dubbo-rpc-api')
     implementation libs.jcache
     testImplementation libs.hazelcast
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
+    testImplementation libs.log4jSlf4jImpl
 }

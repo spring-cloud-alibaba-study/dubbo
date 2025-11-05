@@ -21,12 +21,12 @@ dependencies {
     // api project(':dubbo') // Module does not exist, commented out
     compileOnly project(':dubbo-common')
     compileOnly project(':dubbo-rpc:dubbo-rpc-triple')
-    compileOnly "org.springframework.boot:spring-boot-starter-web:${springBootStarterWebVersion}"
+    compileOnly libs.springBootStarterWeb
     compileOnly project(':dubbo-rpc:dubbo-rpc-api')
     compileOnly project(':dubbo-config:dubbo-config-spring')
-    testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootStarterTestVersion}"
-    testImplementation "net.bytebuddy:byte-buddy"
-    testImplementation "net.bytebuddy:byte-buddy-agent"
+    testImplementation libs.springBootStarterTest
+    testImplementation libs.byteBuddy
+    testImplementation libs.byteBuddyAgent
     testImplementation project(':dubbo-test:dubbo-test-check')
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
+    testImplementation libs.log4jSlf4jImpl
 }

@@ -17,6 +17,10 @@
 
 description = 'The dubbo-test module of dubbo project'
 
+// ========================================
+// This module uses Spring 5.x (default version)
+// ========================================
+
 dependencies {
     api project(':dubbo-test:dubbo-test-common')
     api project(':dubbo-config:dubbo-config-spring')
@@ -32,5 +36,7 @@ dependencies {
     implementation project(':dubbo-remoting:dubbo-remoting-netty4')
     implementation project(':dubbo-serialization:dubbo-serialization-hessian2')
     implementation project(':dubbo-serialization:dubbo-serialization-fastjson2')
-    implementation platform("org.springframework:spring-framework-bom:${springFrameworkBomVersion}")
+    
+    // Spring 5.x dependency
+    implementation libs.springCore
 }

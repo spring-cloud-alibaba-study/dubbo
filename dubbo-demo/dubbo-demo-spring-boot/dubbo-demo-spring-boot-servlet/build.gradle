@@ -32,7 +32,7 @@ dependencies {
     api project(':dubbo-remoting:dubbo-remoting-netty4')
     api project(':dubbo-config:dubbo-config-spring')
     api project(':dubbo-spring-boot-project:dubbo-spring-boot-autoconfigure')
-    implementation "org.springframework.boot:spring-boot-starter-web:${springBootStarterWebVersion}"
-    implementation "org.springframework.boot:spring-boot-starter-log4j2:${springBootStarterLog4j2Version}"
+    implementation libs.springBootStarterWeb
+    implementation libs.springBootStarterLog4j2
     compileOnly libs.therapiRuntimeJavadocScribe
 }

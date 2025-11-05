@@ -17,19 +17,46 @@
 
 description = 'Apache Dubbo Spring Boot Actuator Autoconfigure Compatible for Spring Boot 1.x Actuator'
 
+// ========================================
+// Special note: This module must use Spring Boot 1.x
+// Because it depends on Spring Boot 1.x specific Actuator APIs (Endpoint interface)
+// Uses libs.springBoot1Xxx from version catalog to force override BOM
+// ========================================
+
 dependencies {
-    compileOnly "org.springframework.boot:spring-boot-starter-web:${springBootStarterWebVersion}"
+    // Use Spring Boot 1.x dependencies (will override BOM's 2.x version)
+    compileOnly(libs.springBoot1StarterWeb) {
+        version {
+            strictly libs.versions.springBoot1.get()
+        }
+    }
     compileOnly "org.apache.tomcat.embed:tomcat-embed-core"
-    compileOnly "org.springframework.boot:spring-boot-starter-actuator:${springBootStarterActuatorVersion}"
+    compileOnly(libs.springBoot1StarterActuator) {
+        version {
+            strictly libs.versions.springBoot1.get()
+        }
+    }
     api project(':dubbo-spring-boot-project:dubbo-spring-boot-actuator')
-    compileOnly "org.springframework.boot:spring-boot-autoconfigure:${springBootAutoconfigureVersion}"
-    compileOnly "org.springframework.boot:spring-boot-configuration-processor:${springBootConfigurationProcessorVersion}"
+    compileOnly(libs.springBoot1Autoconfigure) {
+        version {
+            strictly libs.versions.springBoot1.get()
+        }
+    }
+    compileOnly libs.springBootConfigurationProcessor
     api project(':dubbo-spring-boot-project:dubbo-spring-boot-autoconfigure')
     // api project(':dubbo') // Module does not exist, commented out
     compileOnly project(':dubbo-common')
     compileOnly project(':dubbo-config:dubbo-config-spring')
     testImplementation project(':dubbo-rpc:dubbo-rpc-dubbo')
     compileOnly project(':dubbo-plugin:dubbo-qos')
-    testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootStarterTestVersion}"
-    testImplementation "org.springframework.boot:spring-boot-starter-log4j2:${springBootStarterLog4j2Version}"
+    testImplementation(libs.springBoot1StarterTest) {
+        version {
+            strictly libs.versions.springBoot1.get()
+        }
+    }
+    testImplementation(libs.springBoot1StarterLog4j2) {
+        version {
+            strictly libs.versions.springBoot1.get()
+        }
+    }
 }

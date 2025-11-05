@@ -26,16 +26,16 @@ dependencies {
     implementation libs.micrometerTracing
     
     // OpenTelemetry - needs implementation to compile
-    implementation "io.micrometer:micrometer-tracing-bridge-otel:${micrometerTracingVersion}"
-    implementation "io.micrometer:micrometer-tracing-bridge-brave:${micrometerTracingVersion}"
-    implementation "io.opentelemetry:opentelemetry-exporter-zipkin:${opentelemetryVersion}"
-    implementation "io.opentelemetry:opentelemetry-exporter-otlp:${opentelemetryVersion}"
-    implementation "io.zipkin.reporter2:zipkin-reporter-brave:${zipkinReporterVersion}"
-    implementation "io.zipkin.reporter2:zipkin-sender-urlconnection:${zipkinReporterVersion}"
-    implementation "io.zipkin.reporter2:zipkin-reporter:${zipkinReporterVersion}"
+    implementation libs.micrometerTracingBridgeOtel
+    implementation libs.micrometerTracingBridgeBrave
+    implementation libs.opentelemetryExporterZipkin
+    implementation libs.opentelemetryExporterOtlp
+    implementation libs.zipkinReporterBrave
+    implementation libs.zipkinSenderUrlconnection
+    implementation libs.zipkinReporter
     
     // Test dependencies
-    testImplementation "io.micrometer:micrometer-test:${micrometerVersion}"
+    testImplementation libs.micrometerTest
     testImplementation libs.micrometerTracingIntegrationTest
     testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
 }

@@ -18,22 +18,22 @@
 description = 'Apache Dubbo Spring Boot Actuator Autoconfigure'
 
 dependencies {
-    compileOnly "org.springframework.boot:spring-boot-starter-web:${springBootStarterWebVersion}"
+    compileOnly libs.springBootStarterWeb
     compileOnly "org.apache.tomcat.embed:tomcat-embed-core"
     api project(':dubbo-spring-boot-project:dubbo-spring-boot-actuator')
     compileOnly libs.springBootActuatorAutoconfigure
     api project(':dubbo-spring-boot-project:dubbo-spring-boot-autoconfigure')
-    compileOnly "org.springframework.boot:spring-boot-configuration-processor:${springBootConfigurationProcessorVersion}"
+    compileOnly libs.springBootConfigurationProcessor
     // api project(':dubbo-spring-boot-project:dubbo-spring-boot-compatible:dubbo-spring-boot-actuator-autoconfigure-compatible')  // Temporarily disabled: Spring Boot 1.x is EOL
     // api project(':dubbo') // Module does not exist, commented out
     compileOnly project(':dubbo-common')
     compileOnly project(':dubbo-config:dubbo-config-spring')
     testImplementation project(':dubbo-rpc:dubbo-rpc-dubbo')
     compileOnly project(':dubbo-plugin:dubbo-qos')
-    testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootStarterTestVersion}"
-    testImplementation "org.springframework.boot:spring-boot-starter-log4j2:${springBootStarterLog4j2Version}"
-    testImplementation "net.bytebuddy:byte-buddy"
-    testImplementation "net.bytebuddy:byte-buddy-agent"
+    testImplementation libs.springBootStarterTest
+    testImplementation libs.springBootStarterLog4j2
+    testImplementation libs.byteBuddy
+    testImplementation libs.byteBuddyAgent
     testImplementation project(':dubbo-test:dubbo-test-check')
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
+    testImplementation libs.log4jSlf4jImpl
 }

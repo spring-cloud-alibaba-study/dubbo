@@ -20,5 +20,5 @@ description = 'The dubbo-parent module of dubbo project'
 dependencies {
     api project(':dubbo-common')
     api project(':dubbo-rpc:dubbo-rpc-api')
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
+    testImplementation libs.log4jSlf4jImpl
 }

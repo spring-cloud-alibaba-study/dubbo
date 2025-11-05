@@ -28,9 +28,9 @@ tasks.withType(JavaCompile) {
 }
 
 dependencies {
-    // Use Spring Boot 3 BOM
-    implementation platform("org.springframework.boot:spring-boot-dependencies:${springBoot3Version}")
-    compileOnly "org.springframework.boot:spring-boot-autoconfigure"
+    // Use Spring Boot 3 BOM from version catalog
+    implementation platform(libs.springBoot3Bom)
+    compileOnly libs.springBoot3Autoconfigure
     
     // Dubbo core dependencies (triple-servlet and websocket need api to get transitive dependencies)
     compileOnly project(':dubbo-config:dubbo-config-api')
@@ -38,12 +38,12 @@ dependencies {
     api project(':dubbo-plugin:dubbo-triple-websocket')
     
     // Jakarta EE dependencies (Spring Boot 3 uses Jakarta instead of Javax)
-    compileOnly "jakarta.servlet:jakarta.servlet-api"
+    compileOnly libs.jakartaServletApi
     compileOnly "org.apache.tomcat.embed:tomcat-embed-core"
-    compileOnly "jakarta.websocket:jakarta.websocket-api"
-    compileOnly "jakarta.websocket:jakarta.websocket-client-api"
+    compileOnly libs.jakartaWebsocketApi
+    compileOnly libs.jakartaWebsocketClientApi
     
     // Test dependencies
-    testImplementation "org.springframework.boot:spring-boot-starter-test"
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
+    testImplementation libs.springBoot3StarterTest
+    testImplementation libs.log4jSlf4jImpl
 }

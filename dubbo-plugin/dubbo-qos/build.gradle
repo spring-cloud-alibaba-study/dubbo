@@ -28,6 +28,8 @@ dependencies {
     api project(':dubbo-plugin:dubbo-qos-api')
     api project(':dubbo-plugin:dubbo-native')
     api project(':dubbo-metrics:dubbo-metrics-default')
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
-    implementation "org.apache.logging.log4j:log4j-api"
+    
+    // Logging dependencies
+    implementation libs.log4jApi
+    testImplementation libs.log4jSlf4jImpl
 }

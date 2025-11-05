@@ -27,36 +27,89 @@ tasks.withType(JavaCompile) {
     options.release = 17
 }
 
+// ========================================
+// Module-specific version configuration
+// Spring 6 and Spring Security 6 need to strictly override versions in BOM
+// All dependencies use libs.spring6Xxx and libs.springSecurity6Xxx
+// ========================================
+ext {
+    spring6Version = libs.versions.spring6.get()
+    springSecurity6Version = libs.versions.springSecurity6.get()
+}
+
 dependencies {
-    // Use Spring 6 dependencies
-    implementation "org.springframework:spring-core"
-    implementation "org.springframework:spring-beans"
-    implementation "org.springframework:spring-context"
-    implementation "org.springframework:spring-aop"
-    implementation "org.springframework:spring-web"
-    implementation "org.springframework:spring-jcl"
-    implementation "org.springframework:spring-expression"
-    compileOnly "org.springframework:spring-test:${spring6Version}"
+    // ========================================
+    // Spring 6 dependencies (force override Spring 5 in BOM)
+    // ========================================
+    implementation(libs.spring6Core) {
+        version { strictly spring6Version }
+    }
+    implementation(libs.spring6Beans) {
+        version { strictly spring6Version }
+    }
+    implementation(libs.spring6Context) {
+        version { strictly spring6Version }
+    }
+    implementation(libs.spring6Aop) {
+        version { strictly spring6Version }
+    }
+    implementation(libs.spring6Web) {
+        version { strictly spring6Version }
+    }
+    implementation(libs.spring6Jcl) {
+        version { strictly spring6Version }
+    }
+    implementation(libs.spring6Expression) {
+        version { strictly spring6Version }
+    }
+    compileOnly(libs.spring6Test) {
+        version { strictly spring6Version }
+    }
+    
     api project(':dubbo-plugin:dubbo-spring-security')
-    // Use Spring Security 6 dependencies
-    implementation "org.springframework.security:spring-security-config:${springSecurity6Version}"
-    implementation "org.springframework.security:spring-security-core:${springSecurity6Version}"
-    implementation "org.springframework.security:spring-security-web:${springSecurity6Version}"
-    implementation "org.springframework.security:spring-security-crypto:${springSecurity6Version}"
-    compileOnly "org.springframework.security:spring-security-oauth2-core:${springSecurity6Version}"
-    compileOnly "org.springframework.security:spring-security-oauth2-jose:${springSecurity6Version}"
-    compileOnly "org.springframework.security:spring-security-oauth2-resource-server:${springSecurity6Version}"
+    
+    // ========================================
+    // Spring Security 6 dependencies (force override Spring Security 5 in BOM)
+    // ========================================
+    implementation(libs.springSecurity6Config) {
+        version { strictly springSecurity6Version }
+    }
+    implementation(libs.springSecurity6Core) {
+        version { strictly springSecurity6Version }
+    }
+    implementation(libs.springSecurity6Web) {
+        version { strictly springSecurity6Version }
+    }
+    implementation(libs.springSecurity6Crypto) {
+        version { strictly springSecurity6Version }
+    }
+    compileOnly(libs.springSecurity6Oauth2Core) {
+        version { strictly springSecurity6Version }
+    }
+    compileOnly(libs.springSecurity6Oauth2Jose) {
+        version { strictly springSecurity6Version }
+    }
+    compileOnly(libs.springSecurity6Oauth2ResourceServer) {
+        version { strictly springSecurity6Version }
+    }
+    compileOnly(libs.springSecurity6Oauth2Client) {
+        version { strictly springSecurity6Version }
+    }
     // OAuth2 Authorization Server uses separate version (not Spring Security version)
     compileOnly libs.springSecurityOauth2AuthorizationServer
-    compileOnly "org.springframework.security:spring-security-oauth2-client:${springSecurity6Version}"
-    // Use Spring Boot 3 dependencies
-    compileOnly libs.springBoot3Starter
-    compileOnly "org.springframework.boot:spring-boot:${springBoot3Version}"
+    
+    // ========================================
+    // Spring Boot 3 dependencies
+    // ========================================
+    compileOnly libs.springBoot3
     compileOnly libs.springBoot3Autoconfigure
-    compileOnly "org.springframework.boot:spring-boot-starter-logging:${springBoot3Version}"
-    compileOnly "org.springframework.boot:spring-boot-test:${springBoot3Version}"
-    compileOnly "org.springframework.boot:spring-boot-test-autoconfigure:${springBoot3Version}"
-    compileOnly "org.springframework.boot:spring-boot-starter-test:${springBoot3Version}"
+    compileOnly libs.springBoot3StarterLogging
+    compileOnly libs.springBoot3Test
+    compileOnly libs.springBoot3TestAutoconfigure
+    compileOnly libs.springBoot3StarterTest
+    
     compileOnly project(':dubbo-config:dubbo-config-spring6')
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
+    
+    // Test dependencies
+    testImplementation libs.log4jSlf4jImpl
 }

@@ -25,27 +25,35 @@ dependencies {
     api project(':dubbo-rpc:dubbo-rpc-api')
     api project(':dubbo-rpc:dubbo-rpc-triple')
     api project(':dubbo-common')
-    implementation "io.grpc:grpc-protobuf"
-    implementation "io.grpc:grpc-stub"
-    implementation "io.grpc:grpc-netty-shaded:${grpcVersion}"
-    implementation "com.google.protobuf:protobuf-java"
-    implementation "com.google.protobuf:protobuf-java-util"
-    implementation "org.bouncycastle:bcprov-jdk18on"
-    implementation "org.bouncycastle:bcpkix-jdk18on"
+    
+    // gRPC dependencies
+    implementation libs.grpcProtobuf
+    implementation libs.grpcStub
+    implementation "io.grpc:grpc-netty-shaded:${libs.versions.grpc.get()}"
+    
+    // Protobuf dependencies
+    implementation libs.protobufJava
+    implementation libs.protobufJavaUtil
+    
+    // BouncyCastle security dependencies
+    implementation libs.bouncycastleBcprovJdk18on
+    implementation libs.bouncycastleBcpkixJdk18on
+    
     // Add javax.annotation support (required for Java 9+)
     compileOnly libs.javaxAnnotationApi
+    
     testImplementation project(':dubbo-config:dubbo-config-api')
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
+    testImplementation libs.log4jSlf4jImpl
 }
 
 // Protobuf configuration
 protobuf {
     protoc {
-        artifact = "com.google.protobuf:protoc:${protobufProtocVersion}"
+        artifact = "com.google.protobuf:protoc:${libs.versions.protobufProtoc.get()}"
     }
     plugins {
         grpc {
-            artifact = "io.grpc:protoc-gen-grpc-java:${grpcVersion}"
+            artifact = "io.grpc:protoc-gen-grpc-java:${libs.versions.grpc.get()}"
         }
         dubbo {
             // Use dubbo-compiler to generate Dubbo Triple code
