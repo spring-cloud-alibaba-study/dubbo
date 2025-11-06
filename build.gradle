@@ -221,6 +221,7 @@ subprojects {
         // Dependencies
         dependencies {
             api enforcedPlatform(project(':dubbo-dependencies-bom'))
+            testImplementation libs.junitJupiterApi
             testImplementation libs.junitJupiterEngine
             testImplementation libs.junitJupiterParams
             testImplementation libs.awaitility
@@ -229,7 +230,6 @@ subprojects {
             testImplementation libs.mockitoInline
         }
 
-        // Exclude conflicting logging dependencies
         configurations.all {
             exclude group: 'org.apache.logging.log4j', module: 'log4j-to-slf4j'
         }

@@ -32,7 +32,7 @@ dependencies {
     implementation libs.javaxAnnotationApi
 
     // Optional JSON libraries
-    compileOnly "com.alibaba:fastjson"
+    compileOnly libs.fastjson
     compileOnly "com.google.code.gson:gson"
     compileOnly "com.fasterxml.jackson.core:jackson-core"
     compileOnly "com.fasterxml.jackson.core:jackson-databind"
@@ -43,7 +43,8 @@ dependencies {
     testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
     testImplementation "org.apache.logging.log4j:log4j-core"
     testImplementation "com.google.protobuf:protobuf-java"
-    testImplementation "com.alibaba.fastjson2:fastjson2"
+    testImplementation libs.fastjson  // For Fastjson v1 tests
+    testImplementation libs.fastjson2
     testImplementation "com.google.code.gson:gson"
 }
 

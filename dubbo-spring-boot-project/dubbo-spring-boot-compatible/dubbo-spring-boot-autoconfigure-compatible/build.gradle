@@ -40,15 +40,61 @@ dependencies {
             strictly libs.versions.springBoot1.get()
         }
     }
+    compileOnly libs.springBootConfigurationProcessor
     
+    // Core Dubbo dependencies
     compileOnly project(':dubbo-common')
     compileOnly project(':dubbo-config:dubbo-config-spring')
     api project(':dubbo-spring-boot-project:dubbo-spring-boot')
+    
+    // Triple protocol support
+    compileOnly project(':dubbo-plugin:dubbo-triple-servlet')
+    compileOnly project(':dubbo-plugin:dubbo-triple-websocket')
+    
+    // Servlet and WebSocket APIs (use javax for Spring Boot 1.x compatibility)
+    compileOnly libs.servletApi
+    compileOnly "org.apache.tomcat.embed:tomcat-embed-core"
     compileOnly libs.javaxWebsocketApi
+    compileOnly libs.javaxWebsocketClientApi
+    
+    // Spring Web support
+    compileOnly libs.springWebmvc
+    compileOnly libs.springWebflux
+    
+    // Micrometer metrics and observability
+    compileOnly libs.micrometerTracing
+    compileOnly libs.micrometerObservation
+    compileOnly libs.micrometerCore
+    compileOnly libs.micrometerRegistryPrometheusSimpleclient
+    
+    // Prometheus support
+    compileOnly libs.digest
+    compileOnly libs.prometheusClient
+    compileOnly libs.simpleclientPushgateway
+    
+    // Tracing support
+    compileOnly libs.micrometerTracingBridgeOtel
+    compileOnly libs.micrometerTracingBridgeBrave
+    compileOnly libs.opentelemetryExporterZipkin
+    compileOnly libs.opentelemetryExporterOtlp
+    compileOnly libs.zipkinReporterBrave
+    compileOnly libs.zipkinSenderUrlconnection
+    
+    // QoS support
+    compileOnly project(':dubbo-plugin:dubbo-qos')
     
     testImplementation(libs.springBoot1StarterTest) {
         version {
             strictly libs.versions.springBoot1.get()
         }
     }
+    testImplementation libs.byteBuddy
+    testImplementation libs.byteBuddyAgent
+    testImplementation project(':dubbo-test:dubbo-test-check')
+    testImplementation libs.log4jSlf4jImpl
+    
+    // Test dependencies for RelaxedDubboConfigBinderTest
+    testImplementation project(':dubbo-config:dubbo-config-api')
+    testImplementation project(':dubbo-config:dubbo-config-spring')
+    testImplementation project(':dubbo-common')
 }

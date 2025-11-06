@@ -106,7 +106,7 @@ micrometerTest = "1.11.5"
 micrometerTracing = "1.5.1"
 micrometerTracingBridgeBrave = "1.5.1"
 micrometerTracingBridgeOtel = "1.5.1"
-micrometerTracingIntegrationTest = "1.11.5"
+micrometerTracingIntegrationTest = "1.5.1"
 opentelemetry = "1.50.0"
 opentelemetryApi = "1.50.0"
 opentelemetryContext = "1.50.0"
@@ -160,9 +160,9 @@ log4j = "1.2.17"
 # Testing
 # ========================================
 junit = "5.10.1"
-junitJupiter = "5.12.2"
-junitJupiterEngine = "5.12.2"
-junitPlatform = "1.13.1"
+junitJupiter = "5.10.1"
+junitJupiterEngine = "5.10.1"
+junitPlatform = "1.10.1"
 junitPlatformEngine = "1.10.1"
 junitPlatformLauncher = "1.10.1"
 junitPlatformRunner = "1.10.1"
@@ -596,6 +596,7 @@ jakartaServletApi = { module = "jakarta.servlet:jakarta.servlet-api", version.re
 jakartaWebsocketApi = { module = "jakarta.websocket:jakarta.websocket-api", version.ref = "jakartaWebsocketApi" }
 jakartaWebsocketClientApi = { module = "jakarta.websocket:jakarta.websocket-client-api", version.ref = "jakartaWebsocketClientApi" }
 javaxWebsocketApi = { module = "javax.websocket:javax.websocket-api", version.ref = "javaxWebsocketApi" }
+javaxWebsocketClientApi = { module = "javax.websocket:javax.websocket-client-api", version.ref = "javaxWebsocketApi" }
 jettyServer = { module = "org.eclipse.jetty:jetty-server", version.ref = "jetty" }
 jettyServlet = { module = "org.eclipse.jetty:jetty-servlet", version.ref = "jettyServlet" }
 mortbayJetty = { module = "org.mortbay.jetty:jetty", version.ref = "mortbayJetty" }
@@ -669,17 +670,218 @@ plexusUtils = { module = "org.codehaus.plexus:plexus-utils", version.ref = "plex
 plexusBuildApi = { module = "org.sonatype.plexus:plexus-build-api", version.ref = "plexusBuildApi" }
 
 [bundles]
+
 # ========================================
-# Common Bundles (Frequently Used Together)
+# Spring Framework 5.x Bundles (Default Version)
 # ========================================
-spring-core = ["springCore", "springBeans", "springContext"]
-spring-web = ["springCore", "springBeans", "springContext", "springWeb"]
+# Core Spring dependencies (IoC, DI, Context)
+spring5-core = ["springCore", "springBeans", "springContext"]
+
+# Spring web applications (includes core + web)
+spring5-web = ["springCore", "springBeans", "springContext", "springWeb"]
+
+# Spring web MVC applications (includes web + webmvc)
+spring5-webmvc = ["springCore", "springBeans", "springContext", "springWeb", "springWebmvc"]
+
+# Spring AOP support
+spring5-aop = ["springCore", "springBeans", "springContext", "springAop"]
+
+# Spring testing support
+spring5-test = ["springCore", "springBeans", "springContext", "springTest"]
+# Core Spring 6 dependencies (IoC, DI, Context)
 spring6-core = ["spring6Core", "spring6Beans", "spring6Context"]
-testing = ["junitJupiterEngine", "junitJupiterApi", "junitJupiterParams", "mockitoCore", "mockitoInline", "awaitility", "hamcrest"]
-grpc = ["grpcCore", "grpcNetty", "grpcProtobuf", "grpcStub"]
+
+# Spring 6 web applications (includes core + web + expression)
+spring6-web = ["spring6Core", "spring6Beans", "spring6Context", "spring6Expression", "spring6Web"]
+
+# Spring 6 full stack (includes AOP and JCL)
+spring6-full = ["spring6Core", "spring6Beans", "spring6Context", "spring6Expression", "spring6Aop", "spring6Jcl"]
+
+# ========================================
+# Spring Security Bundles
+# ========================================
+# Spring Security 5.x core
+spring-security5 = ["springSecurityCore", "springSecurityConfig"]
+
+# Spring Security 5.x with OAuth2 client
+spring-security5-oauth2 = ["springSecurityCore", "springSecurityConfig", "springSecurityOauth2Client"]
+
+# Spring Security 6.x core
+spring-security6 = ["springSecurity6Core", "springSecurity6Config", "springSecurity6Web"]
+
+# Spring Security 6.x with OAuth2
+spring-security6-oauth2 = ["springSecurity6Core", "springSecurity6Config", "springSecurity6Oauth2Core", "springSecurity6Oauth2Client"]
+
+# Spring Security 6.x full (includes crypto, jose, resource server)
+spring-security6-full = ["springSecurity6Core", "springSecurity6Config", "springSecurity6Web", "springSecurity6Crypto", "springSecurity6Oauth2Core", "springSecurity6Oauth2Jose", "springSecurity6Oauth2ResourceServer"]
+
+# ========================================
+# Testing Bundles
+# ========================================
+# JUnit 5 core (Jupiter API + Engine)
+junit5 = ["junitJupiterApi", "junitJupiterEngine"]
+
+# JUnit 5 with parameterized tests
+junit5-params = ["junitJupiterApi", "junitJupiterEngine", "junitJupiterParams"]
+
+# Mockito for unit testing
+mockito = ["mockitoCore", "mockitoInline", "mockitoJunitJupiter"]
+
+# Complete testing stack (JUnit + Mockito + utilities)
+testing-full = ["junitJupiterApi", "junitJupiterEngine", "junitJupiterParams", "mockitoCore", "mockitoInline", "mockitoJunitJupiter", "awaitility", "hamcrest", "assertjCore"]
+
+# Minimal testing (JUnit + Mockito core only)
+testing-minimal = ["junitJupiterApi", "junitJupiterEngine", "mockitoCore", "awaitility"]
+
+# ========================================
+# Netty Bundles
+# ========================================
+# Netty 4.x basic (common + transport + handler)
+netty4-core = ["nettyCommon", "nettyBuffer", "nettyTransport", "nettyHandler"]
+
+# Netty HTTP/2 support
+netty4-http2 = ["nettyCommon", "nettyBuffer", "nettyTransport", "nettyHandler", "nettyCodecHttp", "nettyCodecHttp2"]
+
+# Netty HTTP/3 support (includes HTTP/2)
+netty4-http3 = ["nettyCommon", "nettyBuffer", "nettyTransport", "nettyHandler", "nettyCodecHttp", "nettyCodecHttp2", "nettyCodecHttp3"]
+
+# Netty with native transport (Linux epoll)
+netty4-native-epoll = ["nettyTransportClassesEpoll", "nettyTransportNativeEpoll", "nettyTransportNativeUnixCommon"]
+
+# Netty complete (all + codec + handler)
+netty4-all = ["nettyAll", "nettyCodecHttp2", "nettyHandler"]
+
+# ========================================
+# gRPC Bundles
+# ========================================
+# gRPC core (API + Stub + Protobuf)
+grpc-core = ["grpcApi", "grpcCore", "grpcStub", "grpcProtobuf"]
+
+# gRPC with Netty transport
+grpc-netty = ["grpcApi", "grpcCore", "grpcStub", "grpcProtobuf", "grpcNetty"]
+
+# gRPC full stack (includes services and testing)
+grpc-full = ["grpcApi", "grpcCore", "grpcStub", "grpcProtobuf", "grpcNetty", "grpcServices"]
+
+# ========================================
+# Serialization Bundles
+# ========================================
+# Jackson core (annotations + core + databind)
+jackson = ["jacksonAnnotations", "jacksonCore", "jacksonDatabind"]
+
+# Jackson with JSR310 (Java 8 date/time support)
+jackson-jsr310 = ["jacksonAnnotations", "jacksonCore", "jacksonDatabind", "jacksonDatatypeJsr310"]
+
+# Protobuf serialization
+protobuf = ["protobufJava", "protobufJavaUtil"]
+
+# Multiple serialization support (for Dubbo)
+serialization-multi = ["hessian", "fastjson2", "protobufJava", "gson"]
+
+# ========================================
+# Service Discovery Bundles
+# ========================================
+# Apache Curator (ZooKeeper client)
 curator = ["curatorFramework", "curatorRecipes"]
-netty = ["nettyAll", "nettyCodecHttp2", "nettyHandler"]
-logging = ["slf4jApi", "log4jApi", "log4jCore"]
+
+# Curator with service discovery
+curator-discovery = ["curatorFramework", "curatorRecipes", "curatorXDiscovery"]
+
+# Curator with ZooKeeper
+curator-zookeeper = ["curatorFramework", "curatorRecipes", "zookeeper"]
+
+# ========================================
+# Monitoring and Observability Bundles
+# ========================================
+# Micrometer core observability
+micrometer-core = ["micrometerCore", "micrometerObservation"]
+
+# Micrometer with tracing (Brave bridge)
+micrometer-tracing-brave = ["micrometerCore", "micrometerObservation", "micrometerTracing", "micrometerTracingBridgeBrave", "brave"]
+
+# Micrometer with tracing (OpenTelemetry bridge)
+micrometer-tracing-otel = ["micrometerCore", "micrometerObservation", "micrometerTracing", "micrometerTracingBridgeOtel", "opentelemetryApi"]
+
+# Micrometer with Prometheus
+micrometer-prometheus = ["micrometerCore", "micrometerObservation", "micrometerRegistryPrometheusSimpleclient"]
+
+# OpenTelemetry core
+opentelemetry-core = ["opentelemetryApi", "opentelemetrySdk", "opentelemetrySdkCommon"]
+
+# OpenTelemetry with tracing
+opentelemetry-tracing = ["opentelemetryApi", "opentelemetrySdk", "opentelemetrySdkTrace", "opentelemetryExtensionAnnotations"]
+
+# OpenTelemetry with exporters (Zipkin + OTLP)
+opentelemetry-exporters = ["opentelemetryApi", "opentelemetrySdk", "opentelemetryExporterZipkin", "opentelemetryExporterOtlp"]
+
+# Zipkin tracing
+zipkin = ["zipkinReporter", "zipkinReporterBrave", "zipkinSenderUrlconnection", "brave"]
+
+# ========================================
+# Logging Bundles
+# ========================================
+# SLF4J + Log4j2 implementation
+logging-log4j2 = ["slf4jApi", "log4jApi", "log4jCore", "log4jSlf4jImpl"]
+
+# SLF4J + Logback implementation
+logging-logback = ["slf4jApi", "logbackClassic"]
+
+# SLF4J API only (for libraries)
+logging-api = ["slf4jApi"]
+
+# ========================================
+# Reactive Programming Bundles
+# ========================================
+# Reactor core
+reactor = ["reactorCore", "reactiveStreams"]
+
+# RxJava 2
+rxjava = ["rxjava2", "reactiveStreams"]
+
+# Multiple reactive libraries support
+reactive-multi = ["reactorCore", "rxjava2", "reactiveStreams", "mutiny"]
+
+# ========================================
+# HTTP Client Bundles
+# ========================================
+# Apache HttpComponents 4.x
+httpclient4 = ["httpclient", "httpcore"]
+
+# Apache HttpComponents 5.x
+httpclient5 = ["httpclient5", "httpcore5"]
+
+# ========================================
+# Validation Bundles
+# ========================================
+# Bean Validation (Javax)
+validation-javax = ["validationApi", "hibernateValidator", "jel"]
+
+# Bean Validation (Jakarta)
+validation-jakarta = ["jakartaValidationApi", "hibernateValidatorNew"]
+
+# ========================================
+# Container and Servlet Bundles
+# ========================================
+# Javax Servlet API
+servlet-javax = ["servletApi", "javaxWebsocketApi"]
+
+# Jakarta Servlet API (for Spring 6 / Spring Boot 3)
+servlet-jakarta = ["jakartaServletApi", "jakartaWebsocketApi", "jakartaWebsocketClientApi"]
+
+# Jetty embedded server
+jetty = ["jettyServer", "jettyServlet"]
+
+# Tomcat embedded server
+tomcat = ["tomcatEmbedCore", "tomcatServletApi"]
+
+# ========================================
+# Utilities Bundles
+# ========================================
+# Apache Commons utilities
+commons-utils = ["commonsLang3", "commonsIo", "commonsCodec"]
+
+# Apache Commons with compression
+commons-full = ["commonsLang3", "commonsIo", "commonsCodec", "commonsCompress", "commonsExec"]
 
 [plugins]
 # ========================================
