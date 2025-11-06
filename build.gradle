@@ -29,9 +29,6 @@ plugins {
     alias(libs.plugins.licenseReport)
 }
 
-// ================================================================================
-// 3. REPOSITORY CONFIGURATION
-// ================================================================================
 allprojects {
     group = rootProject.group
     version = rootProject.version
@@ -44,9 +41,48 @@ allprojects {
 }
 
 subprojects {
+    // Platform projects (BOM and dependency management) don't need Java plugin
+    // They use 'java-platform' plugin instead and only manage dependency versions
     def isPlatformProject = project.name.contains('bom') ||
-                           project.name.contains('dependencies-all') ||
-                           project.path.contains(':dubbo-distribution:dubbo-bom')
+                           project.name.contains('dependencies-all')
+
+    // Shared exclusion list for code quality tools (Spotless and Checkstyle)
+    // These files are either copied from third-party or have special formatting requirements
+    def spotlessExcludes = [
+        'src/main/java/org/apache/dubbo/common/threadlocal/InternalThreadLocal.java',
+        'src/main/java/org/apache/dubbo/common/threadlocal/InternalThreadLocalMap.java',
+        'src/main/java/org/apache/dubbo/common/timer/HashedWheelTimer.java',
+        'src/main/java/org/apache/dubbo/common/timer/Timeout.java',
+        'src/main/java/org/apache/dubbo/common/timer/Timer.java',
+        'src/main/java/org/apache/dubbo/common/timer/TimerTask.java',
+        'src/main/java/org/apache/dubbo/common/utils/CIDRUtils.java',
+        'src/main/java/org/apache/dubbo/common/utils/Utf8Utils.java',
+        'src/test/java/org/apache/dubbo/config/spring/EmbeddedZooKeeper.java',
+        'src/main/java/org/apache/dubbo/test/common/utils/TestSocketUtils.java',
+        'src/main/java/org/apache/dubbo/rpc/protocol/tri/TriHttp2RemoteFlowController.java',
+        'src/main/java/org/apache/dubbo/rpc/protocol/tri/rest/cors/CorsHeaderFilter.java'
+    ]
+
+    // Checkstyle has additional exclusions beyond Spotless
+    def checkstyleExtraExcludes = [
+        '**/JSONWriter.java',
+        '**/org/apache/dubbo/maven/plugin/aot/**',
+        '**/org/apache/dubbo/aot/generate/BasicJsonWriter.java',
+        '**/org/apache/dubbo/aot/api/ExecutableMode.java',
+        '**/org/apache/dubbo/aot/api/MemberCategory.java',
+        '**/org/apache/dubbo/common/threadpool/serial/SerializingExecutor.java',
+        '**/org/apache/dubbo/common/serialize/protobuf/support/wrapper/**',
+        '**/org/apache/dubbo/triple/TripleWrapper.java',
+        '**/org/apache/dubbo/metrics/aggregate/DubboMergingDigest.java',
+        '**/org/apache/dubbo/metrics/aggregate/DubboAbstractTDigest.java',
+        '**/org/apache/dubbo/common/logger/helpers/**',
+        '**/org/apache/dubbo/maven/plugin/protoc/DubboProtocCompilerMojo.java',
+        '**/org/apache/dubbo/gen/utils/ProtoTypeMap.java',
+        '**/istio/v1/auth/**',
+        '**/com/google/rpc/**',
+        '**/grpc/health/**',
+        '**/grpc/reflection/**'
+    ]
 
     if (!isPlatformProject) {
         // --------------------------------------------------------------------------------
@@ -74,20 +110,7 @@ subprojects {
         spotless {
             java {
                 target 'src/**/*.java'
-                targetExclude(
-                    'src/main/java/org/apache/dubbo/common/threadlocal/InternalThreadLocal.java',
-                    'src/main/java/org/apache/dubbo/common/threadlocal/InternalThreadLocalMap.java',
-                    'src/main/java/org/apache/dubbo/common/timer/HashedWheelTimer.java',
-                    'src/main/java/org/apache/dubbo/common/timer/Timeout.java',
-                    'src/main/java/org/apache/dubbo/common/timer/Timer.java',
-                    'src/main/java/org/apache/dubbo/common/timer/TimerTask.java',
-                    'src/main/java/org/apache/dubbo/common/utils/CIDRUtils.java',
-                    'src/main/java/org/apache/dubbo/common/utils/Utf8Utils.java',
-                    'src/test/java/org/apache/dubbo/config/spring/EmbeddedZooKeeper.java',
-                    'src/main/java/org/apache/dubbo/test/common/utils/TestSocketUtils.java',
-                    'src/main/java/org/apache/dubbo/rpc/protocol/tri/TriHttp2RemoteFlowController.java',
-                    'src/main/java/org/apache/dubbo/rpc/protocol/tri/rest/cors/CorsHeaderFilter.java'
-                )
+                targetExclude(*spotlessExcludes)
                 palantirJavaFormat(palantirVersion)
                 removeUnusedImports()
                 trimTrailingWhitespace()
@@ -101,15 +124,6 @@ subprojects {
                  .configureEach { enabled = false }
         }
 
-        // Do not automatically bind spotless to check task (consistent with Maven default behavior)
-        // Users must explicitly run 'spotlessCheck' or 'spotlessApply'
-        tasks.named('check').configure {
-            dependsOn.removeIf { dep ->
-                (dep instanceof TaskProvider && dep.name == 'spotlessCheck') ||
-                (dep instanceof String && dep == 'spotlessCheck')
-            }
-        }
-
         // Checkstyle: Code Style Verification
         checkstyle {
             toolVersion = libs.versions.checkstyle.get()
@@ -121,29 +135,20 @@ subprojects {
         }
 
         checkstyleMain {
-            enabled = !project.hasProperty('checkstyle.skip') || project.property('checkstyle.skip') != 'true'
+            enabled = !(project.hasProperty('checkstyle.skip') && project.property('checkstyle.skip') == 'true')
             source = 'src/main/java'
-            exclude '**/JSONWriter.java', '**/org/apache/dubbo/maven/plugin/aot/**',
-                    '**/org/apache/dubbo/aot/generate/BasicJsonWriter.java', '**/org/apache/dubbo/aot/api/ExecutableMode.java',
-                    '**/org/apache/dubbo/aot/api/MemberCategory.java', '**/org/apache/dubbo/common/threadpool/serial/SerializingExecutor.java',
-                    '**/org/apache/dubbo/common/threadlocal/InternalThreadLocal.java', '**/org/apache/dubbo/common/threadlocal/InternalThreadLocalMap.java',
-                    '**/org/apache/dubbo/common/timer/**', '**/org/apache/dubbo/common/utils/CIDRUtils.java',
-                    '**/org/apache/dubbo/common/utils/Utf8Utils.java', '**/org/apache/dubbo/common/serialize/protobuf/support/wrapper/**',
-                    '**/org/apache/dubbo/test/common/utils/TestSocketUtils.java', '**/org/apache/dubbo/triple/TripleWrapper.java',
-                    '**/org/apache/dubbo/rpc/protocol/tri/TriHttp2RemoteFlowController.java', '**/org/apache/dubbo/rpc/protocol/tri/rest/cors/CorsHeaderFilter.java',
-                    '**/org/apache/dubbo/metrics/aggregate/DubboMergingDigest.java', '**/org/apache/dubbo/metrics/aggregate/DubboAbstractTDigest.java',
-                    '**/org/apache/dubbo/common/logger/helpers/**', '**/org/apache/dubbo/maven/plugin/protoc/DubboProtocCompilerMojo.java',
-                    '**/org/apache/dubbo/gen/utils/ProtoTypeMap.java', '**/istio/v1/auth/**', '**/com/google/rpc/**',
-                    '**/generated/**', '**/generated-sources/**', '**/grpc/health/**', '**/grpc/reflection/**'
-            }
+            // Convert Spotless path-based excludes to Checkstyle pattern-based excludes
+            def spotlessPatterns = spotlessExcludes.collect { it.replace('src/main/java/', '').replace('src/test/java/', '') }
+            exclude(*(spotlessPatterns + checkstyleExtraExcludes + ['**/generated/**', '**/generated-sources/**']))
+        }
 
         checkstyleTest {
-            enabled = !project.hasProperty('checkstyle.skip') || project.property('checkstyle.skip') != 'true'
+            enabled = !(project.hasProperty('checkstyle.skip') && project.property('checkstyle.skip') == 'true')
             source = 'src/test/java'
-            }
+        }
 
         // Checkstyle Unix: Line Ending Verification
-        task checkstyleUnix(type: Checkstyle) {
+        tasks.register('checkstyleUnix', Checkstyle) {
             description = 'Run Checkstyle Unix line ending checks'
             group = 'verification'
             enabled = !project.hasProperty('checkstyle_unix.skip') || project.property('checkstyle_unix.skip') != 'true'
@@ -165,20 +170,27 @@ subprojects {
             ignoreFailures = false
         }
 
-        tasks.named('check') {
-            dependsOn checkstyleUnix
+        // Combine check task configuration in one place
+        tasks.named('check').configure {
+            // Remove spotless from default check
+            dependsOn.removeIf { dep ->
+                (dep instanceof TaskProvider && dep.name == 'spotlessCheck') ||
+                (dep instanceof String && dep == 'spotlessCheck')
+            }
+            // Add checkstyleUnix
+            dependsOn tasks.named('checkstyleUnix')
         }
-        // JaCoCo: Code Coverage
-        jacoco {
-            toolVersion = "0.8.13"
-        }
+        // -Ptest.minHeap=256m -Ptest.maxHeap=512m -Ptest.metaspace=128m
+        def testMinHeap = project.findProperty('test.minHeap') ?: '256m'
+        def testMaxHeap = project.findProperty('test.maxHeap') ?: '512m'
+        def testMetaspace = project.findProperty('test.metaspace') ?: '128m'
 
         test {
             useJUnitPlatform()
-            maxHeapSize = '512m'
+            maxHeapSize = testMaxHeap
             jvmArgs = [
-                '-server', '-Xms256m', '-Xmx512m',
-                '-XX:MetaspaceSize=64m', '-XX:MaxMetaspaceSize=128m',
+                '-server', "-Xms${testMinHeap}", "-Xmx${testMaxHeap}",
+                "-XX:MetaspaceSize=64m", "-XX:MaxMetaspaceSize=${testMetaspace}",
                 '-Dfile.encoding=UTF-8', '-Djava.net.preferIPv4Stack=true'
             ]
 
@@ -192,7 +204,7 @@ subprojects {
 
             jacoco {
                 enabled = !project.hasProperty('jacoco.skip') || project.property('jacoco.skip') != 'true'
-                destinationFile = file("${buildDir}/jacoco/test.exec")
+                destinationFile = layout.buildDirectory.file("jacoco/test.exec").get().asFile
             }
 
             finalizedBy jacocoTestReport
@@ -249,6 +261,9 @@ subprojects {
             testImplementation libs.mockitoInline
         }
 
+        // Dubbo uses custom logger adapter to support multiple logging frameworks
+        // See: https://www.slf4j.org/codes.html#log4jDelegationLoop
+        // See: dubbo-common/src/main/java/org/apache/dubbo/common/logger/LoggerFactory.java
         configurations.all {
             exclude group: 'org.apache.logging.log4j', module: 'log4j-to-slf4j'
         }
@@ -262,12 +277,8 @@ subprojects {
         }
 
         processResources {
-            from(rootDir) {
-                include 'NOTICE', 'LICENSE'
-                into 'META-INF'
-            }
             doLast {
-                def versionFile = file("${buildDir}/resources/main/META-INF/dubbo-versions/${project.name}")
+                def versionFile = layout.buildDirectory.file("resources/main/META-INF/dubbo-versions/${project.name}").get().asFile
                 versionFile.parentFile.mkdirs()
                 versionFile.text = """revision=${version}
 artifact.id=${project.name}
@@ -383,9 +394,25 @@ git.commit.id=${getGitCommitId()}
                         def releasesRepoUrl = "https://repository.apache.org/service/local/staging/deploy/maven2"
                         def snapshotsRepoUrl = "https://repository.apache.org/content/repositories/snapshots"
                         url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+
                         credentials {
-                            username = project.hasProperty('mavenCentralUsername') ? mavenCentralUsername : ''
-                            password = project.hasProperty('mavenCentralPassword') ? mavenCentralPassword : ''
+                            // Credentials can be provided via:
+                            // 1. gradle.properties: mavenCentralUsername / mavenCentralPassword
+                            // 2. Environment variables: MAVEN_USERNAME / MAVEN_PASSWORD
+                            // 3. System properties: -PmavenCentralUsername=... -PmavenCentralPassword=...
+                            username = project.findProperty('mavenCentralUsername') ?: System.getenv('MAVEN_USERNAME') ?: ''
+                            password = project.findProperty('mavenCentralPassword') ?: System.getenv('MAVEN_PASSWORD') ?: ''
+                        }
+
+                        // Warn if publishing without credentials
+                        if (gradle.taskGraph.hasTask(':publish') || gradle.taskGraph.hasTask('publish')) {
+                            if (!credentials.username || !credentials.password) {
+                                logger.warn("⚠️  Maven repository credentials not configured!")
+                                logger.warn("   Publishing will fail. Please configure credentials via:")
+                                logger.warn("   1. gradle.properties: mavenCentralUsername / mavenCentralPassword")
+                                logger.warn("   2. Environment: MAVEN_USERNAME / MAVEN_PASSWORD")
+                                logger.warn("   3. Command line: -PmavenCentralUsername=... -PmavenCentralPassword=...")
+                            }
                         }
                     }
                 }
@@ -405,11 +432,20 @@ git.commit.id=${getGitCommitId()}
 }
 }
 
-jacoco {
-    toolVersion = "0.8.13"
+// ================================================================================
+// ROOT PROJECT CONFIGURATION
+// ================================================================================
+
+// JaCoCo: Code Coverage (applies to all projects)
+allprojects {
+    pluginManager.withPlugin('jacoco') {
+        jacoco {
+            toolVersion = "0.8.13"
+        }
+    }
 }
 
-task jacocoRootReport(type: JacocoReport) {
+tasks.register('jacocoRootReport', JacocoReport) {
     description = 'Generates an aggregate JaCoCo coverage report from all subprojects'
     group = 'verification'
 
@@ -435,18 +471,20 @@ task jacocoRootReport(type: JacocoReport) {
         xml.required = true
         html.required = true
         csv.required = false
-        xml.destination file("${buildDir}/reports/jacoco/aggregate/jacocoTestReport.xml")
-        html.destination file("${buildDir}/reports/jacoco/aggregate/html")
+        xml.destination layout.buildDirectory.file("reports/jacoco/aggregate/jacocoTestReport.xml").get().asFile
+        html.destination layout.buildDirectory.dir("reports/jacoco/aggregate/html").get().asFile
     }
 }
 
 gradle.projectsEvaluated {
     def testTasks = allprojects.findAll { it.tasks.findByName('test') }.collect { it.tasks.test }
-    jacocoRootReport.dependsOn testTasks
+    tasks.named('jacocoRootReport').configure {
+        dependsOn testTasks
+    }
 }
 
 licenseReport {
-    outputDir = "${project.buildDir}/reports/dependency-license"
+    outputDir = layout.buildDirectory.dir("reports/dependency-license").get().asFile.absolutePath
     renderers = [
         new com.github.jk1.license.render.InventoryHtmlReportRenderer('index.html', 'Third-Party Licenses'),
         new com.github.jk1.license.render.CsvReportRenderer('licenses.csv'),
@@ -462,7 +500,7 @@ licenseReport {
     excludeBoms = true
 }
 
-task enforceSnapshotVersion {
+tasks.register('enforceSnapshotVersion') {
     description = 'Enforces that the project version is a SNAPSHOT version'
     group = 'verification'
     doLast {
@@ -475,7 +513,7 @@ task enforceSnapshotVersion {
     }
 }
 
-task enforceReleaseVersion {
+tasks.register('enforceReleaseVersion') {
     description = 'Enforces that the project version is NOT a SNAPSHOT version'
     group = 'verification'
     doLast {
@@ -492,14 +530,14 @@ gradle.taskGraph.whenReady { graph ->
     if (project.hasProperty('enforceSnapshot') && project.property('enforceSnapshot') == 'true') {
         if (graph.hasTask(':publish') || graph.hasTask(':publishToMavenLocal')) {
             graph.allTasks.findAll { it.name.startsWith('publish') }.each { publishTask ->
-                publishTask.dependsOn enforceSnapshotVersion
+                publishTask.dependsOn tasks.named('enforceSnapshotVersion')
             }
         }
     }
     if (project.hasProperty('enforceRelease') && project.property('enforceRelease') == 'true') {
         if (graph.hasTask(':publish') || graph.hasTask(':publishToMavenLocal')) {
             graph.allTasks.findAll { it.name.startsWith('publish') }.each { publishTask ->
-                publishTask.dependsOn enforceReleaseVersion
+                publishTask.dependsOn tasks.named('enforceReleaseVersion')
             }
         }
     }
@@ -542,6 +580,6 @@ def getGitCommitId() {
 }
 
 wrapper {
-    gradleVersion = '7.4'
+    gradleVersion = '8.14'
     distributionType = Wrapper.DistributionType.BIN
 }
