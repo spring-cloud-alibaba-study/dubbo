@@ -44,10 +44,10 @@ allprojects {
 }
 
 subprojects {
-    def isPlatformProject = project.name.contains('bom') || 
+    def isPlatformProject = project.name.contains('bom') ||
                            project.name.contains('dependencies-all') ||
                            project.path.contains(':dubbo-distribution:dubbo-bom')
-    
+
     if (!isPlatformProject) {
         // --------------------------------------------------------------------------------
         //  Plugin Application
@@ -56,6 +56,10 @@ subprojects {
         apply plugin: 'com.diffplug.spotless'
         apply plugin: 'checkstyle'
         apply plugin: 'jacoco'
+
+        def skipSpotless = project.hasProperty('skip-spotless') ||
+                          project.hasProperty('skipSpotless')
+
         // Spotless: Code Formatting (JDK version dependent)
         def javaVersion = JavaVersion.current()
         def palantirVersion
@@ -88,7 +92,22 @@ subprojects {
                 removeUnusedImports()
                 trimTrailingWhitespace()
                 endWithNewline()
+            }
         }
+
+        // Disable spotless tasks if skip-spotless property is set
+        if (skipSpotless) {
+            tasks.matching { it.name.startsWith('spotless') }
+                 .configureEach { enabled = false }
+        }
+
+        // Do not automatically bind spotless to check task (consistent with Maven default behavior)
+        // Users must explicitly run 'spotlessCheck' or 'spotlessApply'
+        tasks.named('check').configure {
+            dependsOn.removeIf { dep ->
+                (dep instanceof TaskProvider && dep.name == 'spotlessCheck') ||
+                (dep instanceof String && dep == 'spotlessCheck')
+            }
         }
 
         // Checkstyle: Code Style Verification
@@ -117,12 +136,12 @@ subprojects {
                     '**/org/apache/dubbo/gen/utils/ProtoTypeMap.java', '**/istio/v1/auth/**', '**/com/google/rpc/**',
                     '**/generated/**', '**/generated-sources/**', '**/grpc/health/**', '**/grpc/reflection/**'
             }
-            
+
         checkstyleTest {
             enabled = !project.hasProperty('checkstyle.skip') || project.property('checkstyle.skip') != 'true'
             source = 'src/test/java'
             }
-            
+
         // Checkstyle Unix: Line Ending Verification
         task checkstyleUnix(type: Checkstyle) {
             description = 'Run Checkstyle Unix line ending checks'
@@ -162,7 +181,7 @@ subprojects {
                 '-XX:MetaspaceSize=64m', '-XX:MaxMetaspaceSize=128m',
                 '-Dfile.encoding=UTF-8', '-Djava.net.preferIPv4Stack=true'
             ]
-            
+
             if (JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_15)) {
                 jvmArgs += [
                     '--add-opens=java.base/java.lang=ALL-UNNAMED',
@@ -311,7 +330,7 @@ git.commit.id=${getGitCommitId()}
             tasks.withType(GenerateModuleMetadata).configureEach {
                 suppressedValidationErrors.add('enforced-platform')
             }
-            
+
             publishing {
                 publications {
                     mavenJava(MavenPublication) {
@@ -320,7 +339,7 @@ git.commit.id=${getGitCommitId()}
                         } else if (components.findByName('java')) {
                             from components.java
                         }
-                        
+
                         pom {
                             name = project.name
                             description = "The ${project.name} module of Apache Dubbo project"
@@ -358,7 +377,7 @@ git.commit.id=${getGitCommitId()}
                         }
                     }
                 }
-                
+
                 repositories {
                     maven {
                         def releasesRepoUrl = "https://repository.apache.org/service/local/staging/deploy/maven2"
