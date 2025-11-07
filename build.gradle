@@ -180,10 +180,10 @@ subprojects {
             // Add checkstyleUnix
             dependsOn tasks.named('checkstyleUnix')
         }
-        // -Ptest.minHeap=256m -Ptest.maxHeap=512m -Ptest.metaspace=128m
-        def testMinHeap = project.findProperty('test.minHeap') ?: '256m'
-        def testMaxHeap = project.findProperty('test.maxHeap') ?: '512m'
-        def testMetaspace = project.findProperty('test.metaspace') ?: '128m'
+        // -Ptest.minHeap=512m -Ptest.maxHeap=1024m -Ptest.metaspace=256m (optimized for stability)
+        def testMinHeap = project.findProperty('test.minHeap') ?: '512m'
+        def testMaxHeap = project.findProperty('test.maxHeap') ?: '1024m'
+        def testMetaspace = project.findProperty('test.metaspace') ?: '256m'
 
         test {
             useJUnitPlatform()
