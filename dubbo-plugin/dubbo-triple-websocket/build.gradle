@@ -36,3 +36,66 @@ dependencies {
     
     testImplementation project(':dubbo-remoting:dubbo-remoting-netty4')
 }
+
+// Generate Jakarta EE version of sources (only when JDK 17+)
+if (JavaVersion.current() >= JavaVersion.VERSION_17) {
+    def generatedSourcesDir = layout.buildDirectory.dir('generated-sources/java').get().asFile
+    def websocketJakartaDir = new File(generatedSourcesDir, 'org/apache/dubbo/rpc/protocol/tri/websocket/jakarta')
+    
+    tasks.register('generateJakartaSources') {
+        group = 'build'
+        description = 'Generate Jakarta EE 9+ compatible sources from javax WebSocket sources'
+        
+        def websocketSourceDir = file('src/main/java/org/apache/dubbo/rpc/protocol/tri/websocket')
+        
+        inputs.dir(websocketSourceDir)
+        outputs.dir(websocketJakartaDir)
+        
+        doLast {
+            // Copy websocket sources (exclude WebSocketConstants.java - not needed in jakarta package)
+            copy {
+                from websocketSourceDir
+                into websocketJakartaDir
+                exclude 'WebSocketConstants.java'
+            }
+            
+            // Replace package names and imports
+            fileTree(generatedSourcesDir).matching {
+                include '**/*.java'
+            }.each { file ->
+                def content = file.text
+                // Replace package declaration
+                content = content.replaceAll(/tri\.websocket;/, 'tri.websocket.jakarta;')
+                // Replace servlet imports
+                content = content.replaceAll(/javax\.servlet/, 'jakarta.servlet')
+                // Replace websocket imports
+                content = content.replaceAll(/javax\.websocket/, 'jakarta.websocket')
+                
+                // Special handling for TripleEndpoint.java - add missing import
+                if (file.name == 'TripleEndpoint.java') {
+                    content = content.replace(
+                        'import org.apache.dubbo.rpc.protocol.tri.ServletExchanger;',
+                        '''import org.apache.dubbo.rpc.protocol.tri.ServletExchanger;
+import org.apache.dubbo.rpc.protocol.tri.websocket.DefaultWebSocketServerTransportListenerFactory;'''
+                    )
+                }
+                
+                file.text = content
+            }
+        }
+    }
+    
+    // Add generated sources to main sourceSet
+    sourceSets.main.java.srcDir generatedSourcesDir
+    
+    // Make compileJava depend on source generation
+    tasks.named('compileJava') {
+        dependsOn 'generateJakartaSources'
+    }
+    
+    // Make sourcesJar also depend on source generation
+    tasks.named('sourcesJar') {
+        dependsOn 'generateJakartaSources'
+    }
+}
+

@@ -659,7 +659,7 @@ activation = { module = "javax.activation:activation", version.ref = "activation
 aspectjweaver = { module = "org.aspectj:aspectjweaver", version.ref = "aspectjweaver" }
 nashornCore = { module = "org.openjdk.nashorn:nashorn-core", version.ref = "nashornCore" }
 portletApi = { module = "javax.portlet:portlet-api", version.ref = "portlet" }
-mcpSdk = { module = "io.modelcontextprotocol:sdk", version.ref = "mcp" }
+mcpSdk = { module = "io.modelcontextprotocol.sdk:mcp", version.ref = "mcp" }
 hazelcast = { module = "com.hazelcast:hazelcast", version.ref = "hazelcast" }
 latencyutils = { module = "org.latencyutils:LatencyUtils", version.ref = "latencyutils" }
 

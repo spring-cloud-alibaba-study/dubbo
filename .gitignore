@@ -53,3 +53,4 @@ dependency-reduced-pom.xml
 # Test output
 test-output/
 *.log.*
+.flattened-pom.xml
