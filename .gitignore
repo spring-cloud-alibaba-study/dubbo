@@ -1,33 +1,10 @@
-# Gradle files
 .gradle/
 build/
 !gradle/wrapper/gradle-wrapper.jar
 !gradle/wrapper/gradle-wrapper.properties
-
-# Gradle wrapper
 gradle-app.setting
 .gradletasknamecache
 
-# IntelliJ IDEA
-.idea/
-*.iml
-*.iws
-*.ipr
-out/
-
-# Eclipse
-.classpath
-.project
-.settings/
-bin/
-
-# VS Code
-.vscode/
-
-# Mac
-.DS_Store
-
-# Maven (保留 Maven 支持)
 target/
 pom.xml.tag
 pom.xml.releaseBackup
@@ -35,22 +12,49 @@ pom.xml.versionsBackup
 pom.xml.next
 release.properties
 dependency-reduced-pom.xml
-
-# Build output
+.flattened-pom.xml
 *.class
 *.jar
 *.war
 *.ear
-
-# Log files
+*.zip
+*.tar
+*.tar.gz
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+.classpath
+.project
+.settings/
+.externalToolBuilders
+bin/
+maven-eclipse.xml
+.vscode/
+.DS_Store
+Thumbs.db
+*.orig
 *.log
+*.log.*
 
-# Temporary files
+dubbo-rpc/dubbo-rpc-api/custom-access.log*
 *.tmp
+*.cache
+*.diff
+*.patch
 *.swp
 *~
 
-# Test output
 test-output/
-*.log.*
-.flattened-pom.xml
+license-list
+
+
+compiler/gradle.properties
+compiler/build/*
+compiler/.gradle/*
+dubbo-serialization/dubbo-serialization-protobuf/build/*
+dubbo-demo/dubbo-demo-triple/build/*
+
+.tmp
+.git.exec.error
