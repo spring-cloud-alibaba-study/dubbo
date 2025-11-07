@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-description = 'The dubbo-parent module of dubbo project'
+description = 'The WebSocket transport support module for Triple protocol'
 
 dependencies {
     api project(':dubbo-rpc:dubbo-rpc-triple')
@@ -26,13 +26,13 @@ dependencies {
     // - org.apache.dubbo.rpc.protocol.tri.websocket.jakarta.* → jakarta API (Spring Boot 3.x)
     
     // Servlet API dependencies
-    compileOnly "javax.servlet:javax.servlet-api"
-    compileOnly "jakarta.servlet:jakarta.servlet-api"
+    compileOnly libs.servletApi
+    compileOnly libs.jakartaServletApi
     
     // WebSocket API dependencies
-    compileOnly "javax.websocket:javax.websocket-api"
-    compileOnly "jakarta.websocket:jakarta.websocket-api"
-    compileOnly "jakarta.websocket:jakarta.websocket-client-api"
+    compileOnly libs.javaxWebsocketApi
+    compileOnly libs.jakartaWebsocketApi
+    compileOnly libs.jakartaWebsocketClientApi
     
     testImplementation project(':dubbo-remoting:dubbo-remoting-netty4')
 }

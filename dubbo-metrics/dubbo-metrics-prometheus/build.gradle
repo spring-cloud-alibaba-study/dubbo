@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-description = 'The prometheus metrics module of dubbo project'
+description = 'The Prometheus metrics module of Dubbo project'
 
 dependencies {
     api project(':dubbo-common')
@@ -24,6 +24,6 @@ dependencies {
     implementation libs.simpleclientPushgateway
     testImplementation libs.httpclient
     api project(':dubbo-plugin:dubbo-qos-api')
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
+    testImplementation libs.log4jSlf4jImpl
 }
 

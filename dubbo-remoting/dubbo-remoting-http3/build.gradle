@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-description = 'The http3 remoting module of dubbo project'
+description = 'The HTTP/3 remoting module of Dubbo project'
 
 dependencies {
     api project(':dubbo-remoting:dubbo-remoting-http12')
@@ -23,7 +23,7 @@ dependencies {
     
     api libs.nettyCodecHttp3
     
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
+    testImplementation libs.log4jSlf4jImpl
 
     // Complete missing dependencies
     implementation libs.nettyCodecHttp3

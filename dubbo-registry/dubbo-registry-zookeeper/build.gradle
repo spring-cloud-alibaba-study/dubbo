@@ -15,11 +15,11 @@
  * limitations under the License.
  */
 
-description = 'The zookeeper registry module of dubbo project'
+description = 'The ZooKeeper registry module of Dubbo project'
 
 dependencies {
     api project(':dubbo-registry:dubbo-registry-api')
     api project(':dubbo-remoting:dubbo-remoting-zookeeper-curator5')
-    implementation "org.apache.curator:curator-x-discovery"
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
+    implementation libs.curatorXDiscovery
+    testImplementation libs.log4jSlf4jImpl
 }

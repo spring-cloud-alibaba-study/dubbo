@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-description = 'The registry API module of dubbo project'
+description = 'The registry API module of Dubbo project'
 
 dependencies {
     // Internal Dubbo dependencies
@@ -30,13 +30,13 @@ dependencies {
     
     // External dependencies
     implementation libs.snakeyaml
-    implementation "com.google.protobuf:protobuf-java"
+    implementation libs.protobufJava
     
     // Test dependencies
     testImplementation project(':dubbo-rpc:dubbo-rpc-injvm')
-    testImplementation "org.apache.curator:curator-framework"
-    testImplementation "org.apache.curator:curator-recipes"
-    testImplementation "org.apache.zookeeper:zookeeper"
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
+    testImplementation libs.curatorFramework
+    testImplementation libs.curatorRecipes
+    testImplementation libs.zookeeper
+    testImplementation libs.log4jSlf4jImpl
 }
 

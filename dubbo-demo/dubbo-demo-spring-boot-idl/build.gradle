@@ -15,7 +15,12 @@
  * limitations under the License.
  */
 
-description = 'The dubbo-demo-spring-boot-idl parent module'
+description = 'The Spring Boot IDL demo parent module of Dubbo project'
+
+// Demo module should not be published to Maven repository
+ext {
+    skip_maven_deploy = true
+}
 
 // Configure common dependencies for all subprojects
 subprojects {
@@ -27,9 +32,9 @@ subprojects {
         implementation project(':dubbo-configcenter:dubbo-configcenter-zookeeper')
         implementation project(':dubbo-metadata:dubbo-metadata-report-zookeeper')
         implementation project(':dubbo-serialization:dubbo-serialization-hessian2')
-        implementation "com.google.protobuf:protobuf-java"
-        implementation "com.google.protobuf:protobuf-java-util"
-        implementation "io.grpc:grpc-protobuf"
-        implementation "org.apache.logging.log4j:log4j-slf4j-impl"
+        implementation libs.protobufJava
+        implementation libs.protobufJavaUtil
+        implementation libs.grpcProtobuf
+        implementation libs.log4jSlf4jImpl
     }
 }

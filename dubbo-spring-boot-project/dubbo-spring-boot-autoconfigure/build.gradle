@@ -29,7 +29,7 @@ dependencies {
     compileOnly project(':dubbo-plugin:dubbo-triple-servlet')
     compileOnly project(':dubbo-plugin:dubbo-triple-websocket')
     compileOnly libs.servletApi
-    compileOnly "org.apache.tomcat.embed:tomcat-embed-core"
+    compileOnly libs.tomcatEmbedCore
     compileOnly libs.jakartaWebsocketApi
     compileOnly libs.jakartaWebsocketClientApi
     compileOnly libs.micrometerTracing

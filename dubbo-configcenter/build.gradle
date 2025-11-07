@@ -15,5 +15,5 @@
  * limitations under the License.
  */
 
-description = 'The config center module of dubbo project'
+description = 'The config center parent module of Dubbo project'
 

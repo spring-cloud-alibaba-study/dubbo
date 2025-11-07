@@ -15,13 +15,13 @@
  * limitations under the License.
  */
 
-description = 'The zookeeper remoting module of dubbo project'
+description = 'The ZooKeeper remoting module of Dubbo project'
 
 dependencies {
     api project(':dubbo-common')
-    implementation "org.apache.curator:curator-framework"
-    implementation "org.apache.curator:curator-recipes"
-    implementation "org.apache.zookeeper:zookeeper"
+    implementation libs.curatorFramework
+    implementation libs.curatorRecipes
+    implementation libs.zookeeper
     api project(':dubbo-plugin:dubbo-native')
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
+    testImplementation libs.log4jSlf4jImpl
 }

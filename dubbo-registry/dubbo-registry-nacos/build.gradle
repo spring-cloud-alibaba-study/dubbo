@@ -20,11 +20,11 @@ description = 'The Nacos registry module of Dubbo project'
 dependencies {
     api project(':dubbo-registry:dubbo-registry-api')
     api project(':dubbo-common')
-    implementation "com.alibaba.nacos:nacos-client"
+    implementation libs.nacosClient
     testImplementation project(':dubbo-serialization:dubbo-serialization-hessian2')
     testImplementation project(':dubbo-serialization:dubbo-serialization-fastjson2')
     testImplementation project(':dubbo-rpc:dubbo-rpc-dubbo')
     testImplementation project(':dubbo-remoting:dubbo-remoting-netty4')
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
+    testImplementation libs.log4jSlf4jImpl
     testImplementation libs.springTest
 }

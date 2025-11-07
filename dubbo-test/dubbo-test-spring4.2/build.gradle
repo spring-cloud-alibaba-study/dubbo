@@ -15,15 +15,18 @@
  * limitations under the License.
  */
 
-description = 'The dubbo-test module of dubbo project'
+description = 'The Spring 4.2 compatibility test module of Dubbo project'
 
 // ========================================
 // This module is for Spring 4.2.x compatibility testing
 // Spring 4.2.x was released in 2015 and is EOL (End of Life)
 // This module forces Spring 4.2.x version for compatibility testing
 // ========================================
+
+// Test module should not be published to Maven repository
 ext {
     spring42Version = libs.versions.spring42.get()
+    skip_maven_deploy = true
 }
 
 dependencies {

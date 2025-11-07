@@ -19,7 +19,7 @@ description = 'Apache Dubbo Spring Boot Actuator Autoconfigure'
 
 dependencies {
     compileOnly libs.springBootStarterWeb
-    compileOnly "org.apache.tomcat.embed:tomcat-embed-core"
+    compileOnly libs.tomcatEmbedCore
     api project(':dubbo-spring-boot-project:dubbo-spring-boot-actuator')
     compileOnly libs.springBootActuatorAutoconfigure
     api project(':dubbo-spring-boot-project:dubbo-spring-boot-autoconfigure')

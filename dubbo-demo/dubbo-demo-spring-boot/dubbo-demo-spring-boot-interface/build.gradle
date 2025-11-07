@@ -15,4 +15,9 @@
  * limitations under the License.
  */
 
-description = 'The dubbo-demo-spring-boot module of dubbo project'
+description = 'The Spring Boot demo interface module of Dubbo project'
+
+// Demo module should not be published to Maven repository
+ext {
+    skip_maven_deploy = true
+}

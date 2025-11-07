@@ -17,6 +17,11 @@
 
 description = 'Check if dependencies configured properly'
 
+// Test module should not be published to Maven repository
+ext {
+    skip_maven_deploy = true
+}
+
 dependencies {
     testImplementation libs.dom4j
     api project(':dubbo-common')

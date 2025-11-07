@@ -15,14 +15,14 @@
  * limitations under the License.
  */
 
-description = 'The zookeeper implementation of the config-center api'
+description = 'The ZooKeeper implementation of the config center API'
 
 dependencies {
     api project(':dubbo-common')
     api project(':dubbo-remoting:dubbo-remoting-zookeeper-curator5')
-    testImplementation "org.apache.curator:curator-framework"
-    testImplementation "org.apache.curator:curator-recipes"
-    implementation "org.apache.zookeeper:zookeeper"
+    testImplementation libs.curatorFramework
+    testImplementation libs.curatorRecipes
+    implementation libs.zookeeper
     api project(':dubbo-metrics:dubbo-metrics-api')
     api project(':dubbo-metrics:dubbo-metrics-default')
     api project(':dubbo-metrics:dubbo-metrics-prometheus')

@@ -15,4 +15,9 @@
  * limitations under the License.
  */
 
-description = 'The dubbo-parent module of dubbo project'
+description = 'Dubbo test utilities parent module'
+
+// Test module should not be published to Maven repository
+ext {
+    skip_maven_deploy = true
+}

@@ -15,12 +15,17 @@
  * limitations under the License.
  */
 
-description = 'The dubbo-test module of dubbo project'
+description = 'The test common utilities module of Dubbo project'
+
+// Test module should not be published to Maven repository
+ext {
+    skip_maven_deploy = true
+}
 
 dependencies {
-    implementation "javax.ws.rs:javax.ws.rs-api"
-    implementation "org.apache.zookeeper:zookeeper"
-    implementation "org.apache.logging.log4j:log4j-slf4j-impl"
+    implementation libs.rsApi
+    implementation libs.zookeeper
+    implementation libs.log4jSlf4jImpl
     api project(':dubbo-common')
     api project(':dubbo-rpc:dubbo-rpc-api')
     api project(':dubbo-test:dubbo-test-check')

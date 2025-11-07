@@ -15,14 +15,14 @@
  * limitations under the License.
  */
 
-description = 'The multiple registry module of dubbo project'
+description = 'The multiple registry module of Dubbo project'
 
 dependencies {
     api project(':dubbo-registry:dubbo-registry-api')
     testImplementation project(':dubbo-registry:dubbo-registry-zookeeper')
-    testImplementation "org.apache.commons:commons-lang3"
+    testImplementation libs.commonsLang3
     testImplementation project(':dubbo-test:dubbo-test-common')
-    testImplementation "org.apache.curator:curator-framework"
-    testImplementation "org.apache.curator:curator-recipes"
-    testImplementation "org.apache.zookeeper:zookeeper"
+    testImplementation libs.curatorFramework
+    testImplementation libs.curatorRecipes
+    testImplementation libs.zookeeper
 }

@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-description = 'The websocket remoting module of dubbo project'
+description = 'The WebSocket remoting module of Dubbo project'
 
 dependencies {
     api project(':dubbo-remoting:dubbo-remoting-http12')

@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-description = 'The dubbo-config module of dubbo project'
+description = 'The Spring 6 configuration module of Dubbo project'
 
 // Spring 6 module requires Java 17+
 java {

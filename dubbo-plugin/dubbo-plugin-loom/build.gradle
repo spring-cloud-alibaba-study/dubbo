@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-description = 'The dubbo-parent module of dubbo project'
+description = 'The Virtual Threads (Loom) integration module for JDK 21+'
 
 dependencies {
     compileOnly project(':dubbo-common')

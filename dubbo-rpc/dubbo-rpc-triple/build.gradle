@@ -19,10 +19,10 @@ plugins {
     id 'com.google.protobuf'  // Version inherited from root project (0.8.18 for Gradle 6.5+ compatibility)
 }
 
-description = 'The Triple RPC module of dubbo project'
+description = 'The Triple RPC module of Dubbo project'
 
 dependencies {
-    compileOnly "org.javassist:javassist"
+    compileOnly libs.javassist
     api project(':dubbo-rpc:dubbo-rpc-api')
     api project(':dubbo-remoting:dubbo-remoting-http12')
     
@@ -31,23 +31,23 @@ dependencies {
     compileOnly project(':dubbo-remoting:dubbo-remoting-netty4')
     implementation project(':dubbo-plugin:dubbo-native')
     
-    implementation "com.google.protobuf:protobuf-java"
-    compileOnly "com.google.protobuf:protobuf-java-util"
-    implementation "io.grpc:grpc-core"
-    implementation "io.grpc:grpc-protobuf"
-    implementation "io.grpc:grpc-stub"
+    implementation libs.protobufJava
+    compileOnly libs.protobufJavaUtil
+    implementation libs.grpcCore
+    implementation libs.grpcProtobuf
+    implementation libs.grpcStub
     
     // Add javax.annotation support (required for Java 9+)
     compileOnly libs.javaxAnnotationApi
     
-    compileOnly "io.grpc:grpc-netty"
-    compileOnly "org.apache.commons:commons-compress"
-    compileOnly "org.xerial.snappy:snappy-java"
+    compileOnly libs.grpcNetty
+    compileOnly libs.commonsCompress
+    compileOnly libs.snappyJava
     
-    testImplementation "org.apache.groovy:groovy:${libs.versions.groovy.get()}"
-    testImplementation "org.spockframework:spock-core"
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
-    testImplementation "io.grpc:grpc-netty"
+    testImplementation libs.groovy
+    testImplementation libs.spockCore
+    testImplementation libs.log4jSlf4jImpl
+    testImplementation libs.grpcNetty
 }
 
 protobuf {

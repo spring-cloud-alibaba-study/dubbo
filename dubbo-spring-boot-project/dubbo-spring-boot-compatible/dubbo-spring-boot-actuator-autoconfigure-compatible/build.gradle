@@ -30,7 +30,7 @@ dependencies {
             strictly libs.versions.springBoot1.get()
         }
     }
-    compileOnly "org.apache.tomcat.embed:tomcat-embed-core"
+    compileOnly libs.tomcatEmbedCore
     compileOnly(libs.springBoot1StarterActuator) {
         version {
             strictly libs.versions.springBoot1.get()

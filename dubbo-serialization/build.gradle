@@ -15,5 +15,5 @@
  * limitations under the License.
  */
 
-description = 'The serialization module of dubbo project'
+description = 'The serialization parent module of Dubbo project'
 

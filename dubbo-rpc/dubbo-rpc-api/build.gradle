@@ -15,19 +15,17 @@
  * limitations under the License.
  */
 
-description = 'The RPC API module of dubbo project'
+description = 'The RPC API module of Dubbo project'
 
 dependencies {
+    api project(':dubbo-common')
     api project(':dubbo-remoting:dubbo-remoting-api')
     api project(':dubbo-serialization:dubbo-serialization-api')
     implementation project(':dubbo-plugin:dubbo-native')
-    api "org.javassist:javassist"
+    api libs.javassist
     
     testImplementation libs.hessianLite
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
-
-    // Complete missing dependencies
-    api project(':dubbo-common')
+    testImplementation libs.log4jSlf4jImpl
 }
 
 

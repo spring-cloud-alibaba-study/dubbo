@@ -15,10 +15,10 @@
  * limitations under the License.
  */
 
-description = 'The dubbo-parent module of dubbo project'
+description = 'The Mutiny reactive streams integration module'
 
 dependencies {
     api project(':dubbo-rpc:dubbo-rpc-triple')
-    implementation "io.smallrye.reactive:mutiny"
+    implementation libs.mutiny
     testImplementation libs.log4jSlf4jImpl
 }

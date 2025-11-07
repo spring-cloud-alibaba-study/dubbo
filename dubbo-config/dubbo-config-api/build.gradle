@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-description = 'The config api module of dubbo project'
+description = 'The configuration API module of Dubbo project'
 
 dependencies {
     api project(':dubbo-registry:dubbo-registry-api')
@@ -32,22 +32,22 @@ dependencies {
     testImplementation project(':dubbo-rpc:dubbo-rpc-dubbo')
     testImplementation project(':dubbo-rpc:dubbo-rpc-triple')
     testImplementation libs.swaggerAnnotations
-    testImplementation "org.jboss.resteasy:resteasy-jaxrs"
+    testImplementation libs.resteasyJaxrs
     testImplementation project(':dubbo-remoting:dubbo-remoting-netty4')
     testImplementation project(':dubbo-serialization:dubbo-serialization-hessian2')
     testImplementation project(':dubbo-serialization:dubbo-serialization-fastjson2')
     testImplementation project(':dubbo-registry:dubbo-registry-multicast')
     testImplementation project(':dubbo-registry:dubbo-registry-zookeeper')
-    testImplementation "org.apache.curator:curator-framework"
-    testImplementation "org.apache.curator:curator-recipes"
-    testImplementation "org.apache.zookeeper:zookeeper"
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
+    testImplementation libs.curatorFramework
+    testImplementation libs.curatorRecipes
+    testImplementation libs.zookeeper
+    testImplementation libs.log4jSlf4jImpl
     testImplementation project(':dubbo-registry:dubbo-registry-nacos')
     testImplementation project(':dubbo-metadata:dubbo-metadata-report-zookeeper')
     testImplementation project(':dubbo-configcenter:dubbo-configcenter-zookeeper')
     testImplementation project(':dubbo-configcenter:dubbo-configcenter-nacos')
     testImplementation project(':dubbo-plugin:dubbo-filter-cache')
     testImplementation project(':dubbo-plugin:dubbo-filter-validation')
-    testImplementation "org.testcontainers:testcontainers"
+    testImplementation libs.testcontainers
     testImplementation libs.resteasyJacksonProvider
 }

@@ -15,13 +15,13 @@
  * limitations under the License.
  */
 
-description = 'The dubbo-metadata module of dubbo project'
+description = 'The ZooKeeper metadata report module of Dubbo project'
 
 dependencies {
     api project(':dubbo-metadata:dubbo-metadata-api')
     api project(':dubbo-configcenter:dubbo-configcenter-zookeeper')
     testImplementation project(':dubbo-test:dubbo-test-common')
-    testImplementation "org.apache.curator:curator-framework"
-    testImplementation "org.apache.curator:curator-recipes"
-    implementation "org.apache.zookeeper:zookeeper"
+    testImplementation libs.curatorFramework
+    testImplementation libs.curatorRecipes
+    implementation libs.zookeeper
 }

@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-description = 'The spring config module of dubbo project'
+description = 'The Spring configuration module of Dubbo project'
 
 // ========================================
 // This module uses Spring 5.x (default version)

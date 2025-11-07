@@ -15,10 +15,10 @@
  * limitations under the License.
  */
 
-description = 'The Dubbo RPC module of dubbo project'
+description = 'The Dubbo RPC module of Dubbo project'
 
 dependencies {
-    compileOnly "org.javassist:javassist"
+    compileOnly libs.javassist
     api project(':dubbo-rpc:dubbo-rpc-api')
     api project(':dubbo-remoting:dubbo-remoting-api')
     api project(':dubbo-cluster')
@@ -26,6 +26,6 @@ dependencies {
     compileOnly project(':dubbo-remoting:dubbo-remoting-netty4')
     
     testImplementation project(':dubbo-serialization:dubbo-serialization-hessian2')
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
+    testImplementation libs.log4jSlf4jImpl
 }
 

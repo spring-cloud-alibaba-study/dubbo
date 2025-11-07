@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-description = 'dubbo-qos-api'
+description = 'The QoS (Quality of Service) API module'
 
 dependencies {
     api project(':dubbo-remoting:dubbo-remoting-netty4')

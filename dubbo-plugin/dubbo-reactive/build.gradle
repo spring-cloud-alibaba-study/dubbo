@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-description = 'The dubbo-parent module of dubbo project'
+description = 'The Reactor reactive streams integration module'
 
 dependencies {
     api project(':dubbo-rpc:dubbo-rpc-triple')

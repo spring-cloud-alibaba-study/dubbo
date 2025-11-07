@@ -15,7 +15,12 @@
  * limitations under the License.
  */
 
-description = 'The dubbo-demo-api module of dubbo project'
+description = 'Dubbo demo API consumer module'
+
+// Demo module should not be published to Maven repository
+ext {
+    skip_maven_deploy = true
+}
 
 dependencies {
     api project(':dubbo-demo:dubbo-demo-api:dubbo-demo-api-interface')
@@ -26,5 +31,5 @@ dependencies {
     api project(':dubbo-rpc:dubbo-rpc-dubbo')
     api project(':dubbo-remoting:dubbo-remoting-netty4')
     api project(':dubbo-serialization:dubbo-serialization-hessian2')
-    implementation "org.apache.logging.log4j:log4j-slf4j-impl"
+    implementation libs.log4jSlf4jImpl
 }

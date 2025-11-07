@@ -53,7 +53,7 @@ dependencies {
     
     // Servlet and WebSocket APIs (use javax for Spring Boot 1.x compatibility)
     compileOnly libs.servletApi
-    compileOnly "org.apache.tomcat.embed:tomcat-embed-core"
+    compileOnly libs.tomcatEmbedCore
     compileOnly libs.javaxWebsocketApi
     compileOnly libs.javaxWebsocketClientApi
     

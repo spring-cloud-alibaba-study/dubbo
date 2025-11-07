@@ -32,15 +32,15 @@ jar {
 }
 
 dependencies {
-    implementation "com.github.spullara.mustache.java:compiler"
-    implementation "io.grpc:grpc-core"
-    implementation "io.grpc:grpc-stub"
-    implementation "io.grpc:grpc-protobuf"
-    implementation "io.grpc:grpc-context"
-    implementation "com.google.protobuf:protobuf-java"
+    implementation libs.mustache
+    implementation libs.grpcCore
+    implementation libs.grpcStub
+    implementation libs.grpcProtobuf
+    implementation libs.grpcContext
+    implementation libs.protobufJava
     testImplementation libs.log4jSlf4jImpl
 
     // Complete missing dependencies
-    implementation "com.salesforce.servicelibs:grpc-contrib"
+    implementation libs.grpcContrib
 }
 

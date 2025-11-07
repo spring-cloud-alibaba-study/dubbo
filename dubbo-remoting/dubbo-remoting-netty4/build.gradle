@@ -15,20 +15,20 @@
  * limitations under the License.
  */
 
-description = 'The Netty4 remoting module of dubbo project'
+description = 'The Netty4 remoting module of Dubbo project'
 
 dependencies {
     api project(':dubbo-remoting:dubbo-remoting-api')
     api project(':dubbo-metrics:dubbo-metrics-api')
     implementation project(':dubbo-metrics:dubbo-metrics-netty')
     implementation project(':dubbo-plugin:dubbo-native')
-    api "io.netty:netty-all"
+    api libs.nettyAll
     
     testImplementation project(':dubbo-serialization:dubbo-serialization-hessian2')
     testImplementation project(':dubbo-serialization:dubbo-serialization-fastjson2')
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
+    testImplementation libs.log4jSlf4jImpl
 
-    // Complete missing dependencies
+    // Additional Netty dependencies
     compileOnly libs.nettyTransportClassesEpoll
     runtimeOnly libs.nettyTransportNativeEpoll
     implementation libs.nettyCodecHttp2

@@ -15,10 +15,10 @@
  * limitations under the License.
  */
 
-description = 'The dubbo-metadata module of dubbo project'
+description = 'The Protobuf metadata definition module of Dubbo project'
 
 dependencies {
-    implementation "com.google.protobuf:protobuf-java"
-    implementation "com.google.protobuf:protobuf-java-util"
+    implementation libs.protobufJava
+    implementation libs.protobufJavaUtil
     api project(':dubbo-metadata:dubbo-metadata-api')
 }

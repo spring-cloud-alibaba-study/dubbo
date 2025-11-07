@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-description = 'The remoting module of dubbo project'
+description = 'The remoting parent module of Dubbo project'
 
 // This is a parent module, no specific dependencies
 

@@ -21,6 +21,11 @@ plugins {
 
 description = 'Aggregate jacoco report'
 
+// Test module should not be published to Maven repository
+ext {
+    skip_maven_deploy = true
+}
+
 dependencies {
     api project(':dubbo-cluster')
     api project(':dubbo-common')

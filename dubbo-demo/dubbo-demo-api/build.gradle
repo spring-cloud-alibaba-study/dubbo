@@ -15,4 +15,9 @@
  * limitations under the License.
  */
 
-description = 'The dubbo-parent module of dubbo project'
+description = 'Dubbo demo API parent module'
+
+// Demo module should not be published to Maven repository
+ext {
+    skip_maven_deploy = true
+}

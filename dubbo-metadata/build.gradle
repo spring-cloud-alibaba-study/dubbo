@@ -15,5 +15,5 @@
  * limitations under the License.
  */
 
-description = 'The metadata module of dubbo project'
+description = 'The metadata parent module of Dubbo project'
 

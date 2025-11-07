@@ -15,15 +15,15 @@
  * limitations under the License.
  */
 
-description = 'The common module of dubbo project'
+description = 'The common module of Dubbo project'
 
 dependencies {
     // Logging - provided scope
-    compileOnly "org.slf4j:slf4j-api"
-    compileOnly "commons-logging:commons-logging"
-    compileOnly "log4j:log4j"
-    compileOnly "org.apache.logging.log4j:log4j-api"
-    compileOnly "org.apache.logging.log4j:log4j-core"
+    compileOnly libs.slf4jApi
+    compileOnly libs.commonsLogging
+    compileOnly libs.log4jOld
+    compileOnly libs.log4jApi
+    compileOnly libs.log4jCore
 
     // Core dependencies
     implementation libs.javassist
@@ -33,18 +33,18 @@ dependencies {
 
     // Optional JSON libraries
     compileOnly libs.fastjson
-    compileOnly "com.google.code.gson:gson"
-    compileOnly "com.fasterxml.jackson.core:jackson-core"
-    compileOnly "com.fasterxml.jackson.core:jackson-databind"
-    compileOnly "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"
+    compileOnly libs.gson
+    compileOnly libs.jacksonCore
+    compileOnly libs.jacksonDatabind
+    compileOnly libs.jacksonDatatypeJsr310
 
     // Test dependencies
-    testImplementation "cglib:cglib-nodep"
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
-    testImplementation "org.apache.logging.log4j:log4j-core"
-    testImplementation "com.google.protobuf:protobuf-java"
+    testImplementation libs.cglibNodep
+    testImplementation libs.log4jSlf4jImpl
+    testImplementation libs.log4jCore
+    testImplementation libs.protobufJava
     testImplementation libs.fastjson  // For Fastjson v1 tests
     testImplementation libs.fastjson2
-    testImplementation "com.google.code.gson:gson"
+    testImplementation libs.gson
 }
 

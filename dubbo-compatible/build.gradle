@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-description = 'The compatible module of dubbo project'
+description = 'The compatible module of Dubbo project'
 
 dependencies {
     api project(':dubbo-common')
@@ -33,14 +33,14 @@ dependencies {
     api project(':dubbo-metadata:dubbo-metadata-report-zookeeper')
     
     // Add compile-time dependencies
-    compileOnly "javax.servlet:javax.servlet-api"
-    compileOnly "org.springframework:spring-core"
-    compileOnly "log4j:log4j:1.2.17"  // for LogPageHandler compatibility
+    compileOnly libs.servletApi
+    compileOnly libs.springCore
+    compileOnly libs.log4jOld  // for LogPageHandler compatibility
     
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
+    testImplementation libs.log4jSlf4jImpl
 
     // Complete missing dependencies
-    compileOnly "javax.ws.rs:javax.ws.rs-api"
+    compileOnly libs.rsApi
 }
 
 

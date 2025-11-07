@@ -20,6 +20,6 @@ description = 'The metadata processor module of Dubbo project'
 dependencies {
     api project(':dubbo-common')
     testImplementation project(':dubbo-config:dubbo-config-api')
-    testImplementation "javax.ws.rs:javax.ws.rs-api"
-    testImplementation "org.springframework:spring-web"
+    testImplementation libs.rsApi
+    testImplementation libs.springWeb
 }

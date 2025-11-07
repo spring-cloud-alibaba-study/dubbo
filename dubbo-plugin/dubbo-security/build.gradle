@@ -19,7 +19,7 @@ plugins {
     id 'com.google.protobuf'  // Version inherited from root project (0.8.18 for Gradle 6.5+ compatibility)
 }
 
-description = 'The dubbo-parent module of dubbo project'
+description = 'The security module of Dubbo project providing SSL/TLS support'
 
 dependencies {
     api project(':dubbo-rpc:dubbo-rpc-api')
@@ -29,7 +29,7 @@ dependencies {
     // gRPC dependencies
     implementation libs.grpcProtobuf
     implementation libs.grpcStub
-    implementation "io.grpc:grpc-netty-shaded:${libs.versions.grpc.get()}"
+    implementation libs.grpcNettyShaded
     
     // Protobuf dependencies
     implementation libs.protobufJava

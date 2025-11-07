@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-description = 'The all in one project of dubbo'
+description = 'The all-in-one distribution of Dubbo project'
 
 dependencies {
     compileOnly project(':dubbo-cluster')
@@ -72,10 +72,10 @@ dependencies {
     compileOnly project(':dubbo-serialization:dubbo-serialization-api')
     compileOnly project(':dubbo-serialization:dubbo-serialization-hessian2')
     compileOnly project(':dubbo-serialization:dubbo-serialization-fastjson2')
-    implementation "org.javassist:javassist"
-    implementation "io.netty:netty-all"
+    implementation libs.javassist
+    implementation libs.nettyAll
     implementation libs.snakeyaml
     // // api project(':hessian-lite') // Module does not exist, commented out
-    implementation "com.alibaba.fastjson2:fastjson2"
-    implementation "com.google.protobuf:protobuf-java"
+    implementation libs.fastjson2
+    implementation libs.protobufJava
 }

@@ -15,14 +15,14 @@
  * limitations under the License.
  */
 
-description = 'The nacos implementation of the config-center api'
+description = 'The Nacos implementation of the config center API'
 
 dependencies {
     api project(':dubbo-common')
-    api "com.alibaba.nacos:nacos-client"
+    api libs.nacosClient
     api project(':dubbo-metrics:dubbo-metrics-api')
     api project(':dubbo-metrics:dubbo-metrics-default')
     api project(':dubbo-metrics:dubbo-metrics-prometheus')
     api project(':dubbo-metrics:dubbo-metrics-config-center')
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
+    testImplementation libs.log4jSlf4jImpl
 }

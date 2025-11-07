@@ -15,7 +15,12 @@
  * limitations under the License.
  */
 
-description = 'The dubbo-parent module of dubbo project'
+description = 'Dubbo MCP (Model Context Protocol) server demo'
+
+// Demo module should not be published to Maven repository
+ext {
+    skip_maven_deploy = true
+}
 
 // MCP Demo requires Java 17+ (depends on dubbo-mcp module)
 java {

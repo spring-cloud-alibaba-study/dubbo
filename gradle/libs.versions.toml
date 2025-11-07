@@ -67,6 +67,8 @@ grpc = "1.73.0"
 grpcContrib = "0.8.1"
 grpcContext = "1.59.1"
 grpcCore = "1.59.1"
+grpcNetty = "1.73.0"
+grpcNettyShaded = "1.73.0"
 grpcNettShaded = "4.1.100.Final"
 grpcProtobuf = "1.59.1"
 grpcServices = "1.59.1"
@@ -163,6 +165,7 @@ junit = "5.10.1"
 junitJupiter = "5.10.1"
 junitJupiterEngine = "5.10.1"
 junitPlatform = "1.10.1"
+junitPlatformCommons = "1.10.1"
 junitPlatformEngine = "1.10.1"
 junitPlatformLauncher = "1.10.1"
 junitPlatformRunner = "1.10.1"
@@ -273,6 +276,7 @@ portlet = "2.0"
 mcp = "0.11.2"
 hazelcast = "5.3.6"
 latencyutils = "2.0.3"
+cglibNodep = "3.3.0"
 
 # ========================================
 # Maven Plugins and Tools
@@ -482,12 +486,13 @@ snappyJava = { module = "org.xerial.snappy:snappy-java", version.ref = "snappyJa
 grpcApi = { module = "io.grpc:grpc-api", version.ref = "grpc" }
 grpcContext = { module = "io.grpc:grpc-context", version.ref = "grpcContext" }
 grpcCore = { module = "io.grpc:grpc-core", version.ref = "grpcCore" }
-grpcNetty = { module = "io.grpc:grpc-netty", version.ref = "grpc" }
+grpcNetty = { module = "io.grpc:grpc-netty", version.ref = "grpcNetty" }
+grpcNettyShaded = { module = "io.grpc:grpc-netty-shaded", version.ref = "grpcNettyShaded" }
 grpcProtobuf = { module = "io.grpc:grpc-protobuf", version.ref = "grpcProtobuf" }
 grpcServices = { module = "io.grpc:grpc-services", version.ref = "grpcServices" }
 grpcStub = { module = "io.grpc:grpc-stub", version.ref = "grpcStub" }
 grpcTesting = { module = "io.grpc:grpc-testing", version.ref = "grpcTesting" }
-grpcContrib = { module = "io.grpc:grpc-contrib", version.ref = "grpcContrib" }
+grpcContrib = { module = "com.salesforce.servicelibs:grpc-contrib", version.ref = "grpcContrib" }
 jprotoc = { module = "com.salesforce.servicelibs:jprotoc", version.ref = "jprotoc" }
 mustache = { module = "com.github.spullara.mustache.java:compiler", version.ref = "mustache" }
 
@@ -566,6 +571,7 @@ assertjCore = { module = "org.assertj:assertj-core", version.ref = "assertjCore"
 spockCore = { module = "org.spockframework:spock-core", version.ref = "spock" }
 groovy = { module = "org.apache.groovy:groovy", version.ref = "groovy" }
 testcontainers = { module = "org.testcontainers:testcontainers", version.ref = "testcontainers" }
+cglibNodep = { module = "cglib:cglib-nodep", version.ref = "cglibNodep" }
 
 # ========================================
 # Logging

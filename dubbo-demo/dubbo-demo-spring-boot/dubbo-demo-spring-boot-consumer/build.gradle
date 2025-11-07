@@ -15,7 +15,12 @@
  * limitations under the License.
  */
 
-description = 'The dubbo-demo-spring-boot module of dubbo project'
+description = 'The Spring Boot demo consumer module of Dubbo project'
+
+// Demo module should not be published to Maven repository
+ext {
+    skip_maven_deploy = true
+}
 
 configurations {
     // Use Log4j2 as logging implementation, exclude Spring Boot default Logback

@@ -15,14 +15,14 @@
  * limitations under the License.
  */
 
-description = 'The remoting API module of dubbo project'
+description = 'The remoting API module of Dubbo project'
 
 dependencies {
     api project(':dubbo-common')
     api project(':dubbo-serialization:dubbo-serialization-api')
     
-    compileOnly "io.netty:netty-all"
+    compileOnly libs.nettyAll
     
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
+    testImplementation libs.log4jSlf4jImpl
 }
 

@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-description = 'The dubbo-parent module of dubbo project'
+description = 'The MCP (Model Context Protocol) integration module'
 
 // MCP module requires Java 17+ (uses pattern matching features)
 java {

@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 
-description = 'The multicast registry module of dubbo project'
+description = 'The multicast registry module of Dubbo project'
 
 dependencies {
     api project(':dubbo-registry:dubbo-registry-api')
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
+    testImplementation libs.log4jSlf4jImpl
 }

@@ -39,7 +39,7 @@ dependencies {
     
     // Jakarta EE dependencies (Spring Boot 3 uses Jakarta instead of Javax)
     compileOnly libs.jakartaServletApi
-    compileOnly "org.apache.tomcat.embed:tomcat-embed-core"
+    compileOnly libs.tomcatEmbedCore
     compileOnly libs.jakartaWebsocketApi
     compileOnly libs.jakartaWebsocketClientApi
     

@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-description = 'dubbo-qos'
+description = 'The QoS (Quality of Service) module providing runtime management and monitoring'
 
 dependencies {
     api project(':dubbo-common')

@@ -19,6 +19,11 @@ plugins {
     id 'groovy-gradle-plugin'
 }
 
+// buildSrc is a build tool and should not be published to Maven repository
+ext {
+    skip_maven_deploy = true
+}
+
 repositories {
     mavenCentral()
     gradlePluginPortal()

@@ -19,11 +19,16 @@ plugins {
     id 'com.google.protobuf'  // Version inherited from root project (0.8.18 for Gradle 6.5+ compatibility)
 }
 
-description = 'The dubbo-demo-spring-boot-idl-provider module of dubbo project'
+description = 'The Spring Boot IDL demo provider module of Dubbo project'
+
+// Demo module should not be published to Maven repository
+ext {
+    skip_maven_deploy = true
+}
 
 dependencies {
     // Parent module has configured common dependencies, only add specific dependencies here
-    implementation "io.grpc:grpc-stub"
+    implementation libs.grpcStub
 }
 
 protobuf {

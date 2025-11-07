@@ -15,5 +15,5 @@
  * limitations under the License.
  */
 
-description = 'The metrics module of dubbo project'
+description = 'The metrics parent module of Dubbo project'
 

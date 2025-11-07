@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 
-description = 'The metrics module of dubbo project'
+description = 'The metadata metrics module of Dubbo project'
 
 dependencies {
     api project(':dubbo-metrics:dubbo-metrics-api')
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
+    testImplementation libs.log4jSlf4jImpl
 }

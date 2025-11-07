@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-description = 'The cache module of dubbo project'
+description = 'The cache filter module of Dubbo project'
 
 dependencies {
     api project(':dubbo-rpc:dubbo-rpc-api')

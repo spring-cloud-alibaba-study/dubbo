@@ -15,11 +15,16 @@
  * limitations under the License.
  */
 
-description = 'The dubbo-test module of dubbo project'
+description = 'The Spring integration test module of Dubbo project'
 
 // ========================================
 // This module uses Spring 5.x (default version)
 // ========================================
+
+// Test module should not be published to Maven repository
+ext {
+    skip_maven_deploy = true
+}
 
 dependencies {
     api project(':dubbo-test:dubbo-test-common')

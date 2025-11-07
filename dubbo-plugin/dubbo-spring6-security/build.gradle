@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-description = 'The dubbo-parent module of dubbo project'
+description = 'The Spring Security 6 integration module for Dubbo with Spring Boot 3'
 
 // Spring 6 Security module requires Java 17+
 java {

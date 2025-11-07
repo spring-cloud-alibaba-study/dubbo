@@ -15,16 +15,21 @@
  * limitations under the License.
  */
 
-description = 'The dubbo-test module of dubbo project'
+description = 'The test check module of Dubbo project'
+
+// Test module should not be published to Maven repository
+ext {
+    skip_maven_deploy = true
+}
 
 dependencies {
     api project(':dubbo-common')
-    implementation "org.junit.platform:junit-platform-launcher"
-    implementation "org.junit.platform:junit-platform-engine"
-    implementation "org.apache.commons:commons-lang3"
-    implementation "org.apache.zookeeper:zookeeper"
-    implementation "org.apache.curator:curator-framework"
-    implementation "org.apache.commons:commons-compress"
+    implementation libs.junitPlatformLauncher
+    implementation libs.junitPlatformEngine
+    implementation libs.commonsLang3
+    implementation libs.zookeeper
+    implementation libs.curatorFramework
+    implementation libs.commonsCompress
     implementation libs.commonsExec
     implementation libs.asyncHttpClient
 }

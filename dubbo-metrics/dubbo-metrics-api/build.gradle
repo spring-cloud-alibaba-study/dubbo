@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-description = 'The metrics module of dubbo project'
+description = 'The metrics API module of Dubbo project'
 
 dependencies {
     api project(':dubbo-common')
@@ -23,5 +23,5 @@ dependencies {
     api project(':dubbo-rpc:dubbo-rpc-api')
     api libs.micrometerCore
     api libs.digest
-    testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
+    testImplementation libs.log4jSlf4jImpl
 }
