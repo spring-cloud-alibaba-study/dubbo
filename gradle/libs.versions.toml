@@ -55,8 +55,6 @@ protobufProtoc = "3.22.3"
 protobufJavaUtil = "3.25.8"
 gson = "2.13.1"
 jackson = "2.19.0"
-jacksonCore = "2.15.3"
-jacksonDatabind = "2.15.3"
 codehausJackson = "1.9.13"
 snappyJava = "1.1.10.7"
 
@@ -65,15 +63,9 @@ snappyJava = "1.1.10.7"
 # ========================================
 grpc = "1.73.0"
 grpcContrib = "0.8.1"
-grpcContext = "1.59.1"
-grpcCore = "1.59.1"
 grpcNetty = "1.73.0"
 grpcNettyShaded = "1.73.0"
 grpcNettShaded = "4.1.100.Final"
-grpcProtobuf = "1.59.1"
-grpcServices = "1.59.1"
-grpcStub = "1.59.1"
-grpcTesting = "1.59.1"
 jprotoc = "1.2.2"
 mustache = "0.9.11"
 
@@ -85,9 +77,8 @@ curator = "5.8.0"
 curatorFramework = "5.8.0"
 curatorRecipes = "5.8.0"
 curatorTest = "2.12.0"
-curatorXDiscovery = "5.5.0"
+curatorXDiscovery = "5.8.0"
 nacos = "2.5.1"
-nacosClient = "2.5.1"
 apolloClient = "2.4.0"
 apolloMockserver = "2.1.0"
 sentinel = "1.8.8"
@@ -137,7 +128,6 @@ hdrhistogram = "2.1.12"
 # Reactive
 # ========================================
 reactor = "3.7.11"
-reactorCore = "3.7.11"
 reactiveStreams = "1.0.4"
 reactive = "1.0.4"
 mutiny = "2.9.0"
@@ -473,8 +463,8 @@ protobufJava = { module = "com.google.protobuf:protobuf-java", version.ref = "pr
 protobufJavaUtil = { module = "com.google.protobuf:protobuf-java-util", version.ref = "protobufJavaUtil" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 jacksonAnnotations = { module = "com.fasterxml.jackson.core:jackson-annotations", version.ref = "jackson" }
-jacksonCore = { module = "com.fasterxml.jackson.core:jackson-core", version.ref = "jacksonCore" }
-jacksonDatabind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jacksonDatabind" }
+jacksonCore = { module = "com.fasterxml.jackson.core:jackson-core", version.ref = "jackson" }
+jacksonDatabind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson" }
 jacksonDatatypeJsr310 = { module = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310", version.ref = "jackson" }
 codehausJacksonCoreAsl = { module = "org.codehaus.jackson:jackson-core-asl", version.ref = "codehausJackson" }
 codehausJacksonMapperAsl = { module = "org.codehaus.jackson:jackson-mapper-asl", version.ref = "codehausJackson" }
@@ -484,14 +474,14 @@ snappyJava = { module = "org.xerial.snappy:snappy-java", version.ref = "snappyJa
 # gRPC
 # ========================================
 grpcApi = { module = "io.grpc:grpc-api", version.ref = "grpc" }
-grpcContext = { module = "io.grpc:grpc-context", version.ref = "grpcContext" }
-grpcCore = { module = "io.grpc:grpc-core", version.ref = "grpcCore" }
+grpcContext = { module = "io.grpc:grpc-context", version.ref = "grpc" }
+grpcCore = { module = "io.grpc:grpc-core", version.ref = "grpc" }
 grpcNetty = { module = "io.grpc:grpc-netty", version.ref = "grpcNetty" }
 grpcNettyShaded = { module = "io.grpc:grpc-netty-shaded", version.ref = "grpcNettyShaded" }
-grpcProtobuf = { module = "io.grpc:grpc-protobuf", version.ref = "grpcProtobuf" }
-grpcServices = { module = "io.grpc:grpc-services", version.ref = "grpcServices" }
-grpcStub = { module = "io.grpc:grpc-stub", version.ref = "grpcStub" }
-grpcTesting = { module = "io.grpc:grpc-testing", version.ref = "grpcTesting" }
+grpcProtobuf = { module = "io.grpc:grpc-protobuf", version.ref = "grpc" }
+grpcServices = { module = "io.grpc:grpc-services", version.ref = "grpc" }
+grpcStub = { module = "io.grpc:grpc-stub", version.ref = "grpc" }
+grpcTesting = { module = "io.grpc:grpc-testing", version.ref = "grpc" }
 grpcContrib = { module = "com.salesforce.servicelibs:grpc-contrib", version.ref = "grpcContrib" }
 jprotoc = { module = "com.salesforce.servicelibs:jprotoc", version.ref = "jprotoc" }
 mustache = { module = "com.github.spullara.mustache.java:compiler", version.ref = "mustache" }
@@ -504,7 +494,7 @@ curatorFramework = { module = "org.apache.curator:curator-framework", version.re
 curatorRecipes = { module = "org.apache.curator:curator-recipes", version.ref = "curatorRecipes" }
 curatorTest = { module = "org.apache.curator:curator-test", version.ref = "curatorTest" }
 curatorXDiscovery = { module = "org.apache.curator:curator-x-discovery", version.ref = "curatorXDiscovery" }
-nacosClient = { module = "com.alibaba.nacos:nacos-client", version.ref = "nacosClient" }
+nacosClient = { module = "com.alibaba.nacos:nacos-client", version.ref = "nacos" }
 apolloClient = { module = "com.ctrip.framework.apollo:apollo-client", version.ref = "apolloClient" }
 apolloMockserver = { module = "com.ctrip.framework.apollo:apollo-mockserver", version.ref = "apolloMockserver" }
 sentinelApacheDubbo3Adapter = { module = "com.alibaba.csp:sentinel-apache-dubbo3-adapter", version.ref = "sentinelApacheDubbo3Adapter" }
@@ -546,7 +536,7 @@ hdrhistogram = { module = "org.hdrhistogram:HdrHistogram", version.ref = "hdrhis
 # ========================================
 # Reactive
 # ========================================
-reactorCore = { module = "io.projectreactor:reactor-core", version.ref = "reactorCore" }
+reactorCore = { module = "io.projectreactor:reactor-core", version.ref = "reactor" }
 reactiveStreams = { module = "org.reactivestreams:reactive-streams", version.ref = "reactiveStreams" }
 mutiny = { module = "io.smallrye.reactive:mutiny", version.ref = "mutiny" }
 rxjava = { module = "io.reactivex.rxjava2:rxjava", version.ref = "rxjava" }
