@@ -24,9 +24,54 @@ plugins {
     alias(libs.plugins.shadow) apply false
     alias(libs.plugins.protobuf) apply false
     alias(libs.plugins.javadoc) apply false
-    alias(libs.plugins.release)
+    alias(libs.plugins.jgitver)
     alias(libs.plugins.spotless) apply false
     alias(libs.plugins.licenseReport)
+}
+
+// ========================================
+// JGitVer Configuration - Automatic Version Management
+// ========================================
+jgitver {
+    // 自动增加补丁版本号
+    autoIncrementPatch = true
+    
+    // 不使用 Git commit ID
+    useGitCommitId = false
+    
+    // 支持脏工作区（有未提交更改）
+    useDirty = true
+    
+    // 版本号策略
+    policy {
+        // master/main 分支: 正式版本 (3.3.7)
+        pattern('master|main') {
+            transformations = []
+        }
+        
+        // develop 分支: SNAPSHOT 版本 (3.3.7-SNAPSHOT)
+        pattern('develop') {
+            transformations = ['SNAPSHOT']
+        }
+        
+        // release 分支: RC 版本 (3.3.7-RC.1)
+        pattern('release/(.*)') {
+            transformations = ['RC']
+        }
+        
+        // feature 分支: SNAPSHOT 版本，忽略分支名
+        pattern('feature/(.*)') {
+            transformations = ['SNAPSHOT', 'IGNORE']
+        }
+        
+        // hotfix 分支: 正式版本
+        pattern('hotfix/(.*)') {
+            transformations = []
+        }
+    }
+    
+    // Git 标签版本模式
+    tagVersionPattern = 'v${v}'
 }
 
 allprojects {
@@ -543,26 +588,19 @@ gradle.taskGraph.whenReady { graph ->
     }
 }
 
-release {
-    versionPropertyFile = 'gradle.properties'
-    versionProperties = ['version']
-    failOnCommitNeeded = true
-    failOnPublishNeeded = true
-    failOnSnapshotDependencies = true
-    failOnUnversionedFiles = true
-    failOnUpdateNeeded = true
-    revertOnFail = true
-    preCommitText = ''
-    preTagCommitMessage = '[Gradle Release] - pre tag commit: '
-    tagCommitMessage = '[Gradle Release] - creating tag: '
-    newVersionCommitMessage = '[Gradle Release] - new version commit: '
-    tagTemplate = 'v${version}'
-    buildTasks = ['build']
-    git {
-        pushToRemote = 'origin'
-        signTag = false
-    }
-}
+// ========================================
+// Release Configuration - Migrated to JGitVer
+// ========================================
+// Previous net.researchgate.release plugin configuration has been replaced
+// with JGitVer for automatic version management (see configuration above).
+//
+// Version is now automatically calculated from Git branches and tags:
+// - develop branch: x.y.z-SNAPSHOT
+// - release/x.y.z branch: x.y.z-RC.n
+// - master/main branch: x.y.z (from tag)
+// - hotfix/x.y.z branch: x.y.z.patch
+//
+// No manual version changes needed in gradle.properties
 
 def getGitCommitId() {
     try {

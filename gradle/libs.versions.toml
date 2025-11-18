@@ -896,7 +896,7 @@ commons-full = ["commonsLang3", "commonsIo", "commonsCodec", "commonsCompress", 
 shadow = { id = "com.github.johnrengelman.shadow", version.ref = "shadowPlugin" }
 protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }
 javadoc = { id = "io.freefair.aggregate-javadoc", version.ref = "javadocPlugin" }
-release = { id = "net.researchgate.release", version.ref = "releasePlugin" }
+jgitver = { id = "fr.brouillard.oss.gradle.jgitver", version = "0.10.0-rc03" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotlessPlugin" }
 checkstyle = { id = "checkstyle" }
 licenseReport = { id = "com.github.jk1.dependency-license-report", version.ref = "licenseReportPlugin" }
