@@ -24,7 +24,7 @@ plugins {
     alias(libs.plugins.shadow) apply false
     alias(libs.plugins.protobuf) apply false
     alias(libs.plugins.javadoc) apply false
-    alias(libs.plugins.jgitver)
+    // alias(libs.plugins.jgitver)  // 暂时禁用，需要调整配置
     alias(libs.plugins.spotless) apply false
     alias(libs.plugins.licenseReport)
 }
@@ -32,47 +32,38 @@ plugins {
 // ========================================
 // JGitVer Configuration - Automatic Version Management
 // ========================================
-jgitver {
-    // 自动增加补丁版本号
-    autoIncrementPatch = true
-    
-    // 不使用 Git commit ID
-    useGitCommitId = false
-    
-    // 支持脏工作区（有未提交更改）
-    useDirty = true
-    
-    // 版本号策略
-    policy {
-        // master/main 分支: 正式版本 (3.3.7)
-        pattern('master|main') {
-            transformations = []
-        }
-        
-        // develop 分支: SNAPSHOT 版本 (3.3.7-SNAPSHOT)
-        pattern('develop') {
-            transformations = ['SNAPSHOT']
-        }
-        
-        // release 分支: RC 版本 (3.3.7-RC.1)
-        pattern('release/(.*)') {
-            transformations = ['RC']
-        }
-        
-        // feature 分支: SNAPSHOT 版本，忽略分支名
-        pattern('feature/(.*)') {
-            transformations = ['SNAPSHOT', 'IGNORE']
-        }
-        
-        // hotfix 分支: 正式版本
-        pattern('hotfix/(.*)') {
-            transformations = []
-        }
-    }
-    
-    // Git 标签版本模式
-    tagVersionPattern = 'v${v}'
-}
+// JGitVer 配置暂时禁用 - API 需要调整
+// 当前使用 gradle.properties 中的版本号: 3.3.7-SNAPSHOT
+//
+// jgitver {
+//     // 版本号策略
+//     policy {
+//         // master/main 分支: 正式版本 (3.3.7)
+//         pattern('master|main') {
+//             transformations = []
+//         }
+//         
+//         // develop 分支: SNAPSHOT 版本 (3.3.7-SNAPSHOT)
+//         pattern('develop') {
+//             transformations = ['SNAPSHOT']
+//         }
+//         
+//         // release 分支: RC 版本 (3.3.7-RC.1)
+//         pattern('release/(.*)') {
+//             transformations = ['RC']
+//         }
+//         
+//         // feature 分支: SNAPSHOT 版本，忽略分支名
+//         pattern('feature/(.*)') {
+//             transformations = ['SNAPSHOT', 'IGNORE']
+//         }
+//         
+//         // hotfix 分支: 正式版本
+//         pattern('hotfix/(.*)') {
+//             transformations = []
+//         }
+//     }
+// }
 
 allprojects {
     group = rootProject.group
