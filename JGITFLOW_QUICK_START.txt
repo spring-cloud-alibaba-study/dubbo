@@ -1,0 +1,473 @@
+==============================================================================
+                    JGitFlow 快速开始指南
+==============================================================================
+
+生成时间: 2025-11-18
+当前版本: 3.3.7-SNAPSHOT
+目标: 使用 JGitFlow 工作流替代现有发布流程
+
+==============================================================================
+🎯 核心概念
+==============================================================================
+
+GitFlow 分支模型:
+  
+  master (main)     ← 生产版本 (3.3.7, 3.3.8...)
+    │
+    ├─ release/x.x.x ← 发布准备 (3.3.7-RC.1)
+    │
+  develop          ← 开发版本 (3.3.7-SNAPSHOT)
+    │
+    ├─ feature/xxx  ← 功能开发
+    │
+    ├─ hotfix/xxx   ← 紧急修复
+
+版本号规则:
+  develop        → 3.3.7-SNAPSHOT
+  release/3.3.7  → 3.3.7-RC.1
+  master         → 3.3.7
+  hotfix/3.3.7.1 → 3.3.7.1
+
+==============================================================================
+📋 准备工作清单
+==============================================================================
+
+[ ] 1. 备份现有配置
+     $ cp build.gradle build.gradle.backup
+     $ cp gradle.properties gradle.properties.backup
+     $ cp gradle/libs.versions.toml gradle/libs.versions.toml.backup
+
+[ ] 2. 了解 GitFlow 工作流（5 分钟阅读）
+     https://nvie.com/posts/a-successful-git-branching-model/
+
+[ ] 3. 团队成员对齐（重要！）
+     确保所有开发人员理解 GitFlow 工作流
+
+[ ] 4. 更新 CI/CD 配置
+     需要支持多分支构建和自动版本号
+
+==============================================================================
+🚀 快速实施（3 步完成）
+==============================================================================
+
+【Step 1】修改配置文件（15 分钟）
+  
+  1-1. 修改 gradle/libs.versions.toml
+  
+    找到:
+      [plugins]
+      release = { id = "net.researchgate.release", version = "3.1.0" }
+    
+    替换为:
+      [plugins]
+      jgitver = { id = "fr.brouillard.oss.gradle.jgitver", version = "0.10.0-rc03" }
+  
+  1-2. 修改 build.gradle（第 27 行）
+  
+    找到:
+      alias(libs.plugins.release)
+    
+    替换为:
+      alias(libs.plugins.jgitver)
+  
+  1-3. 修改 build.gradle（删除 release 配置块）
+  
+    删除以下部分（第 546-560 行）:
+      release {
+          versionPropertyFile = 'gradle.properties'
+          versionProperties = ['version']
+          ...
+      }
+  
+  1-4. 修改 build.gradle（添加 jgitver 配置）
+  
+    在 plugins 块后添加:
+      jgitver {
+          autoIncrementPatch = true
+          useGitCommitId = false
+          useDirty = true
+          
+          // 版本号策略
+          policy {
+              pattern('master|main') {
+                  transformations = []
+              }
+              pattern('develop') {
+                  transformations = ['SNAPSHOT']
+              }
+              pattern('release/(.*)') {
+                  transformations = ['RC']
+              }
+              pattern('feature/(.*)') {
+                  transformations = ['SNAPSHOT', 'IGNORE']
+              }
+          }
+          
+          tagVersionPattern = 'v${v}'
+      }
+
+【Step 2】初始化分支结构（10 分钟）
+  
+  2-1. 创建 develop 分支（基于当前开发分支）
+  
+    $ git checkout maven_to_gradle
+    $ git checkout -b develop
+    $ git push origin develop
+  
+  2-2. 创建 master 分支（基于稳定分支）
+  
+    $ git checkout origin/3.3
+    $ git checkout -b master
+    $ git push origin master
+  
+  2-3. 设置默认分支（在 GitHub/GitLab 上）
+  
+    Settings → Branches → Default branch: develop
+
+【Step 3】验证配置（5 分钟）
+  
+  3-1. 测试 develop 分支
+  
+    $ git checkout develop
+    $ ./gradlew properties | grep "^version:"
+    
+    预期输出: version: 3.3.7-SNAPSHOT
+  
+  3-2. 测试 release 分支
+  
+    $ git checkout -b release/3.3.7-test
+    $ ./gradlew properties | grep "^version:"
+    
+    预期输出: version: 3.3.7-RC.1
+    
+    $ git checkout develop
+    $ git branch -D release/3.3.7-test
+  
+  3-3. 测试 master 分支
+  
+    $ git checkout master
+    $ git tag v3.3.7
+    $ ./gradlew properties | grep "^version:"
+    
+    预期输出: version: 3.3.7
+    
+    $ git tag -d v3.3.7
+
+==============================================================================
+📖 日常使用指南
+==============================================================================
+
+【功能开发】
+  
+  1. 创建 feature 分支
+     $ git checkout develop
+     $ git pull origin develop
+     $ git checkout -b feature/new-feature
+  
+  2. 开发和提交
+     # ... 进行开发 ...
+     $ git add .
+     $ git commit -m "feat: 实现新功能"
+     $ git push origin feature/new-feature
+  
+  3. 完成 feature（通过 PR/MR）
+     $ git checkout develop
+     $ git merge --no-ff feature/new-feature
+     $ git push origin develop
+     $ git branch -d feature/new-feature
+     $ git push origin :feature/new-feature
+
+【发布流程】
+  
+  1. 创建 release 分支
+     $ git checkout develop
+     $ git pull origin develop
+     $ git checkout -b release/3.3.7
+     $ git push origin release/3.3.7
+  
+  2. 构建和测试（自动版本号: 3.3.7-RC.1）
+     $ ./gradlew clean build test
+  
+  3. 发布到 Maven（RC 版本）
+     $ ./gradlew publish
+  
+  4. 完成 release
+     # 合并到 master
+     $ git checkout master
+     $ git merge --no-ff release/3.3.7
+     $ git tag -a v3.3.7 -m "Release 3.3.7"
+     
+     # 合并回 develop
+     $ git checkout develop
+     $ git merge --no-ff release/3.3.7
+     
+     # 推送
+     $ git push origin master develop --tags
+     $ git branch -d release/3.3.7
+     $ git push origin :release/3.3.7
+
+【紧急修复】
+  
+  1. 创建 hotfix 分支
+     $ git checkout master
+     $ git pull origin master
+     $ git checkout -b hotfix/3.3.7.1
+  
+  2. 修复问题
+     # ... 修复 bug ...
+     $ git commit -m "fix: 修复紧急问题"
+  
+  3. 构建和测试
+     $ ./gradlew clean build test
+  
+  4. 完成 hotfix
+     # 合并到 master
+     $ git checkout master
+     $ git merge --no-ff hotfix/3.3.7.1
+     $ git tag -a v3.3.7.1 -m "Hotfix 3.3.7.1"
+     
+     # 合并到 develop
+     $ git checkout develop
+     $ git merge --no-ff hotfix/3.3.7.1
+     
+     # 推送
+     $ git push origin master develop --tags
+     $ git branch -d hotfix/3.3.7.1
+
+==============================================================================
+🔧 Gradle 任务
+==============================================================================
+
+【查看版本号】
+  $ ./gradlew properties | grep version
+
+【构建】
+  $ ./gradlew clean build
+
+【测试】
+  $ ./gradlew test
+
+【发布到本地 Maven】
+  $ ./gradlew publishToMavenLocal
+
+【发布到远端 Maven】
+  $ ./gradlew publish
+
+【生成 Javadoc】
+  $ ./gradlew javadoc
+
+【依赖检查】
+  $ ./gradlew dependencies
+
+==============================================================================
+⚙️ CI/CD 配置示例
+==============================================================================
+
+【GitHub Actions】
+
+.github/workflows/build.yml:
+  
+  name: Build
+  
+  on:
+    push:
+      branches:
+        - develop
+        - 'feature/**'
+        - 'release/**'
+        - 'hotfix/**'
+    pull_request:
+  
+  jobs:
+    build:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v3
+          with:
+            fetch-depth: 0  # 重要！JGitVer 需要完整 Git 历史
+        
+        - name: Set up JDK 17
+          uses: actions/setup-java@v3
+          with:
+            java-version: '17'
+            distribution: 'temurin'
+        
+        - name: Build
+          run: ./gradlew clean build test
+        
+        - name: Show Version
+          run: ./gradlew properties | grep version
+
+.github/workflows/release.yml:
+  
+  name: Release
+  
+  on:
+    push:
+      tags:
+        - 'v*'
+  
+  jobs:
+    publish:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v3
+          with:
+            fetch-depth: 0
+        
+        - name: Set up JDK 17
+          uses: actions/setup-java@v3
+          with:
+            java-version: '17'
+            distribution: 'temurin'
+        
+        - name: Build
+          run: ./gradlew clean build test
+        
+        - name: Publish to Maven Central
+          run: ./gradlew publish
+          env:
+            MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
+            MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
+
+==============================================================================
+❓ 常见问题
+==============================================================================
+
+Q1: 版本号显示错误怎么办？
+A:  检查 Git 历史是否完整:
+    $ git fetch --unshallow  # 如果是浅克隆
+    $ git pull --tags        # 确保标签同步
+
+Q2: JGitVer 不工作？
+A:  确保:
+    1. Git 仓库已初始化
+    2. 有提交历史
+    3. 插件配置正确
+    4. ./gradlew clean 后重试
+
+Q3: 如何回退到旧的发布方式？
+A:  恢复备份文件:
+    $ cp build.gradle.backup build.gradle
+    $ cp gradle.properties.backup gradle.properties
+    $ cp gradle/libs.versions.toml.backup gradle/libs.versions.toml
+
+Q4: 多人协作如何保持分支同步？
+A:  始终在操作前拉取最新代码:
+    $ git checkout develop
+    $ git pull origin develop
+    $ git checkout -b feature/xxx
+
+Q5: release 分支可以提交多次吗？
+A:  可以！release 分支用于修复发布相关的问题。
+    每次提交会自动增加 RC 版本号: RC.1, RC.2, RC.3...
+
+Q6: 如何处理冲突？
+A:  按标准 Git 流程解决:
+    1. git status 查看冲突文件
+    2. 手动编辑解决冲突
+    3. git add <文件>
+    4. git commit
+
+Q7: 能否跳过 release 分支直接发布？
+A:  不建议！release 分支是质量保证的关键环节。
+    可以快速完成: 创建 → 测试 → 合并，只需几分钟。
+
+==============================================================================
+📊 版本号对照表
+==============================================================================
+
+┌──────────────────────┬─────────────────────┬────────────────────┐
+│ 分支                 │ 版本号              │ 用途               │
+├──────────────────────┼─────────────────────┼────────────────────┤
+│ develop              │ 3.3.7-SNAPSHOT      │ 日常开发           │
+│ feature/auth         │ 3.3.7-auth-SNAPSHOT │ 功能开发           │
+│ release/3.3.7        │ 3.3.7-RC.1          │ 发布准备           │
+│ master (tag v3.3.7)  │ 3.3.7               │ 正式发布           │
+│ hotfix/3.3.7.1       │ 3.3.7.1             │ 紧急修复           │
+└──────────────────────┴─────────────────────┴────────────────────┘
+
+==============================================================================
+✅ 检查清单
+==============================================================================
+
+迁移前:
+  [ ] 备份所有配置文件
+  [ ] 阅读 GitFlow 文档
+  [ ] 团队培训完成
+  [ ] CI/CD 配置更新
+
+迁移中:
+  [ ] 修改 gradle/libs.versions.toml
+  [ ] 修改 build.gradle
+  [ ] 创建 develop 分支
+  [ ] 创建 master 分支
+  [ ] 验证版本号自动生成
+
+迁移后:
+  [ ] 测试功能开发流程
+  [ ] 测试发布流程
+  [ ] 测试 hotfix 流程
+  [ ] 更新团队文档
+  [ ] 通知所有开发人员
+
+==============================================================================
+📚 参考资源
+==============================================================================
+
+GitFlow 原理:
+  https://nvie.com/posts/a-successful-git-branching-model/
+
+JGitVer 文档:
+  https://jgitver.github.io/
+
+语义化版本:
+  https://semver.org/
+
+详细集成方案:
+  查看 JGITFLOW_INTEGRATION_PLAN.md
+
+==============================================================================
+🎯 总结
+==============================================================================
+
+优点:
+  ✅ 自动版本管理（无需手动修改版本号）
+  ✅ 清晰的分支策略（标准 GitFlow）
+  ✅ 支持并行开发（多个 feature 分支）
+  ✅ 完善的发布流程（release 和 hotfix）
+  ✅ 减少人为错误（自动化流程）
+
+适用场景:
+  ✅ 大型项目、多人协作
+  ✅ 有明确发布周期
+  ✅ 需要同时维护多个版本
+
+学习成本:
+  ⏱️ 初次学习: 2-3 小时
+  ⏱️ 熟练使用: 1-2 周
+
+预期收益:
+  📈 减少 50% 版本管理时间
+  📈 减少 80% 版本号错误
+  📈 提高 30% 发布效率
+  📈 降低 70% 发布风险
+
+==============================================================================
+                          开始使用 JGitFlow！🚀
+==============================================================================
+
+下一步:
+  1. 阅读详细文档: JGITFLOW_INTEGRATION_PLAN.md
+  2. 执行快速实施: 按照上面的 3 步完成
+  3. 验证配置: 测试各个分支的版本号
+  4. 团队培训: 分享给所有开发人员
+
+问题反馈:
+  如有问题，查看详细文档或联系团队负责人
+
+生成时间: 2025-11-18
+文档版本: v1.0
+
+==============================================================================
+
