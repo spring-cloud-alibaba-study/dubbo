@@ -15,20 +15,11 @@
  * limitations under the License.
  */
 
-plugins {
-    id 'org.springframework.boot' version '3.5.0'
-    id 'java'
-}
-
 description = 'The Spring Boot demo provider module of Dubbo project'
 
 // Demo module should not be published to Maven repository
 ext {
     skip_maven_deploy = true
-}
-
-springBoot {
-    mainClass = 'org.apache.dubbo.springboot.demo.provider.ProviderApplication'
 }
 
 configurations {
@@ -46,10 +37,10 @@ dependencies {
     implementation project(':dubbo-spring-boot-project:dubbo-spring-boot-starters:dubbo-tracing-otel-zipkin-spring-boot-starter')
     implementation project(':dubbo-plugin:dubbo-qos')
     implementation project(':dubbo-spring-boot-project:dubbo-spring-boot-starters:dubbo-spring-boot-starter')
-    
+
     // HTTP/3 support (optional)
     implementation project(':dubbo-remoting:dubbo-remoting-http3')
-    
+
     implementation libs.springBootStarter
     implementation libs.springBootStarterLog4j2
 }
