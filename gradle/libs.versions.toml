@@ -286,9 +286,8 @@ compiler = "0.9.4"
 # Gradle Plugins
 # ========================================
 shadowPlugin = "7.1.2"
-protobufPlugin = "0.8.18"
+protobufPlugin = "0.9.4"
 javadocPlugin = "6.3.0"
-releasePlugin = "2.8.1"
 spotlessPlugin = "7.0.0.BETA4"
 checkstylePlugin = "10.12.3"
 licenseReportPlugin = "2.5"
@@ -886,7 +885,6 @@ commons-full = ["commonsLang3", "commonsIo", "commonsCodec", "commonsCompress", 
 shadow = { id = "com.github.johnrengelman.shadow", version.ref = "shadowPlugin" }
 protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }
 javadoc = { id = "io.freefair.aggregate-javadoc", version.ref = "javadocPlugin" }
-jgitver = { id = "fr.brouillard.oss.gradle.jgitver", version = "0.10.0-rc03" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotlessPlugin" }
 checkstyle = { id = "checkstyle" }
 licenseReport = { id = "com.github.jk1.dependency-license-report", version.ref = "licenseReportPlugin" }

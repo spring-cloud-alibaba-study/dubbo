@@ -24,46 +24,9 @@ plugins {
     alias(libs.plugins.shadow) apply false
     alias(libs.plugins.protobuf) apply false
     alias(libs.plugins.javadoc) apply false
-    // alias(libs.plugins.jgitver)  // 暂时禁用，需要调整配置
     alias(libs.plugins.spotless) apply false
     alias(libs.plugins.licenseReport)
 }
-
-// ========================================
-// JGitVer Configuration - Automatic Version Management
-// ========================================
-// JGitVer 配置暂时禁用 - API 需要调整
-// 当前使用 gradle.properties 中的版本号: 3.3.7-SNAPSHOT
-//
-// jgitver {
-//     // 版本号策略
-//     policy {
-//         // master/main 分支: 正式版本 (3.3.7)
-//         pattern('master|main') {
-//             transformations = []
-//         }
-//         
-//         // develop 分支: SNAPSHOT 版本 (3.3.7-SNAPSHOT)
-//         pattern('develop') {
-//             transformations = ['SNAPSHOT']
-//         }
-//         
-//         // release 分支: RC 版本 (3.3.7-RC.1)
-//         pattern('release/(.*)') {
-//             transformations = ['RC']
-//         }
-//         
-//         // feature 分支: SNAPSHOT 版本，忽略分支名
-//         pattern('feature/(.*)') {
-//             transformations = ['SNAPSHOT', 'IGNORE']
-//         }
-//         
-//         // hotfix 分支: 正式版本
-//         pattern('hotfix/(.*)') {
-//             transformations = []
-//         }
-//     }
-// }
 
 allprojects {
     group = rootProject.group
@@ -72,7 +35,7 @@ allprojects {
     repositories {
         mavenLocal()
         mavenCentral()
-        maven { url 'https://repo.spring.io/milestone' }
+        maven { url = 'https://repo.spring.io/milestone' }
     }
 }
 
@@ -206,17 +169,25 @@ subprojects {
             ignoreFailures = false
         }
 
-        // Combine check task configuration in one place
         tasks.named('check').configure {
-            // Remove spotless from default check
             dependsOn.removeIf { dep ->
                 (dep instanceof TaskProvider && dep.name == 'spotlessCheck') ||
                 (dep instanceof String && dep == 'spotlessCheck')
             }
-            // Add checkstyleUnix
             dependsOn tasks.named('checkstyleUnix')
         }
-        // -Ptest.minHeap=512m -Ptest.maxHeap=1024m -Ptest.metaspace=256m (optimized for stability)
+        
+        // JVM module access for JDK 15+ compatibility
+        def jvmModuleOpens = []
+        if (JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_15)) {
+            jvmModuleOpens = [
+                '--add-opens=java.base/java.lang=ALL-UNNAMED',
+                '--add-opens=java.base/java.math=ALL-UNNAMED',
+                '--add-opens=java.base/java.util=ALL-UNNAMED'
+            ]
+        }
+        
+        // Test configuration: -Ptest.minHeap=512m -Ptest.maxHeap=1024m -Ptest.metaspace=256m
         def testMinHeap = project.findProperty('test.minHeap') ?: '512m'
         def testMaxHeap = project.findProperty('test.maxHeap') ?: '1024m'
         def testMetaspace = project.findProperty('test.metaspace') ?: '256m'
@@ -228,15 +199,7 @@ subprojects {
                 '-server', "-Xms${testMinHeap}", "-Xmx${testMaxHeap}",
                 "-XX:MetaspaceSize=64m", "-XX:MaxMetaspaceSize=${testMetaspace}",
                 '-Dfile.encoding=UTF-8', '-Djava.net.preferIPv4Stack=true'
-            ]
-
-            if (JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_15)) {
-                jvmArgs += [
-                    '--add-opens=java.base/java.lang=ALL-UNNAMED',
-                    '--add-opens=java.base/java.math=ALL-UNNAMED',
-                    '--add-opens=java.base/java.util=ALL-UNNAMED'
-                ]
-            }
+            ] + jvmModuleOpens
 
             jacoco {
                 enabled = !project.hasProperty('jacoco.skip') || project.property('jacoco.skip') != 'true'
@@ -282,7 +245,8 @@ subprojects {
         // Compiler Configuration
         tasks.withType(JavaCompile) {
             options.encoding = 'UTF-8'
-            options.compilerArgs += ['-parameters', '-proc:none']
+            // Suppress warnings when compiling Java 8 code with newer JDK
+            options.compilerArgs += ['-parameters', '-proc:none', '-Xlint:-options']
         }
 
         // Dependencies
@@ -579,20 +543,6 @@ gradle.taskGraph.whenReady { graph ->
     }
 }
 
-// ========================================
-// Release Configuration - Migrated to JGitVer
-// ========================================
-// Previous net.researchgate.release plugin configuration has been replaced
-// with JGitVer for automatic version management (see configuration above).
-//
-// Version is now automatically calculated from Git branches and tags:
-// - develop branch: x.y.z-SNAPSHOT
-// - release/x.y.z branch: x.y.z-RC.n
-// - master/main branch: x.y.z (from tag)
-// - hotfix/x.y.z branch: x.y.z.patch
-//
-// No manual version changes needed in gradle.properties
-
 def getGitCommitId() {
     try {
         def stdout = new ByteArrayOutputStream()
@@ -609,6 +559,6 @@ def getGitCommitId() {
 }
 
 wrapper {
-    gradleVersion = '8.14'
+    gradleVersion = '9.2.1'
     distributionType = Wrapper.DistributionType.BIN
 }
