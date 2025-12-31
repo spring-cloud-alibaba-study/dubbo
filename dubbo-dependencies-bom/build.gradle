@@ -79,10 +79,11 @@ dependencies {
         
         // Validation
         api "javax.validation:validation-api:${libs.versions.validation.get()}"
-        api "org.hibernate:hibernate-validator:${libs.versions.hibernateValidator.get()}"
+        api "org.hibernate.validator:hibernate-validator:${libs.versions.hibernateValidator.get()}"
         api "org.glassfish:javax.el:${libs.versions.jel.get()}"
         api "jakarta.validation:jakarta.validation-api:${libs.versions.validationNew.get()}"
-        api "org.hibernate.validator:hibernate-validator:${libs.versions.hibernateValidatorNew.get()}"
+        // Note: hibernate-validator 7.x constraint removed to avoid conflict with 6.x
+        // Modules needing jakarta validation (7.x) should explicitly declare version
         
         // Cache
         api "javax.cache:cache-api:${libs.versions.jcache.get()}"
@@ -198,7 +199,10 @@ dependencies {
         api "com.tdunning:t-digest:${libs.versions.digest.get()}"
         api "io.prometheus:simpleclient:${libs.versions.prometheusClient.get()}"
         api "io.prometheus:simpleclient_pushgateway:${libs.versions.prometheusClient.get()}"
-        // zipkin versions managed by zipkin-reporter-bom
+        
+        // Zipkin
+        api "io.zipkin.zipkin2:zipkin:${libs.versions.zipkin.get()}"
+        // zipkin-reporter versions managed by zipkin-reporter-bom
         
         // Reactive
         api "org.reactivestreams:reactive-streams:${libs.versions.reactive.get()}"

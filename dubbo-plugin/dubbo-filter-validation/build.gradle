@@ -24,7 +24,10 @@ dependencies {
     implementation libs.jakartaValidationApi
     implementation libs.validationApi
     
-    testImplementation libs.hibernateValidator
+    // hibernate-validator 6.x for JValidator (javax.validation)
+    // Version managed by Spring Boot BOM (6.2.5.Final)
+    implementation 'org.hibernate.validator:hibernate-validator'
+    
     testImplementation libs.javaxElApi
     testImplementation libs.jaxbApi
     testImplementation libs.jaxbImpl
