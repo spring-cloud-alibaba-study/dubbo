@@ -260,7 +260,7 @@ activation = "1.2.0"
 # ========================================
 # Others
 # ========================================
-aspectjweaver = "1.9.20.1"
+aspectjweaver = "1.9.24"
 nashornCore = "15.6"
 portlet = "2.0"
 mcp = "0.11.2"
@@ -272,12 +272,12 @@ cglibNodep = "3.3.0"
 # Maven Plugins and Tools
 # ========================================
 mavenArtifact = "3.9.6"
-mavenCore = "3.9.6"
-mavenPluginApi = "3.9.6"
-mavenPluginAnnotations = "3.11.0"
+mavenCore = "3.9.12"
+mavenPluginApi = "3.9.10"
+mavenPluginAnnotations = "3.15.2"
 mavenPluginToolsAnnotations = "3.10.2"
-mavenCommonArtifactFilters = "3.3.2"
-plexusUtils = "3.5.1"
+mavenCommonArtifactFilters = "3.4.0"
+plexusUtils = "3.6.0"
 plexusBuildApi = "0.0.7"
 plexusXmlVelocity = "1.0.0"
 compiler = "0.9.4"
