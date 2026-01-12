@@ -1,0 +1,67 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/*
+ * 这是一个模板文件，用于创建新的模块 build.gradle
+ * 
+ * 使用方法：
+ * 1. 复制此文件到目标模块目录
+ * 2. 重命名为 build.gradle
+ * 3. 修改 description
+ * 4. 根据模块的 pom.xml 添加相应的依赖
+ */
+
+description = 'The [MODULE_NAME] module of dubbo project'
+
+dependencies {
+    // API dependencies (公开给使用者的依赖)
+    // api project(':dubbo-common')
+    
+    // Implementation dependencies (内部实现依赖)
+    // implementation libs.springContext
+    
+    // Compile-only dependencies (编译时需要，运行时不需要)
+    // compileOnly libs.servletApi
+    
+    // Runtime-only dependencies (运行时需要，编译时不需要)
+    // runtimeOnly "mysql:mysql-connector-java"
+    
+    // Test dependencies (测试依赖)
+    // testImplementation project(':dubbo-test:dubbo-test-common')
+    // testImplementation "org.apache.logging.log4j:log4j-slf4j-impl"
+    
+    // Optional dependencies (可选依赖)
+    // compileOnly libs.grpcCore
+}
+
+// 如果需要特定的 Java 版本配置
+// java {
+//     sourceCompatibility = JavaVersion.VERSION_11
+//     targetCompatibility = JavaVersion.VERSION_11
+// }
+
+// 如果需要额外的资源处理
+// processResources {
+//     // 自定义资源处理
+// }
+
+// 如果需要生成额外的 artifact
+// task customJar(type: Jar) {
+//     archiveClassifier = 'custom'
+//     from sourceSets.main.output
+// }
+

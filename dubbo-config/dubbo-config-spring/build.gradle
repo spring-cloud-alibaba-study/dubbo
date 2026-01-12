@@ -1,0 +1,62 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+description = 'The Spring configuration module of Dubbo project'
+
+// ========================================
+// This module uses Spring 5.x (default version)
+// All dependencies use libs.springXxx (without version suffix)
+// ========================================
+
+dependencies {
+    api project(':dubbo-config:dubbo-config-api')
+    testImplementation project(':dubbo-metrics:dubbo-metrics-prometheus')
+    
+    // Spring 5.x dependencies (default version from BOM)
+    implementation libs.springBeans
+    implementation libs.springWeb
+    implementation libs.springContext
+    
+    // Javax (Spring 5.x uses javax, not jakarta)
+    compileOnly libs.servletApi
+    compileOnly libs.javaxAnnotationApi
+    
+    testImplementation libs.aspectjweaver
+    testImplementation project(':dubbo-rpc:dubbo-rpc-dubbo')
+    testImplementation project(':dubbo-rpc:dubbo-rpc-triple')
+    testImplementation project(':dubbo-rpc:dubbo-rpc-injvm')
+    testImplementation project(':dubbo-remoting:dubbo-remoting-netty4')
+    testImplementation project(':dubbo-serialization:dubbo-serialization-hessian2')
+    testImplementation project(':dubbo-serialization:dubbo-serialization-fastjson2')
+    testImplementation libs.validationApi
+    testImplementation libs.hibernateValidator
+    testImplementation libs.jel
+    testImplementation libs.springTx
+    testImplementation libs.springTest
+    testImplementation libs.tomcatEmbedCore
+    testImplementation libs.springBootStarterTest
+    testImplementation libs.log4jSlf4jImpl
+    testImplementation project(':dubbo-registry:dubbo-registry-zookeeper')
+    testImplementation project(':dubbo-metadata:dubbo-metadata-report-zookeeper')
+    testImplementation project(':dubbo-remoting:dubbo-remoting-zookeeper-curator5')
+    testImplementation libs.curatorRecipes
+    testImplementation libs.curatorXDiscovery
+    testImplementation libs.zookeeper
+    testImplementation project(':dubbo-registry:dubbo-registry-nacos')
+    testImplementation project(':dubbo-configcenter:dubbo-configcenter-nacos')
+    testImplementation libs.nacosClient
+}

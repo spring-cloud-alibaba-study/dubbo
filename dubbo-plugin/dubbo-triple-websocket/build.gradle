@@ -1,0 +1,101 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+description = 'The WebSocket transport support module for Triple protocol'
+
+dependencies {
+    api project(':dubbo-rpc:dubbo-rpc-triple')
+    api project(':dubbo-remoting:dubbo-remoting-websocket')
+    
+    // Support both javax and jakarta APIs, differentiated by package:
+    // - org.apache.dubbo.rpc.protocol.tri.websocket.*         → javax API (Spring Boot 2.x)
+    // - org.apache.dubbo.rpc.protocol.tri.websocket.jakarta.* → jakarta API (Spring Boot 3.x)
+    
+    // Servlet API dependencies
+    compileOnly libs.servletApi
+    compileOnly libs.jakartaServletApi
+    
+    // WebSocket API dependencies
+    compileOnly libs.javaxWebsocketApi
+    compileOnly libs.jakartaWebsocketApi
+    compileOnly libs.jakartaWebsocketClientApi
+    
+    testImplementation project(':dubbo-remoting:dubbo-remoting-netty4')
+}
+
+// Generate Jakarta EE version of sources (only when JDK 17+)
+if (JavaVersion.current() >= JavaVersion.VERSION_17) {
+    def generatedSourcesDir = layout.buildDirectory.dir('generated-sources/java').get().asFile
+    def websocketJakartaDir = new File(generatedSourcesDir, 'org/apache/dubbo/rpc/protocol/tri/websocket/jakarta')
+    
+    tasks.register('generateJakartaSources') {
+        group = 'build'
+        description = 'Generate Jakarta EE 9+ compatible sources from javax WebSocket sources'
+        
+        def websocketSourceDir = file('src/main/java/org/apache/dubbo/rpc/protocol/tri/websocket')
+        
+        inputs.dir(websocketSourceDir)
+        outputs.dir(websocketJakartaDir)
+        
+        doLast {
+            // Copy websocket sources (exclude WebSocketConstants.java - not needed in jakarta package)
+            copy {
+                from websocketSourceDir
+                into websocketJakartaDir
+                exclude 'WebSocketConstants.java'
+            }
+            
+            // Replace package names and imports
+            fileTree(generatedSourcesDir).matching {
+                include '**/*.java'
+            }.each { file ->
+                def content = file.text
+                // Replace package declaration
+                content = content.replaceAll(/tri\.websocket;/, 'tri.websocket.jakarta;')
+                // Replace servlet imports
+                content = content.replaceAll(/javax\.servlet/, 'jakarta.servlet')
+                // Replace websocket imports
+                content = content.replaceAll(/javax\.websocket/, 'jakarta.websocket')
+                
+                // Special handling for TripleEndpoint.java - add missing import
+                if (file.name == 'TripleEndpoint.java') {
+                    content = content.replace(
+                        'import org.apache.dubbo.rpc.protocol.tri.ServletExchanger;',
+                        '''import org.apache.dubbo.rpc.protocol.tri.ServletExchanger;
+import org.apache.dubbo.rpc.protocol.tri.websocket.DefaultWebSocketServerTransportListenerFactory;'''
+                    )
+                }
+                
+                file.text = content
+            }
+        }
+    }
+    
+    // Add generated sources to main sourceSet
+    sourceSets.main.java.srcDir generatedSourcesDir
+    
+    // Make compileJava depend on source generation
+    tasks.named('compileJava') {
+        dependsOn 'generateJakartaSources'
+    }
+    
+    // Make sourcesJar also depend on source generation
+    tasks.named('sourcesJar') {
+        dependsOn 'generateJakartaSources'
+    }
+}
+

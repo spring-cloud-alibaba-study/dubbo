@@ -1,0 +1,99 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+plugins {
+    id 'com.google.protobuf'  // Version inherited from root project (0.8.18 for Gradle 6.5+ compatibility)
+}
+
+description = 'The security module of Dubbo project providing SSL/TLS support'
+
+dependencies {
+    api project(':dubbo-rpc:dubbo-rpc-api')
+    api project(':dubbo-rpc:dubbo-rpc-triple')
+    api project(':dubbo-common')
+    
+    // gRPC dependencies
+    implementation libs.grpcProtobuf
+    implementation libs.grpcStub
+    implementation libs.grpcNettyShaded
+    
+    // Protobuf dependencies
+    implementation libs.protobufJava
+    implementation libs.protobufJavaUtil
+    
+    // BouncyCastle security dependencies
+    implementation libs.bouncycastleBcprovJdk18on
+    implementation libs.bouncycastleBcpkixJdk18on
+    
+    // Add javax.annotation support (required for Java 9+)
+    compileOnly libs.javaxAnnotationApi
+    
+    testImplementation project(':dubbo-config:dubbo-config-api')
+    testImplementation libs.log4jSlf4jImpl
+}
+
+// Protobuf configuration
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:${libs.versions.protobufProtoc.get()}"
+    }
+    plugins {
+        grpc {
+            artifact = "io.grpc:protoc-gen-grpc-java:${libs.versions.grpc.get()}"
+        }
+        dubbo {
+            // Use dubbo-compiler to generate Dubbo Triple code
+            path = project(':dubbo-plugin:dubbo-compiler').tasks.jar.outputs.files.singleFile.absolutePath
+        }
+    }
+    generateProtoTasks {
+        all().each { task ->
+            task.dependsOn ':dubbo-plugin:dubbo-compiler:jar'
+            task.plugins {
+                grpc {}
+                dubbo {
+                    option 'dubbo'
+                }
+            }
+        }
+    }
+    generatedFilesBaseDir = "$buildDir/generated/source/proto"
+}
+
+// Configure source sets, including generated Protobuf code
+sourceSets {
+    main {
+        java {
+            srcDirs += [
+                "$buildDir/generated/source/proto/main/java",
+                "$buildDir/generated/source/proto/main/grpc",
+                "$buildDir/generated/source/proto/main/dubbo"
+            ]
+        }
+    }
+}
+
+// Ensure Protobuf code is generated before compilation
+tasks.named('compileJava') {
+    dependsOn 'generateProto'
+}
+
+// Ensure sourcesJar executes after Protobuf generation
+tasks.named('sourcesJar') {
+    dependsOn 'generateProto'
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}

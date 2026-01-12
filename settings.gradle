@@ -1,0 +1,177 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+rootProject.name = 'dubbo-parent'
+
+// Core modules
+include 'dubbo-common'
+include 'dubbo-remoting'
+include 'dubbo-remoting:dubbo-remoting-api'
+include 'dubbo-remoting:dubbo-remoting-http12'
+include 'dubbo-remoting:dubbo-remoting-http3'
+include 'dubbo-remoting:dubbo-remoting-netty'
+include 'dubbo-remoting:dubbo-remoting-netty4'
+include 'dubbo-remoting:dubbo-remoting-websocket'
+include 'dubbo-remoting:dubbo-remoting-zookeeper-curator5'
+
+include 'dubbo-rpc'
+include 'dubbo-rpc:dubbo-rpc-api'
+include 'dubbo-rpc:dubbo-rpc-dubbo'
+include 'dubbo-rpc:dubbo-rpc-injvm'
+include 'dubbo-rpc:dubbo-rpc-triple'
+
+include 'dubbo-cluster'
+
+include 'dubbo-registry'
+include 'dubbo-registry:dubbo-registry-api'
+include 'dubbo-registry:dubbo-registry-multicast'
+include 'dubbo-registry:dubbo-registry-multiple'
+include 'dubbo-registry:dubbo-registry-nacos'
+include 'dubbo-registry:dubbo-registry-zookeeper'
+
+include 'dubbo-configcenter'
+include 'dubbo-configcenter:dubbo-configcenter-apollo'
+include 'dubbo-configcenter:dubbo-configcenter-file'
+include 'dubbo-configcenter:dubbo-configcenter-nacos'
+include 'dubbo-configcenter:dubbo-configcenter-zookeeper'
+
+include 'dubbo-config'
+include 'dubbo-config:dubbo-config-api'
+include 'dubbo-config:dubbo-config-spring'
+include 'dubbo-config:dubbo-config-spring6'
+
+include 'dubbo-serialization'
+include 'dubbo-serialization:dubbo-serialization-api'
+include 'dubbo-serialization:dubbo-serialization-fastjson2'
+include 'dubbo-serialization:dubbo-serialization-hessian2'
+
+include 'dubbo-compatible'
+include 'dubbo-dependencies-bom'
+
+include 'dubbo-metadata'
+include 'dubbo-metadata:dubbo-metadata-api'
+include 'dubbo-metadata:dubbo-metadata-definition-protobuf'
+include 'dubbo-metadata:dubbo-metadata-processor'
+include 'dubbo-metadata:dubbo-metadata-report-nacos'
+include 'dubbo-metadata:dubbo-metadata-report-zookeeper'
+
+include 'dubbo-metrics'
+include 'dubbo-metrics:dubbo-metrics-api'
+include 'dubbo-metrics:dubbo-metrics-config-center'
+include 'dubbo-metrics:dubbo-metrics-default'
+include 'dubbo-metrics:dubbo-metrics-event'
+include 'dubbo-metrics:dubbo-metrics-metadata'
+include 'dubbo-metrics:dubbo-metrics-netty'
+include 'dubbo-metrics:dubbo-metrics-prometheus'
+include 'dubbo-metrics:dubbo-metrics-registry'
+include 'dubbo-metrics:dubbo-tracing'
+
+include 'dubbo-test'
+include 'dubbo-test:dubbo-dependencies-all'
+include 'dubbo-test:dubbo-test-check'
+include 'dubbo-test:dubbo-test-common'
+include 'dubbo-test:dubbo-test-modules'
+// include 'dubbo-test:dubbo-test-spring'  // 暂时禁用：Spring版本兼容性问题
+include 'dubbo-test:dubbo-test-spring3.2'
+include 'dubbo-test:dubbo-test-spring4.1'
+include 'dubbo-test:dubbo-test-spring4.2'
+
+include 'dubbo-maven-plugin'
+
+// Spring Boot modules (优先支持Spring Boot 3.x, 需要Java 17+)
+include 'dubbo-spring-boot-project:dubbo-spring-boot-actuator'
+include 'dubbo-spring-boot-project:dubbo-spring-boot-autoconfigure'
+include 'dubbo-spring-boot-project:dubbo-spring-boot-compatible'
+// include 'dubbo-spring-boot-project:dubbo-spring-boot-compatible:dubbo-spring-boot-actuator-autoconfigure-compatible'  // Spring Boot 1.x已EOL
+include 'dubbo-spring-boot-project:dubbo-spring-boot-compatible:dubbo-spring-boot-autoconfigure-compatible'
+include 'dubbo-spring-boot-project:dubbo-spring-boot'
+include 'dubbo-spring-boot-project:dubbo-spring-boot-actuator-autoconfigure'
+
+include 'dubbo-spring-boot-project:dubbo-spring-boot-starters'
+include 'dubbo-spring-boot-project:dubbo-spring-boot-starters:dubbo-spring-boot-starter'
+include 'dubbo-spring-boot-project:dubbo-spring-boot-starters:dubbo-nacos-spring-boot-starter'
+include 'dubbo-spring-boot-project:dubbo-spring-boot-starters:dubbo-zookeeper-curator5-spring-boot-starter'
+include 'dubbo-spring-boot-project:dubbo-spring-boot-starters:dubbo-sentinel-spring-boot-starter'
+include 'dubbo-spring-boot-project:dubbo-spring-boot-starters:dubbo-seata-spring-boot-starter'
+include 'dubbo-spring-boot-project:dubbo-spring-boot-starters:dubbo-observability-spring-boot-starter'
+include 'dubbo-spring-boot-project:dubbo-spring-boot-starters:dubbo-tracing-brave-zipkin-spring-boot-starter'
+include 'dubbo-spring-boot-project:dubbo-spring-boot-starters:dubbo-tracing-otel-otlp-spring-boot-starter'
+include 'dubbo-spring-boot-project:dubbo-spring-boot-starters:dubbo-tracing-otel-zipkin-spring-boot-starter'
+
+// Plugin modules
+include 'dubbo-plugin:dubbo-qos'
+include 'dubbo-plugin:dubbo-qos-api'
+include 'dubbo-plugin:dubbo-auth'
+include 'dubbo-plugin:dubbo-reactive'
+include 'dubbo-plugin:dubbo-security'
+include 'dubbo-plugin:dubbo-spring-security'
+include 'dubbo-plugin:dubbo-native'
+include 'dubbo-plugin:dubbo-compiler'
+include 'dubbo-plugin:dubbo-filter-cache'
+include 'dubbo-plugin:dubbo-filter-validation'
+include 'dubbo-plugin:dubbo-rest-jaxrs'
+include 'dubbo-plugin:dubbo-rest-spring'
+include 'dubbo-plugin:dubbo-rest-openapi'
+include 'dubbo-plugin:dubbo-triple-servlet'
+include 'dubbo-plugin:dubbo-triple-websocket'
+
+// ========================================
+// JDK Version-Specific Modules (Consistent with Maven Profiles)
+// ========================================
+def javaVersion = JavaVersion.current()
+
+// JDK 17+ modules (mcp, mcp-demo, spring6, mutiny, spring-boot-3)
+if (javaVersion >= JavaVersion.VERSION_17) {
+    include 'dubbo-spring-boot-project:dubbo-spring-boot-3-autoconfigure'
+    include 'dubbo-plugin:dubbo-spring6-security'
+    include 'dubbo-plugin:dubbo-mutiny'
+    include 'dubbo-plugin:dubbo-mcp'               // Requires JDK 17+ (pattern matching)
+    include 'dubbo-demo:dubbo-demo-mcp-server'     // MCP demo requires JDK 17+
+}
+
+// JDK 21+ modules (loom - Virtual Threads)
+// Note: Gradle 7.4 doesn't have VERSION_21 constant, use majorVersion comparison
+if (javaVersion.isCompatibleWith(JavaVersion.VERSION_17) && javaVersion.majorVersion.toInteger() >= 21) {
+    include 'dubbo-plugin:dubbo-plugin-loom'
+}
+
+// Demo modules
+// dubbo-demo-api 的子模块
+include 'dubbo-demo:dubbo-demo-api:dubbo-demo-api-interface'
+include 'dubbo-demo:dubbo-demo-api:dubbo-demo-api-provider'
+include 'dubbo-demo:dubbo-demo-api:dubbo-demo-api-consumer'
+
+// dubbo-demo-spring-boot 的子模块
+include 'dubbo-demo:dubbo-demo-spring-boot:dubbo-demo-spring-boot-interface'
+include 'dubbo-demo:dubbo-demo-spring-boot:dubbo-demo-spring-boot-provider'
+include 'dubbo-demo:dubbo-demo-spring-boot:dubbo-demo-spring-boot-consumer'
+include 'dubbo-demo:dubbo-demo-spring-boot:dubbo-demo-spring-boot-servlet'
+
+// dubbo-demo-spring-boot-idl 的子模块
+include 'dubbo-demo:dubbo-demo-spring-boot-idl:dubbo-demo-spring-boot-idl-provider'
+include 'dubbo-demo:dubbo-demo-spring-boot-idl:dubbo-demo-spring-boot-idl-consumer'
+
+// 独立的 demo 模块
+include 'dubbo-demo:dubbo-demo-mcp-server'
+
+// Distribution modules
+include 'dubbo-distribution:dubbo-all'
+include 'dubbo-distribution:dubbo-all-shaded'
+include 'dubbo-distribution:dubbo-apache-release'
+include 'dubbo-distribution:dubbo-bom'
+include 'dubbo-distribution:dubbo-core-spi'
+

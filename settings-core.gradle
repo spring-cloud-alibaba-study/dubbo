@@ -1,0 +1,86 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+// 核心模块配置 - 用于快速验证和开发
+// 排除了 demo、distribution 和 maven-plugin 等非核心模块
+
+rootProject.name = 'dubbo-parent'
+
+// 核心基础模块
+include 'dubbo-common'
+include 'dubbo-cluster'
+include 'dubbo-compatible'
+include 'dubbo-dependencies-bom'
+
+// RPC 模块
+include 'dubbo-rpc'
+include 'dubbo-rpc:dubbo-rpc-api'
+include 'dubbo-rpc:dubbo-rpc-dubbo'
+include 'dubbo-rpc:dubbo-rpc-injvm'
+include 'dubbo-rpc:dubbo-rpc-triple'
+
+// 远程通信模块
+include 'dubbo-remoting'
+include 'dubbo-remoting:dubbo-remoting-api'
+include 'dubbo-remoting:dubbo-remoting-netty4'
+include 'dubbo-remoting:dubbo-remoting-http12'
+
+// 序列化模块
+include 'dubbo-serialization'
+include 'dubbo-serialization:dubbo-serialization-api'
+include 'dubbo-serialization:dubbo-serialization-hessian2'
+include 'dubbo-serialization:dubbo-serialization-fastjson2'
+
+// 注册中心模块
+include 'dubbo-registry'
+include 'dubbo-registry:dubbo-registry-api'
+include 'dubbo-registry:dubbo-registry-nacos'
+include 'dubbo-registry:dubbo-registry-zookeeper'
+
+// 配置模块
+include 'dubbo-config'
+include 'dubbo-config:dubbo-config-api'
+include 'dubbo-config:dubbo-config-spring'
+
+// 配置中心模块
+include 'dubbo-configcenter'
+include 'dubbo-configcenter:dubbo-configcenter-nacos'
+include 'dubbo-configcenter:dubbo-configcenter-zookeeper'
+
+// 元数据模块
+include 'dubbo-metadata'
+include 'dubbo-metadata:dubbo-metadata-api'
+
+// 监控指标模块
+include 'dubbo-metrics'
+include 'dubbo-metrics:dubbo-metrics-api'
+include 'dubbo-metrics:dubbo-metrics-default'
+include 'dubbo-metrics:dubbo-metrics-registry'
+
+// QoS 插件
+include 'dubbo-plugin:dubbo-qos-api'
+include 'dubbo-plugin:dubbo-qos'
+
+// Spring Boot 集成（核心）
+include 'dubbo-spring-boot-project:dubbo-spring-boot'
+include 'dubbo-spring-boot-project:dubbo-spring-boot-autoconfigure'
+include 'dubbo-spring-boot-project:dubbo-spring-boot-actuator'
+
+// 测试模块
+include 'dubbo-test'
+include 'dubbo-test:dubbo-test-common'
+

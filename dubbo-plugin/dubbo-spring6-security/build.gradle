@@ -1,0 +1,115 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+description = 'The Spring Security 6 integration module for Dubbo with Spring Boot 3'
+
+// Spring 6 Security module requires Java 17+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+tasks.withType(JavaCompile) {
+    options.release = 17
+}
+
+// ========================================
+// Module-specific version configuration
+// Spring 6 and Spring Security 6 need to strictly override versions in BOM
+// All dependencies use libs.spring6Xxx and libs.springSecurity6Xxx
+// ========================================
+ext {
+    spring6Version = libs.versions.spring6.get()
+    springSecurity6Version = libs.versions.springSecurity6.get()
+}
+
+dependencies {
+    // ========================================
+    // Spring 6 dependencies (force override Spring 5 in BOM)
+    // ========================================
+    implementation(libs.spring6Core) {
+        version { strictly spring6Version }
+    }
+    implementation(libs.spring6Beans) {
+        version { strictly spring6Version }
+    }
+    implementation(libs.spring6Context) {
+        version { strictly spring6Version }
+    }
+    implementation(libs.spring6Aop) {
+        version { strictly spring6Version }
+    }
+    implementation(libs.spring6Web) {
+        version { strictly spring6Version }
+    }
+    implementation(libs.spring6Jcl) {
+        version { strictly spring6Version }
+    }
+    implementation(libs.spring6Expression) {
+        version { strictly spring6Version }
+    }
+    compileOnly(libs.spring6Test) {
+        version { strictly spring6Version }
+    }
+    
+    api project(':dubbo-plugin:dubbo-spring-security')
+    
+    // ========================================
+    // Spring Security 6 dependencies (force override Spring Security 5 in BOM)
+    // ========================================
+    implementation(libs.springSecurity6Config) {
+        version { strictly springSecurity6Version }
+    }
+    implementation(libs.springSecurity6Core) {
+        version { strictly springSecurity6Version }
+    }
+    implementation(libs.springSecurity6Web) {
+        version { strictly springSecurity6Version }
+    }
+    implementation(libs.springSecurity6Crypto) {
+        version { strictly springSecurity6Version }
+    }
+    compileOnly(libs.springSecurity6Oauth2Core) {
+        version { strictly springSecurity6Version }
+    }
+    compileOnly(libs.springSecurity6Oauth2Jose) {
+        version { strictly springSecurity6Version }
+    }
+    compileOnly(libs.springSecurity6Oauth2ResourceServer) {
+        version { strictly springSecurity6Version }
+    }
+    compileOnly(libs.springSecurity6Oauth2Client) {
+        version { strictly springSecurity6Version }
+    }
+    // OAuth2 Authorization Server uses separate version (not Spring Security version)
+    compileOnly libs.springSecurityOauth2AuthorizationServer
+    
+    // ========================================
+    // Spring Boot 3 dependencies
+    // ========================================
+    compileOnly libs.springBoot3
+    compileOnly libs.springBoot3Autoconfigure
+    compileOnly libs.springBoot3StarterLogging
+    compileOnly libs.springBoot3Test
+    compileOnly libs.springBoot3TestAutoconfigure
+    compileOnly libs.springBoot3StarterTest
+    
+    compileOnly project(':dubbo-config:dubbo-config-spring6')
+    
+    // Test dependencies
+    testImplementation libs.log4jSlf4jImpl
+}

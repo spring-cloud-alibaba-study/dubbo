@@ -1,0 +1,564 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+    id 'signing'
+    id 'checkstyle'
+    id 'jacoco'
+    alias(libs.plugins.shadow) apply false
+    alias(libs.plugins.protobuf) apply false
+    alias(libs.plugins.javadoc) apply false
+    alias(libs.plugins.spotless) apply false
+    alias(libs.plugins.licenseReport)
+}
+
+allprojects {
+    group = rootProject.group
+    version = rootProject.version
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url = 'https://repo.spring.io/milestone' }
+    }
+}
+
+subprojects {
+    // Platform projects (BOM and dependency management) don't need Java plugin
+    // They use 'java-platform' plugin instead and only manage dependency versions
+    def isPlatformProject = project.name.contains('bom') ||
+                           project.name.contains('dependencies-all')
+
+    // Shared exclusion list for code quality tools (Spotless and Checkstyle)
+    // These files are either copied from third-party or have special formatting requirements
+    def spotlessExcludes = [
+        'src/main/java/org/apache/dubbo/common/threadlocal/InternalThreadLocal.java',
+        'src/main/java/org/apache/dubbo/common/threadlocal/InternalThreadLocalMap.java',
+        'src/main/java/org/apache/dubbo/common/timer/HashedWheelTimer.java',
+        'src/main/java/org/apache/dubbo/common/timer/Timeout.java',
+        'src/main/java/org/apache/dubbo/common/timer/Timer.java',
+        'src/main/java/org/apache/dubbo/common/timer/TimerTask.java',
+        'src/main/java/org/apache/dubbo/common/utils/CIDRUtils.java',
+        'src/main/java/org/apache/dubbo/common/utils/Utf8Utils.java',
+        'src/test/java/org/apache/dubbo/config/spring/EmbeddedZooKeeper.java',
+        'src/main/java/org/apache/dubbo/test/common/utils/TestSocketUtils.java',
+        'src/main/java/org/apache/dubbo/rpc/protocol/tri/TriHttp2RemoteFlowController.java',
+        'src/main/java/org/apache/dubbo/rpc/protocol/tri/rest/cors/CorsHeaderFilter.java'
+    ]
+
+    // Checkstyle has additional exclusions beyond Spotless
+    def checkstyleExtraExcludes = [
+        '**/JSONWriter.java',
+        '**/org/apache/dubbo/maven/plugin/aot/**',
+        '**/org/apache/dubbo/aot/generate/BasicJsonWriter.java',
+        '**/org/apache/dubbo/aot/api/ExecutableMode.java',
+        '**/org/apache/dubbo/aot/api/MemberCategory.java',
+        '**/org/apache/dubbo/common/threadpool/serial/SerializingExecutor.java',
+        '**/org/apache/dubbo/common/serialize/protobuf/support/wrapper/**',
+        '**/org/apache/dubbo/triple/TripleWrapper.java',
+        '**/org/apache/dubbo/metrics/aggregate/DubboMergingDigest.java',
+        '**/org/apache/dubbo/metrics/aggregate/DubboAbstractTDigest.java',
+        '**/org/apache/dubbo/common/logger/helpers/**',
+        '**/org/apache/dubbo/maven/plugin/protoc/DubboProtocCompilerMojo.java',
+        '**/org/apache/dubbo/gen/utils/ProtoTypeMap.java',
+        '**/istio/v1/auth/**',
+        '**/com/google/rpc/**',
+        '**/grpc/health/**',
+        '**/grpc/reflection/**'
+    ]
+
+    if (!isPlatformProject) {
+        // --------------------------------------------------------------------------------
+        //  Plugin Application
+        // --------------------------------------------------------------------------------
+        apply plugin: 'java-library'
+        apply plugin: 'com.diffplug.spotless'
+        apply plugin: 'checkstyle'
+        apply plugin: 'jacoco'
+
+        def skipSpotless = project.hasProperty('skip-spotless') ||
+                          project.hasProperty('skipSpotless')
+
+        // Spotless: Code Formatting (JDK version dependent)
+        def javaVersion = JavaVersion.current()
+        def palantirVersion
+        if (javaVersion.isCompatibleWith(JavaVersion.VERSION_17) && javaVersion.majorVersion.toInteger() >= 21) {
+            palantirVersion = libs.versions.palantirJavaFormat.jdk21.get()
+        } else if (javaVersion >= JavaVersion.VERSION_11) {
+            palantirVersion = libs.versions.palantirJavaFormat.jdk11.get()
+        } else {
+            palantirVersion = libs.versions.palantirJavaFormat.jdk8.get()
+        }
+
+        spotless {
+            java {
+                target 'src/**/*.java'
+                targetExclude(*spotlessExcludes)
+                palantirJavaFormat(palantirVersion)
+                removeUnusedImports()
+                trimTrailingWhitespace()
+                endWithNewline()
+            }
+        }
+
+        // Disable spotless tasks if skip-spotless property is set
+        if (skipSpotless) {
+            tasks.matching { it.name.startsWith('spotless') }
+                 .configureEach { enabled = false }
+        }
+
+        // Checkstyle: Code Style Verification
+        checkstyle {
+            toolVersion = libs.versions.checkstyle.get()
+            configFile = rootProject.file('codestyle/checkstyle.xml')
+            configProperties = ['checkstyle.suppressions.file': rootProject.file('codestyle/checkstyle-suppressions.xml')]
+            showViolations = true
+            ignoreFailures = false
+            maxWarnings = 0
+        }
+
+        checkstyleMain {
+            enabled = !(project.hasProperty('checkstyle.skip') && project.property('checkstyle.skip') == 'true')
+            source = 'src/main/java'
+            // Convert Spotless path-based excludes to Checkstyle pattern-based excludes
+            def spotlessPatterns = spotlessExcludes.collect { it.replace('src/main/java/', '').replace('src/test/java/', '') }
+            exclude(*(spotlessPatterns + checkstyleExtraExcludes + ['**/generated/**', '**/generated-sources/**']))
+        }
+
+        checkstyleTest {
+            enabled = !(project.hasProperty('checkstyle.skip') && project.property('checkstyle.skip') == 'true')
+            source = 'src/test/java'
+        }
+
+        // Checkstyle Unix: Line Ending Verification
+        tasks.register('checkstyleUnix', Checkstyle) {
+            description = 'Run Checkstyle Unix line ending checks'
+            group = 'verification'
+            enabled = !project.hasProperty('checkstyle_unix.skip') || project.property('checkstyle_unix.skip') != 'true'
+            configFile = rootProject.file('codestyle/checkstyle_unix.xml')
+
+            // Use doFirst to set source files dynamically
+            doFirst {
+                source = fileTree(projectDir) {
+                    include '**/*.java', '**/*.xml', '**/*.properties', '**/*.gradle', '**/*.sh', '**/*.yml', '**/*.yaml'
+                    exclude '**/target/**', '**/build/**', '**/generated/**', '**/generated-sources/**', '**/.gradle/**', '**/.git/**'
+                }
+            }
+
+            reports {
+                xml.required = true
+                html.required = true
+            }
+            showViolations = true
+            ignoreFailures = false
+        }
+
+        tasks.named('check').configure {
+            dependsOn.removeIf { dep ->
+                (dep instanceof TaskProvider && dep.name == 'spotlessCheck') ||
+                (dep instanceof String && dep == 'spotlessCheck')
+            }
+            dependsOn tasks.named('checkstyleUnix')
+        }
+        
+        // JVM module access for JDK 15+ compatibility
+        def jvmModuleOpens = []
+        if (JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_15)) {
+            jvmModuleOpens = [
+                '--add-opens=java.base/java.lang=ALL-UNNAMED',
+                '--add-opens=java.base/java.math=ALL-UNNAMED',
+                '--add-opens=java.base/java.util=ALL-UNNAMED'
+            ]
+        }
+        
+        // Test configuration: -Ptest.minHeap=512m -Ptest.maxHeap=1024m -Ptest.metaspace=256m
+        def testMinHeap = project.findProperty('test.minHeap') ?: '512m'
+        def testMaxHeap = project.findProperty('test.maxHeap') ?: '1024m'
+        def testMetaspace = project.findProperty('test.metaspace') ?: '256m'
+
+        test {
+            useJUnitPlatform()
+            maxHeapSize = testMaxHeap
+            jvmArgs = [
+                '-server', "-Xms${testMinHeap}", "-Xmx${testMaxHeap}",
+                "-XX:MetaspaceSize=64m", "-XX:MaxMetaspaceSize=${testMetaspace}",
+                '-Dfile.encoding=UTF-8', '-Djava.net.preferIPv4Stack=true'
+            ] + jvmModuleOpens
+
+            jacoco {
+                enabled = !project.hasProperty('jacoco.skip') || project.property('jacoco.skip') != 'true'
+                destinationFile = layout.buildDirectory.file("jacoco/test.exec").get().asFile
+            }
+
+            finalizedBy jacocoTestReport
+        }
+
+        jacocoTestReport {
+            dependsOn test
+            enabled = !project.hasProperty('jacoco.skip') || project.property('jacoco.skip') != 'true'
+            reports {
+                xml.required = true
+                html.required = true
+                csv.required = false
+            }
+            afterEvaluate {
+                classDirectories.setFrom(files(classDirectories.files.collect {
+                    fileTree(dir: it, exclude: ['**/generated/**', '**/generated-sources/**', '**/org/apache/dubbo/demo/**'])
+                }))
+            }
+        }
+
+        jacocoTestCoverageVerification {
+            enabled = false
+            violationRules {
+                rule {
+                    limit {
+                        minimum = 0.0
+                    }
+                }
+            }
+        }
+        // Java Configuration
+        java {
+            sourceCompatibility = JavaVersion.VERSION_1_8
+            targetCompatibility = JavaVersion.VERSION_1_8
+            withSourcesJar()
+            withJavadocJar()
+        }
+
+        // Compiler Configuration
+        tasks.withType(JavaCompile) {
+            options.encoding = 'UTF-8'
+            // Suppress warnings when compiling Java 8 code with newer JDK
+            options.compilerArgs += ['-parameters', '-proc:none', '-Xlint:-options']
+        }
+
+        // Dependencies
+        dependencies {
+            api enforcedPlatform(project(':dubbo-dependencies-bom'))
+            testImplementation libs.junitJupiterApi
+            testImplementation libs.junitJupiterEngine
+            testImplementation libs.junitJupiterParams
+            testImplementation libs.awaitility
+            testImplementation libs.hamcrest
+            testImplementation libs.mockitoCore
+            testImplementation libs.mockitoInline
+        }
+
+        // Dubbo uses custom logger adapter to support multiple logging frameworks
+        // See: https://www.slf4j.org/codes.html#log4jDelegationLoop
+        // See: dubbo-common/src/main/java/org/apache/dubbo/common/logger/LoggerFactory.java
+        configurations.all {
+            exclude group: 'org.apache.logging.log4j', module: 'log4j-to-slf4j'
+        }
+
+        // Resources Processing
+        tasks.withType(ProcessResources).configureEach {
+            duplicatesStrategy = DuplicatesStrategy.WARN
+            from(rootProject.file('LICENSE')) { into 'META-INF' }
+            from(rootProject.file('NOTICE')) { into 'META-INF' }
+            from(rootProject.file('.artifacts')) { into 'META-INF/dubbo-versions' }
+        }
+
+        processResources {
+            doLast {
+                def versionFile = layout.buildDirectory.file("resources/main/META-INF/dubbo-versions/${project.name}").get().asFile
+                versionFile.parentFile.mkdirs()
+                versionFile.text = """revision=${version}
+artifact.id=${project.name}
+git.commit.id=${getGitCommitId()}
+"""
+            }
+        }
+
+        // JAR Manifest
+        jar {
+            manifest {
+                attributes(
+                    'Specification-Version': version,
+                    'Implementation-Version': version,
+                    'Specification-Title': project.name,
+                    'Implementation-Title': project.name,
+                    'Specification-Vendor': 'The Apache Software Foundation',
+                    'Implementation-Vendor': 'The Apache Software Foundation'
+                )
+            }
+        }
+
+        // Javadoc Configuration
+        javadoc {
+            options.encoding = 'UTF-8'
+            options.charSet = 'UTF-8'
+            options.docEncoding = 'UTF-8'
+            options.addStringOption('Xdoclint:none', '-quiet')
+            if (JavaVersion.current().isJava9Compatible()) {
+                options.addBooleanOption('html5', true)
+            }
+            options.showFromPublic()
+            options.docTitle = "Apache Dubbo ${project.version} API"
+            options.windowTitle = "Apache Dubbo ${project.version} API"
+            options.links = ['https://docs.oracle.com/javase/8/docs/api/']
+            failOnError = false
+            exclude '**/org/apache/dubbo/demo/**'
+        }
+    }
+
+    apply plugin: 'maven-publish'
+    apply plugin: 'signing'
+
+    afterEvaluate {
+        // Check if deployment should be skipped
+        def shouldSkipDeploy = project.hasProperty('skip_maven_deploy') && project.property('skip_maven_deploy').toString() == 'true'
+        if (project.hasProperty('ext') && project.ext.has('skip_maven_deploy')) {
+            // Ensure boolean conversion (gradle.properties values are strings!)
+            shouldSkipDeploy = project.ext.skip_maven_deploy.toString() == 'true'
+        }
+
+        if (shouldSkipDeploy) {
+            logger.lifecycle("⊗ Maven deploy skipped for ${project.name} (skip_maven_deploy=true)")
+            tasks.withType(PublishToMavenRepository).configureEach { enabled = false }
+            tasks.withType(PublishToMavenLocal).configureEach { enabled = false }
+            return
+        }
+
+        if (components.findByName('java') || components.findByName('javaPlatform')) {
+            tasks.withType(GenerateModuleMetadata).configureEach {
+                suppressedValidationErrors.add('enforced-platform')
+            }
+
+            publishing {
+                publications {
+                    mavenJava(MavenPublication) {
+                        if (isPlatformProject && components.findByName('javaPlatform')) {
+                            from components.javaPlatform
+                        } else if (components.findByName('java')) {
+                            from components.java
+                        }
+
+                        pom {
+                            name = project.name
+                            description = "The ${project.name} module of Apache Dubbo project"
+                            url = 'https://github.com/apache/dubbo'
+                            inceptionYear = '2011'
+                            organization {
+                                name = 'The Apache Software Foundation'
+                                url = 'http://www.apache.org/'
+                            }
+                            licenses {
+                                license {
+                                    name = 'Apache License, Version 2.0'
+                                    url = 'http://www.apache.org/licenses/LICENSE-2.0'
+                                    distribution = 'repo'
+                                }
+                            }
+                            developers {
+                                developer {
+                                    id = 'dubbo.io'
+                                    name = 'The Dubbo Project Contributors'
+                                    email = 'dev-subscribe@dubbo.apache.org'
+                                    url = 'http://dubbo.apache.org/'
+                                }
+                            }
+                            scm {
+                                connection = 'scm:git:https://github.com/apache/dubbo.git'
+                                developerConnection = 'scm:git:https://github.com/apache/dubbo.git'
+                                url = 'https://github.com/apache/dubbo'
+                                tag = 'HEAD'
+                            }
+                            issueManagement {
+                                system = 'Github Issues'
+                                url = 'https://github.com/apache/dubbo/issues'
+                            }
+                        }
+                    }
+                }
+
+                repositories {
+                    maven {
+                        def releasesRepoUrl = "https://repository.apache.org/service/local/staging/deploy/maven2"
+                        def snapshotsRepoUrl = "https://repository.apache.org/content/repositories/snapshots"
+                        url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+
+                        credentials {
+                            // Credentials can be provided via:
+                            // 1. gradle.properties: mavenCentralUsername / mavenCentralPassword
+                            // 2. Environment variables: MAVEN_USERNAME / MAVEN_PASSWORD
+                            // 3. System properties: -PmavenCentralUsername=... -PmavenCentralPassword=...
+                            username = project.findProperty('mavenCentralUsername') ?: System.getenv('MAVEN_USERNAME') ?: ''
+                            password = project.findProperty('mavenCentralPassword') ?: System.getenv('MAVEN_PASSWORD') ?: ''
+                        }
+
+                        // Warn if publishing without credentials
+                        if (gradle.taskGraph.hasTask(':publish') || gradle.taskGraph.hasTask('publish')) {
+                            if (!credentials.username || !credentials.password) {
+                                logger.warn("⚠️  Maven repository credentials not configured!")
+                                logger.warn("   Publishing will fail. Please configure credentials via:")
+                                logger.warn("   1. gradle.properties: mavenCentralUsername / mavenCentralPassword")
+                                logger.warn("   2. Environment: MAVEN_USERNAME / MAVEN_PASSWORD")
+                                logger.warn("   3. Command line: -PmavenCentralUsername=... -PmavenCentralPassword=...")
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Signing Configuration
+            def hasSigningKey = project.hasProperty('signing.keyId') &&
+                               project.hasProperty('signing.password') &&
+                               (project.hasProperty('signing.secretKeyRingFile') || project.hasProperty('signing.key'))
+            if (hasSigningKey) {
+            signing {
+                    required { gradle.taskGraph.hasTask('publish') }
+                sign publishing.publications.mavenJava
+            }
+        }
+    }
+}
+}
+
+// ================================================================================
+// ROOT PROJECT CONFIGURATION
+// ================================================================================
+
+// JaCoCo: Code Coverage (applies to all projects)
+allprojects {
+    pluginManager.withPlugin('jacoco') {
+        jacoco {
+            toolVersion = "0.8.13"
+        }
+    }
+}
+
+tasks.register('jacocoRootReport', JacocoReport) {
+    description = 'Generates an aggregate JaCoCo coverage report from all subprojects'
+    group = 'verification'
+
+    onlyIf {
+        !project.hasProperty('jacoco.skip') || project.property('jacoco.skip') != 'true'
+    }
+
+    doFirst {
+        executionData fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec")
+        def sourceFiles = []
+        def classFiles = []
+        allprojects.each { p ->
+            if (p.plugins.hasPlugin('java')) {
+                p.sourceSets.main.allSource.srcDirs.each { sourceFiles << it }
+                classFiles << p.sourceSets.main.output
+            }
+        }
+        sourceDirectories.setFrom(files(sourceFiles))
+        classDirectories.setFrom(files(classFiles))
+    }
+
+    reports {
+        xml.required = true
+        html.required = true
+        csv.required = false
+        xml.destination layout.buildDirectory.file("reports/jacoco/aggregate/jacocoTestReport.xml").get().asFile
+        html.destination layout.buildDirectory.dir("reports/jacoco/aggregate/html").get().asFile
+    }
+}
+
+gradle.projectsEvaluated {
+    def testTasks = allprojects.findAll { it.tasks.findByName('test') }.collect { it.tasks.test }
+    tasks.named('jacocoRootReport').configure {
+        dependsOn testTasks
+    }
+}
+
+licenseReport {
+    outputDir = layout.buildDirectory.dir("reports/dependency-license").get().asFile.absolutePath
+    renderers = [
+        new com.github.jk1.license.render.InventoryHtmlReportRenderer('index.html', 'Third-Party Licenses'),
+        new com.github.jk1.license.render.CsvReportRenderer('licenses.csv'),
+        new com.github.jk1.license.render.JsonReportRenderer('licenses.json'),
+        new com.github.jk1.license.render.TextReportRenderer('THIRD-PARTY-LICENSES.txt')
+    ]
+    projects = [project] + project.subprojects
+    excludeGroups = []
+    excludes = []
+    configurations = ['runtimeClasspath']
+    filters = [new com.github.jk1.license.filter.LicenseBundleNormalizer()]
+    allowedLicensesFile = null
+    excludeBoms = true
+}
+
+tasks.register('enforceSnapshotVersion') {
+    description = 'Enforces that the project version is a SNAPSHOT version'
+    group = 'verification'
+    doLast {
+        if (!version.toString().endsWith('-SNAPSHOT')) {
+            throw new GradleException("No Releases Allowed! Current version is '${version}'. " +
+                "This task requires a SNAPSHOT version (e.g., '${version}-SNAPSHOT'). " +
+                "Disable this check by not setting '-PenforceSnapshot=true'.")
+        }
+        logger.lifecycle("✓ Version check passed: ${version} is a SNAPSHOT version")
+    }
+}
+
+tasks.register('enforceReleaseVersion') {
+    description = 'Enforces that the project version is NOT a SNAPSHOT version'
+    group = 'verification'
+    doLast {
+        if (version.toString().endsWith('-SNAPSHOT')) {
+            throw new GradleException("SNAPSHOT versions are not allowed for release! Current version is '${version}'. " +
+                "Please update version in gradle.properties to a release version (e.g., '3.3.6'). " +
+                "Disable this check by not setting '-PenforceRelease=true'.")
+        }
+        logger.lifecycle("✓ Version check passed: ${version} is a release version")
+    }
+}
+
+gradle.taskGraph.whenReady { graph ->
+    if (project.hasProperty('enforceSnapshot') && project.property('enforceSnapshot') == 'true') {
+        if (graph.hasTask(':publish') || graph.hasTask(':publishToMavenLocal')) {
+            graph.allTasks.findAll { it.name.startsWith('publish') }.each { publishTask ->
+                publishTask.dependsOn tasks.named('enforceSnapshotVersion')
+            }
+        }
+    }
+    if (project.hasProperty('enforceRelease') && project.property('enforceRelease') == 'true') {
+        if (graph.hasTask(':publish') || graph.hasTask(':publishToMavenLocal')) {
+            graph.allTasks.findAll { it.name.startsWith('publish') }.each { publishTask ->
+                publishTask.dependsOn tasks.named('enforceReleaseVersion')
+            }
+        }
+    }
+}
+
+def getGitCommitId() {
+    try {
+        def stdout = new ByteArrayOutputStream()
+        exec {
+            commandLine 'git', 'rev-parse', 'HEAD'
+            standardOutput = stdout
+            errorOutput = new ByteArrayOutputStream()
+            ignoreExitValue = true
+        }
+        return stdout.toString().trim()
+    } catch (Exception e) {
+        return 'unknown'
+    }
+}
+
+wrapper {
+    gradleVersion = '9.2.1'
+    distributionType = Wrapper.DistributionType.BIN
+}

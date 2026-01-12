@@ -1,0 +1,117 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+plugins {
+    id 'java-library'
+}
+
+description = 'Aggregate jacoco report'
+
+// Test module should not be published to Maven repository
+ext {
+    skip_maven_deploy = true
+}
+
+dependencies {
+    api project(':dubbo-cluster')
+    api project(':dubbo-common')
+    api project(':dubbo-compatible')
+    api project(':dubbo-plugin:dubbo-compiler')
+    api project(':dubbo-config:dubbo-config-api')
+    api project(':dubbo-config:dubbo-config-spring')
+    api project(':dubbo-configcenter:dubbo-configcenter-file')
+    api project(':dubbo-configcenter:dubbo-configcenter-zookeeper')
+    api project(':dubbo-configcenter:dubbo-configcenter-apollo')
+    api project(':dubbo-configcenter:dubbo-configcenter-nacos')
+    // api project(':dubbo') // Module does not exist, commented out
+    api project(':dubbo-plugin:dubbo-filter-cache')
+    api project(':dubbo-plugin:dubbo-filter-validation')
+    api project(':dubbo-metadata:dubbo-metadata-api')
+    api project(':dubbo-metadata:dubbo-metadata-report-zookeeper')
+    api project(':dubbo-metadata:dubbo-metadata-report-nacos')
+    api project(':dubbo-metadata:dubbo-metadata-processor')
+    api project(':dubbo-metadata:dubbo-metadata-definition-protobuf')
+    api project(':dubbo-metrics:dubbo-metrics-api')
+    api project(':dubbo-metrics:dubbo-metrics-event')
+    api project(':dubbo-metrics:dubbo-metrics-default')
+    api project(':dubbo-metrics:dubbo-metrics-registry')
+    api project(':dubbo-metrics:dubbo-metrics-metadata')
+    api project(':dubbo-metrics:dubbo-metrics-config-center')
+    api project(':dubbo-metrics:dubbo-metrics-netty')
+    api project(':dubbo-metrics:dubbo-metrics-prometheus')
+    api project(':dubbo-metrics:dubbo-tracing')
+    api project(':dubbo-plugin:dubbo-native')
+    api project(':dubbo-maven-plugin')
+    api project(':dubbo-plugin:dubbo-auth')
+    api project(':dubbo-plugin:dubbo-security')
+    api project(':dubbo-plugin:dubbo-qos-api')
+    api project(':dubbo-plugin:dubbo-qos')
+    api project(':dubbo-plugin:dubbo-spring-security')
+    api project(':dubbo-plugin:dubbo-reactive')
+    api project(':dubbo-plugin:dubbo-rest-jaxrs')
+    api project(':dubbo-plugin:dubbo-rest-spring')
+    api project(':dubbo-plugin:dubbo-rest-openapi')
+    api project(':dubbo-plugin:dubbo-triple-servlet')
+    api project(':dubbo-plugin:dubbo-triple-websocket')
+    api project(':dubbo-registry:dubbo-registry-api')
+    api project(':dubbo-registry:dubbo-registry-multicast')
+    api project(':dubbo-registry:dubbo-registry-multiple')
+    api project(':dubbo-registry:dubbo-registry-nacos')
+    api project(':dubbo-registry:dubbo-registry-zookeeper')
+    api project(':dubbo-remoting:dubbo-remoting-api')
+    api project(':dubbo-remoting:dubbo-remoting-http12')
+    api project(':dubbo-remoting:dubbo-remoting-http3')
+    api project(':dubbo-remoting:dubbo-remoting-websocket')
+    api project(':dubbo-remoting:dubbo-remoting-netty')
+    api project(':dubbo-remoting:dubbo-remoting-netty4')
+    api project(':dubbo-remoting:dubbo-remoting-zookeeper-curator5')
+    api project(':dubbo-rpc:dubbo-rpc-api')
+    api project(':dubbo-rpc:dubbo-rpc-dubbo')
+    api project(':dubbo-rpc:dubbo-rpc-injvm')
+    api project(':dubbo-rpc:dubbo-rpc-triple')
+    api project(':dubbo-serialization:dubbo-serialization-api')
+    api project(':dubbo-serialization:dubbo-serialization-hessian2')
+    api project(':dubbo-serialization:dubbo-serialization-fastjson2')
+    
+    // === Spring Boot modules (priority support for Spring Boot 3.x) ===
+    api project(':dubbo-spring-boot-project:dubbo-spring-boot')
+    api project(':dubbo-spring-boot-project:dubbo-spring-boot-actuator')
+    api project(':dubbo-spring-boot-project:dubbo-spring-boot-autoconfigure')
+    api project(':dubbo-spring-boot-project:dubbo-spring-boot-actuator-autoconfigure')
+    // api project(':dubbo-spring-boot-project:dubbo-spring-boot-3-autoconfigure')  // Spring Boot 3.x autoconfigure (temporarily skipped, waiting for jakarta files completion)
+    // Spring Boot 1.x compatibility module is no longer included
+    api project(':dubbo-spring-boot-project:dubbo-spring-boot-starters:dubbo-spring-boot-starter')
+    api project(':dubbo-spring-boot-project:dubbo-spring-boot-starters:dubbo-tracing-otel-zipkin-spring-boot-starter')
+    api project(':dubbo-spring-boot-project:dubbo-spring-boot-starters:dubbo-tracing-otel-otlp-spring-boot-starter')
+    api project(':dubbo-spring-boot-project:dubbo-spring-boot-starters:dubbo-tracing-brave-zipkin-spring-boot-starter')
+    api project(':dubbo-spring-boot-project:dubbo-spring-boot-starters:dubbo-observability-spring-boot-starter')
+    api project(':dubbo-spring-boot-project:dubbo-spring-boot-starters:dubbo-nacos-spring-boot-starter')
+    api project(':dubbo-spring-boot-project:dubbo-spring-boot-starters:dubbo-zookeeper-curator5-spring-boot-starter')
+    api project(':dubbo-spring-boot-project:dubbo-spring-boot-starters:dubbo-sentinel-spring-boot-starter')
+    api project(':dubbo-spring-boot-project:dubbo-spring-boot-starters:dubbo-seata-spring-boot-starter')
+    api project(':dubbo-test:dubbo-test-check')
+    api project(':dubbo-test:dubbo-test-common')
+    api project(':dubbo-test:dubbo-test-modules')
+    // api project(':dubbo-test:dubbo-test-spring')  // Temporarily disabled: Spring version compatibility issues
+    api project(':dubbo-test:dubbo-test-spring3.2')
+    api project(':dubbo-test:dubbo-test-spring4.1')
+    api project(':dubbo-test:dubbo-test-spring4.2')
+
+    // Note: Spring Boot 1.x compatibility module is EOL, removed from settings.gradle
+    // api project(':dubbo-spring-boot-project:dubbo-spring-boot-compatible:dubbo-spring-boot-actuator-autoconfigure-compatible')
+    // api project(':dubbo-spring-boot-project:dubbo-spring-boot-compatible:dubbo-spring-boot-autoconfigure-compatible')
+}

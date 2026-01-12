@@ -1,0 +1,50 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+description = 'The common module of Dubbo project'
+
+dependencies {
+    // Logging - provided scope
+    compileOnly libs.slf4jApi
+    compileOnly libs.commonsLogging
+    compileOnly libs.log4jOld
+    compileOnly libs.log4jApi
+    compileOnly libs.log4jCore
+
+    // Core dependencies
+    implementation libs.javassist
+    implementation libs.fastjson2
+    api libs.commonsIo
+    implementation libs.javaxAnnotationApi
+
+    // Optional JSON libraries
+    compileOnly libs.fastjson
+    compileOnly libs.gson
+    compileOnly libs.jacksonCore
+    compileOnly libs.jacksonDatabind
+    compileOnly libs.jacksonDatatypeJsr310
+
+    // Test dependencies
+    testImplementation libs.cglibNodep
+    testImplementation libs.log4jSlf4jImpl
+    testImplementation libs.log4jCore
+    testImplementation libs.protobufJava
+    testImplementation libs.fastjson  // For Fastjson v1 tests
+    testImplementation libs.fastjson2
+    testImplementation libs.gson
+}
+

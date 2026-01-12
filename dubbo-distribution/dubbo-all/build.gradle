@@ -1,0 +1,81 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+description = 'The all-in-one distribution of Dubbo project'
+
+dependencies {
+    compileOnly project(':dubbo-cluster')
+    compileOnly project(':dubbo-common')
+    compileOnly project(':dubbo-compatible')
+    compileOnly project(':dubbo-config:dubbo-config-api')
+    compileOnly project(':dubbo-config:dubbo-config-spring')
+    compileOnly project(':dubbo-configcenter:dubbo-configcenter-file')
+    compileOnly project(':dubbo-configcenter:dubbo-configcenter-zookeeper')
+    compileOnly project(':dubbo-configcenter:dubbo-configcenter-apollo')
+    compileOnly project(':dubbo-configcenter:dubbo-configcenter-nacos')
+    compileOnly project(':dubbo-plugin:dubbo-filter-cache')
+    compileOnly project(':dubbo-plugin:dubbo-filter-validation')
+    compileOnly project(':dubbo-metadata:dubbo-metadata-api')
+    compileOnly project(':dubbo-metadata:dubbo-metadata-report-zookeeper')
+    compileOnly project(':dubbo-metadata:dubbo-metadata-report-nacos')
+    compileOnly project(':dubbo-metadata:dubbo-metadata-definition-protobuf')
+    compileOnly project(':dubbo-metrics:dubbo-metrics-event')
+    compileOnly project(':dubbo-metrics:dubbo-metrics-api')
+    compileOnly project(':dubbo-metrics:dubbo-metrics-default')
+    compileOnly project(':dubbo-metrics:dubbo-metrics-registry')
+    compileOnly project(':dubbo-metrics:dubbo-metrics-prometheus')
+    compileOnly project(':dubbo-metrics:dubbo-metrics-metadata')
+    compileOnly project(':dubbo-metrics:dubbo-metrics-config-center')
+    compileOnly project(':dubbo-metrics:dubbo-metrics-netty')
+    compileOnly project(':dubbo-metrics:dubbo-tracing')
+    compileOnly project(':dubbo-plugin:dubbo-auth')
+    compileOnly project(':dubbo-plugin:dubbo-qos-api')
+    compileOnly project(':dubbo-plugin:dubbo-qos')
+    compileOnly project(':dubbo-plugin:dubbo-security')
+    compileOnly project(':dubbo-plugin:dubbo-reactive')
+    compileOnly project(':dubbo-plugin:dubbo-spring-security')
+    compileOnly project(':dubbo-plugin:dubbo-rest-jaxrs')
+    compileOnly project(':dubbo-plugin:dubbo-rest-spring')
+    compileOnly project(':dubbo-plugin:dubbo-rest-openapi')
+    compileOnly project(':dubbo-plugin:dubbo-triple-servlet')
+    compileOnly project(':dubbo-plugin:dubbo-triple-websocket')
+    compileOnly project(':dubbo-registry:dubbo-registry-api')
+    compileOnly project(':dubbo-registry:dubbo-registry-multicast')
+    compileOnly project(':dubbo-registry:dubbo-registry-multiple')
+    compileOnly project(':dubbo-registry:dubbo-registry-nacos')
+    compileOnly project(':dubbo-registry:dubbo-registry-zookeeper')
+    compileOnly project(':dubbo-remoting:dubbo-remoting-api')
+    compileOnly project(':dubbo-remoting:dubbo-remoting-http12')
+    compileOnly project(':dubbo-remoting:dubbo-remoting-http3')
+    compileOnly project(':dubbo-remoting:dubbo-remoting-websocket')
+    compileOnly project(':dubbo-remoting:dubbo-remoting-netty')
+    compileOnly project(':dubbo-remoting:dubbo-remoting-netty4')
+    compileOnly project(':dubbo-remoting:dubbo-remoting-zookeeper-curator5')
+    compileOnly project(':dubbo-rpc:dubbo-rpc-api')
+    compileOnly project(':dubbo-rpc:dubbo-rpc-dubbo')
+    compileOnly project(':dubbo-rpc:dubbo-rpc-injvm')
+    compileOnly project(':dubbo-rpc:dubbo-rpc-triple')
+    compileOnly project(':dubbo-serialization:dubbo-serialization-api')
+    compileOnly project(':dubbo-serialization:dubbo-serialization-hessian2')
+    compileOnly project(':dubbo-serialization:dubbo-serialization-fastjson2')
+    implementation libs.javassist
+    implementation libs.nettyAll
+    implementation libs.snakeyaml
+    // // api project(':hessian-lite') // Module does not exist, commented out
+    implementation libs.fastjson2
+    implementation libs.protobufJava
+}

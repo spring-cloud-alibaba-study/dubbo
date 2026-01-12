@@ -1,0 +1,103 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+plugins {
+    id 'com.google.protobuf'  // Version inherited from root project (0.8.18 for Gradle 6.5+ compatibility)
+}
+
+description = 'The Triple RPC module of Dubbo project'
+
+dependencies {
+    compileOnly libs.javassist
+    api project(':dubbo-rpc:dubbo-rpc-api')
+    api project(':dubbo-remoting:dubbo-remoting-http12')
+    
+    compileOnly project(':dubbo-remoting:dubbo-remoting-http3')
+    compileOnly project(':dubbo-remoting:dubbo-remoting-websocket')
+    compileOnly project(':dubbo-remoting:dubbo-remoting-netty4')
+    implementation project(':dubbo-plugin:dubbo-native')
+    
+    implementation libs.protobufJava
+    compileOnly libs.protobufJavaUtil
+    implementation libs.grpcCore
+    implementation libs.grpcProtobuf
+    implementation libs.grpcStub
+    
+    // Add javax.annotation support (required for Java 9+)
+    compileOnly libs.javaxAnnotationApi
+    
+    compileOnly libs.grpcNetty
+    compileOnly libs.commonsCompress
+    compileOnly libs.snappyJava
+    
+    testImplementation libs.groovy
+    testImplementation libs.spockCore
+    testImplementation libs.log4jSlf4jImpl
+    testImplementation libs.grpcNetty
+}
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:${libs.versions.protobufProtoc.get()}"
+    }
+    plugins {
+        grpc {
+            artifact = "io.grpc:protoc-gen-grpc-java:${libs.versions.grpc.get()}"
+        }
+        dubbo {
+            // Use dubbo-compiler to generate Dubbo Triple code
+            path = project(':dubbo-plugin:dubbo-compiler').tasks.jar.outputs.files.singleFile.absolutePath
+        }
+    }
+    generateProtoTasks {
+        all().each { task ->
+            task.dependsOn ':dubbo-plugin:dubbo-compiler:jar'
+            task.plugins {
+                grpc {}
+                dubbo {
+                    option 'dubbo'
+                }
+            }
+        }
+    }
+    generatedFilesBaseDir = "$buildDir/generated/source/proto"
+}
+
+// Add generated source directories
+sourceSets {
+    main {
+        java {
+            srcDirs += [
+                "$buildDir/generated/source/proto/main/java",
+                "$buildDir/generated/source/proto/main/grpc",
+                "$buildDir/generated/source/proto/main/dubbo"
+            ]
+        }
+    }
+}
+
+// Ensure protobuf code is generated before compilation
+tasks.named('compileJava') {
+    dependsOn 'generateProto'
+}
+
+// Ensure sourcesJar executes after Protobuf generation
+tasks.named('sourcesJar') {
+    dependsOn 'generateProto'
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+

@@ -1,0 +1,123 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+description = 'The Servlet API integration module for Triple protocol'
+
+dependencies {
+    api project(':dubbo-rpc:dubbo-rpc-triple')
+    
+    // Support both javax.servlet and jakarta.servlet APIs, differentiated by package:
+    // - org.apache.dubbo.rpc.protocol.tri.servlet.*         → javax.servlet (Spring Boot 2.x)
+    // - org.apache.dubbo.rpc.protocol.tri.servlet.jakarta.* → jakarta.servlet (Spring Boot 3.x)
+    
+    // Servlet API dependencies
+    compileOnly libs.tomcatServletApi       // javax.servlet (HTTP/2 support)
+    compileOnly libs.jakartaServletApi      // jakarta.servlet (Spring Boot 3.x)
+    compileOnly libs.servletApi             // javax.servlet-api
+    
+    testImplementation project(':dubbo-remoting:dubbo-remoting-netty4')
+    testImplementation libs.log4jSlf4jImpl
+}
+
+// Generate Jakarta EE version of sources (only when JDK 17+)
+if (JavaVersion.current() >= JavaVersion.VERSION_17) {
+    def generatedSourcesDir = layout.buildDirectory.dir('generated-sources/java').get().asFile
+    def servletJakartaDir = new File(generatedSourcesDir, 'org/apache/dubbo/rpc/protocol/tri/servlet/jakarta')
+    def restServletJakartaDir = new File(generatedSourcesDir, 'org/apache/dubbo/rpc/protocol/tri/rest/support/servlet/jakarta')
+    
+    tasks.register('generateJakartaSources') {
+        group = 'build'
+        description = 'Generate Jakarta EE 9+ compatible sources from javax.servlet sources'
+        
+        def servletSourceDir = file('src/main/java/org/apache/dubbo/rpc/protocol/tri/servlet')
+        def restServletSourceDir = file('src/main/java/org/apache/dubbo/rpc/protocol/tri/rest/support/servlet')
+        
+        inputs.dir(servletSourceDir)
+        inputs.dir(restServletSourceDir)
+        outputs.dir(servletJakartaDir)
+        outputs.dir(restServletJakartaDir)
+        
+        doLast {
+            // Copy servlet sources
+            copy {
+                from servletSourceDir
+                into servletJakartaDir
+            }
+            
+            // Copy rest servlet support sources
+            copy {
+                from restServletSourceDir
+                into restServletJakartaDir
+            }
+            
+            // Replace package names and imports
+            fileTree(generatedSourcesDir).matching {
+                include '**/*.java'
+            }.each { file ->
+                def content = file.text
+                // Replace package declaration
+                content = content.replaceAll(/\.servlet;/, '.servlet.jakarta;')
+                // Replace imports
+                content = content.replaceAll(/javax\.servlet/, 'jakarta.servlet')
+                
+                // Special handling for ServletHttpRequestAdapter.java
+                if (file.name == 'ServletHttpRequestAdapter.java') {
+                    content = content.replace('/* jakarta placeholder */', '''@Override
+    public String getRequestId() {
+        return "";
+    }
+
+    @Override
+    public String getProtocolRequestId() {
+        return "";
+    }
+
+    @Override
+    public jakarta.servlet.ServletConnection getServletConnection() {
+        return null;
+    }''')
+                }
+                
+                // Special handling for ServletHttpMessageAdapterFactory.java priority
+                if (file.name == 'ServletHttpMessageAdapterFactory.java') {
+                    content = content.replace('-100', '-200')
+                }
+                
+                // Special handling for FilterAdapter.java id
+                if (file.name == 'FilterAdapter.java') {
+                    content = content.replace('"servlet', '"jakarta-servlet')
+                }
+                
+                file.text = content
+            }
+        }
+    }
+    
+    // Add generated sources to main sourceSet
+    sourceSets.main.java.srcDir generatedSourcesDir
+    
+    // Make compileJava depend on source generation
+    tasks.named('compileJava') {
+        dependsOn 'generateJakartaSources'
+    }
+    
+    // Make sourcesJar also depend on source generation
+    tasks.named('sourcesJar') {
+        dependsOn 'generateJakartaSources'
+    }
+}
+
